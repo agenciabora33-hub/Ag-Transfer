@@ -1,8 +1,28 @@
 # Robots.txt for AG Transfer & Transporte Executivo
 # Production URL: https://ag-transfer.vercel.app/
 
+# Global Search Engine Directives
 User-agent: *
 Allow: /
+Disallow: /api/
 
-# Direct Googlebot and other crawlers to the sitemap
+# Microsoft Bingbot Directives (Explicit authorization & optimal crawling)
+User-agent: bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+User-agent: AdIdxBot
+Allow: /
+
+# Googlebot Directives
+User-agent: Googlebot
+Allow: /
+
+# Canonical XML Sitemap for Bing, Google and Webmaster Tools
 Sitemap: https://ag-transfer.vercel.app/sitemap.xml

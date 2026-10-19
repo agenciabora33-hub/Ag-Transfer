@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Página Principal / Home -->
   <url>
@@ -85,8 +82,8 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- PÁGINAS DEDICADAS DE SERVIÇOS (LANDING PAGES CONVERSÃO) -->
-  <!-- Landing Page: Transfer Para Gramado Privativo VIP -->
+  <!-- PÁGINAS DEDICADAS DE SERVIÇOS (LANDING PAGES DE ALTA CONVERSÃO) -->
+  <!-- Transfer Para Gramado Privativo VIP -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transfer-para-gramado</loc>
     <lastmod>2026-10-19</lastmod>
@@ -94,7 +91,7 @@
     <priority>0.95</priority>
   </url>
 
-  <!-- Landing Page: Transfer Para Canela Privativo VIP -->
+  <!-- Transfer Para Canela Privativo VIP -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transfer-para-canela</loc>
     <lastmod>2026-10-19</lastmod>
@@ -102,7 +99,7 @@
     <priority>0.95</priority>
   </url>
 
-  <!-- Landing Page: Transporte Executivo em Gramado & Serra Gaúcha -->
+  <!-- Transporte Executivo em Gramado & Serra Gaúcha -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transporte-executivo-gramado</loc>
     <lastmod>2026-10-19</lastmod>
@@ -110,7 +107,7 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- Landing Page: Transfer Aeroporto Porto Alegre (POA) ⇄ Serra Gaúcha -->
+  <!-- Transfer Aeroporto Porto Alegre (POA) ⇄ Serra Gaúcha -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transfer-porto-alegre-gramado</loc>
     <lastmod>2026-10-19</lastmod>
@@ -118,7 +115,7 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- Landing Page: Transfer Aeroporto Caxias do Sul (CXJ) ⇄ Serra Gaúcha -->
+  <!-- Transfer Aeroporto Caxias do Sul (CXJ) ⇄ Serra Gaúcha -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transfer-aeroporto-cxj-caxias</loc>
     <lastmod>2026-10-19</lastmod>
@@ -126,7 +123,7 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- Landing Page: Tour Vale dos Vinhedos & Bento Gonçalves -->
+  <!-- Tour Vale dos Vinhedos & Bento Gonçalves -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/tour-vale-dos-vinhedos</loc>
     <lastmod>2026-10-19</lastmod>
@@ -134,7 +131,7 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- Landing Page: Tour Privativo Gramado & Canela VIP -->
+  <!-- Tour Privativo Gramado & Canela VIP -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/tour-gramado-canela</loc>
     <lastmod>2026-10-19</lastmod>
@@ -142,7 +139,7 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- Landing Page: Transporte Corporativo & Feiras na Serra Gaúcha -->
+  <!-- Transporte Corporativo & Feiras na Serra Gaúcha -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/viagens-corporativas-serra</loc>
     <lastmod>2026-10-19</lastmod>
@@ -150,7 +147,7 @@
     <priority>0.85</priority>
   </url>
 
-  <!-- Landing Page: Motorista Particular por Diária (Chauffeur) -->
+  <!-- Motorista Particular por Diária (Chauffeur) -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/motorista-particular-diaria</loc>
     <lastmod>2026-10-19</lastmod>

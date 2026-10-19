@@ -69,6 +69,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       setMetaTag('name', 'keywords', keywords.join(', '));
     }
     setMetaTag('name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    setMetaTag('name', 'bingbot', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    setMetaTag('name', 'msvalidate.01', '41E5D7FA426DE2BCF6470B8F9A5A4A76');
     setMetaTag('name', 'author', COMPANY_NAP.name);
 
     // 5. GEO / Local SEO Meta Tags
