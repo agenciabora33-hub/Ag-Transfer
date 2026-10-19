@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { MapPin, Navigation, ArrowRight, ExternalLink, Star, ChevronRight, Zap, Building2, Mountain } from 'lucide-react';
 import { COMPANY_NAP, POPULAR_ROUTES, buildWhatsAppUrl } from '../data/companyData';
 import { CITIES_SERVED } from '../data/cityData';
+import { BrandLogo } from './BrandLogo';
 
 export const CoverageSection: React.FC = () => {
   return (
@@ -118,9 +119,7 @@ export const CoverageSection: React.FC = () => {
           >
             <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 relative overflow-hidden shadow-md">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-[#0284C7] shadow-xs">
-                  <MapPin className="w-5 h-5" />
-                </div>
+                <BrandLogo size="md" />
                 <div>
                   <h4 className="text-base font-bold text-[#0D0A27]">Sede Operacional</h4>
                   <div className="flex items-center gap-1.5 mt-0.5">

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Award, Clock, FileText, CheckCircle2, Star, ExternalLink } from 'lucide-react';
 import { TRUST_PILLARS, COMPANY_NAP } from '../data/companyData';
+import { BrandLogo } from './BrandLogo';
 
 export const AuthoritySection: React.FC = () => {
   const getIcon = (iconName: string) => {
@@ -96,18 +97,21 @@ export const AuthoritySection: React.FC = () => {
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-12 bg-gradient-to-r from-sky-50 via-white to-blue-50 border border-sky-200/90 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md"
         >
-          <div className="space-y-1.5 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-1.5 text-[#0284C7]">
-              <Star className="w-4 h-4 fill-[#F59E0B] text-[#F59E0B]" />
-              <span className="text-xs font-bold uppercase tracking-wider">GBP Verificado Oficialmente</span>
-            </div>
-            <h4 className="text-base sm:text-lg font-extrabold text-[#0D0A27]">
-              Mais de 200 avaliações com nota máxima (5.0) no Google Business Profile
-            </h4>
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+            <BrandLogo size="lg" />
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-center sm:justify-start gap-1.5 text-[#0284C7]">
+                <Star className="w-4 h-4 fill-[#F59E0B] text-[#F59E0B]" />
+                <span className="text-xs font-bold uppercase tracking-wider">GBP Verificado Oficialmente</span>
+              </div>
+              <h4 className="text-base sm:text-lg font-extrabold text-[#0D0A27]">
+                Mais de 200 avaliações com nota máxima (5.0) no Google Business Profile
+              </h4>
             <p className="text-xs sm:text-sm text-slate-600">
               Veja relatos reais de passageiros, empresários e famílias que confiam na AG Transfer para seus deslocamentos corporativos e turísticos.
             </p>
           </div>
+        </div>
           <a
             href={COMPANY_NAP.gbpUrl}
             target="_blank"

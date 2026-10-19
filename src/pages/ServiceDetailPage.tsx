@@ -33,6 +33,9 @@ import {
   COMPANY_NAP,
   buildWhatsAppUrl
 } from '../data/companyData';
+import { BrandLogo } from '../components/BrandLogo';
+import { SEOHead } from '../components/SEOHead';
+import { CITIES_SERVED } from '../data/cityData';
 
 interface ServiceDetailPageProps {
   onOpenQuoteModal: (serviceTitle?: string) => void;
@@ -93,105 +96,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (service) {
-      document.title = `${service.metaTitle} | AG Transfer`;
-
-      const serviceUrl = `https://ag-transfer.vercel.app/servicos/${service.slug}`;
-
-      // Canonical link for GSC
-      let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.rel = 'canonical';
-        document.head.appendChild(canonical);
-      }
-      canonical.href = serviceUrl;
-
-      // Meta description for GSC
-      let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-      if (metaDesc) {
-        metaDesc.content = service.metaDescription;
-      }
-
-      // OpenGraph tags
-      let ogUrl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement | null;
-      if (ogUrl) ogUrl.content = serviceUrl;
-
-      let ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null;
-      if (ogTitle) ogTitle.content = `${service.metaTitle} | AG Transfer`;
-
-      let ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null;
-      if (ogDesc) ogDesc.content = service.metaDescription;
-
-      // Inject Schema.org JSON-LD (BreadcrumbList + Service + FAQPage)
-      let dynamicScript = document.getElementById('service-schema-jsonld') as HTMLScriptElement | null;
-      if (!dynamicScript) {
-        dynamicScript = document.createElement('script');
-        dynamicScript.id = 'service-schema-jsonld';
-        dynamicScript.type = 'application/ld+json';
-        document.head.appendChild(dynamicScript);
-      }
-
-      const schemaData = {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Início",
-                "item": "https://ag-transfer.vercel.app/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Serviços",
-                "item": "https://ag-transfer.vercel.app/#servicos"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": service.title,
-                "item": serviceUrl
-              }
-            ]
-          },
-          {
-            "@type": "Service",
-            "@id": `${serviceUrl}#service`,
-            "name": service.title,
-            "description": service.metaDescription,
-            "url": serviceUrl,
-            "provider": {
-              "@type": "TaxiService",
-              "name": "AG Transfer & Transporte Executivo LTDA.",
-              "url": "https://ag-transfer.vercel.app/"
-            },
-            "areaServed": [
-              { "@type": "City", "name": "Gramado" },
-              { "@type": "City", "name": "Canela" },
-              { "@type": "City", "name": "Bento Gonçalves" },
-              { "@type": "City", "name": "Caxias do Sul" },
-              { "@type": "City", "name": "Porto Alegre" }
-            ]
-          },
-          ...(service.serviceFaq && service.serviceFaq.length > 0 ? [{
-            "@type": "FAQPage",
-            "mainEntity": service.serviceFaq.map((faq) => ({
-              "@type": "Question",
-              "name": faq.question,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.answer
-              }
-            }))
-          }] : [])
-        ]
-      };
-
-      dynamicScript.textContent = JSON.stringify(schemaData);
-
       if (service.slug === 'transfer-para-gramado') {
         setOrigin('Aeroporto Salgado Filho (POA) ou Caxias (CXJ)');
         setDestination('Gramado (Hotel, Pousada ou Endereço)');
@@ -221,11 +125,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
         setDestination('Itinerário Personalizado');
       }
     }
-
-    return () => {
-      const dynamicScript = document.getElementById('service-schema-jsonld');
-      if (dynamicScript) dynamicScript.remove();
-    };
   }, [service, slug]);
 
   if (!service) {
@@ -452,8 +351,97 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
   const currentHighlight = serviceHighlights[service.slug] || serviceHighlights['transfer-porto-alegre-gramado'];
   const otherServices = SERVICES.filter((s) => s.id !== service.id);
 
+  const serviceUrl = `https://ag-transfer.vercel.app/servicos/${service.slug}`;
+  const serviceSchemaGraph = [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Início',
+          item: 'https://ag-transfer.vercel.app/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Serviços',
+          item: 'https://ag-transfer.vercel.app/#servicos',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: service.title,
+          item: serviceUrl,
+        },
+      ],
+    },
+    {
+      '@type': 'Service',
+      '@id': `${serviceUrl}#service`,
+      name: service.title,
+      description: service.metaDescription,
+      url: serviceUrl,
+      serviceType: 'Transporte Executivo e Transfer Privativo',
+      provider: {
+        '@type': 'TaxiService',
+        name: COMPANY_NAP.name,
+        alternateName: COMPANY_NAP.shortName,
+        url: 'https://ag-transfer.vercel.app/',
+        logo: 'https://ag-transfer.vercel.app/logo.png',
+        image: 'https://ag-transfer.vercel.app/logo.png',
+        telephone: COMPANY_NAP.phoneRaw,
+      },
+      areaServed: CITIES_SERVED.map((c) => ({
+        '@type': 'City',
+        name: c.name,
+      })),
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '5.0',
+        reviewCount: '200',
+        bestRating: '5',
+        worstRating: '1',
+      },
+    },
+    ...(service.serviceFaq && service.serviceFaq.length > 0
+      ? [
+          {
+            '@type': 'FAQPage',
+            mainEntity: service.serviceFaq.map((faq) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          },
+        ]
+      : []),
+  ];
+
   return (
     <div className="pt-24 pb-20 bg-[#F8FAFC]">
+      {/* Centralized SEO & Meta tags with Official Logo */}
+      <SEOHead
+        title={service.metaTitle}
+        description={service.metaDescription}
+        canonicalUrl={serviceUrl}
+        keywords={[
+          service.title,
+          service.subtitle,
+          'transfer serra gaucha',
+          'transporte executivo gramado',
+          'transfer canela',
+          'transfer aeroporto poa',
+          'transfer caxias do sul cxj',
+          'ag transfer',
+        ]}
+        geoPlaceName="Serra Gaúcha"
+        geoPosition={COMPANY_NAP.geoCoordinates}
+        schemaGraph={serviceSchemaGraph}
+      />
       
       {/* 1. Urgency & Trust Top Strip (Conversion Hook) */}
       <div className="bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] text-white py-2 px-4 text-center text-xs font-semibold">
@@ -482,7 +470,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
       {/* 2. Breadcrumb Navigation */}
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 text-xs font-semibold text-slate-500">
         <ol className="flex items-center gap-2 flex-wrap">
-          <li>
+          <li className="flex items-center gap-1.5">
+            <BrandLogo size="xs" />
             <Link to="/" className="hover:text-[#0284C7] transition-colors">Início</Link>
           </li>
           <li><ChevronRight className="w-3.5 h-3.5 text-slate-400" /></li>
@@ -500,6 +489,16 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
             {/* Left Column: Strong Headline & Conversion Hook */}
             <div className="lg:col-span-7 space-y-6">
               
+              {/* Brand Logo & Verification Badge */}
+              <div className="flex flex-wrap items-center gap-3">
+                <BrandLogo size="sm" showText={true} subtext="Serviço Executivo Homologado" />
+                <div className="h-5 w-px bg-slate-200 hidden sm:block" />
+                <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#0284C7]" />
+                  Atendimento 24 Horas
+                </span>
+              </div>
+
               {/* E-E-A-T Badges */}
               <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-600">
                 <span className="bg-sky-50 text-[#0284C7] px-3 py-1 rounded-full border border-sky-200 font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5">

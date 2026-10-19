@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Copy, Check, Download, ExternalLink, Code2 } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 
 interface SingleFileExportModalProps {
   isOpen: boolean;
@@ -49,13 +50,11 @@ export const SingleFileExportModal: React.FC<SingleFileExportModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-11 h-11 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-[#0284C7] shadow-xs">
-            <Code2 className="w-5 h-5" />
-          </div>
+        <div className="flex items-center gap-3.5 mb-4">
+          <BrandLogo size="md" />
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7] block">
-              Requisito 5 Atendido
+              AG Transfer &bull; Exportação HTML5 Oficial
             </span>
             <h3 className="text-xl font-extrabold text-[#0D0A27]">
               Código Single-File HTML5 Completo

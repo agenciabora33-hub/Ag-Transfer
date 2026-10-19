@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { MessageCircle, ChevronRight, Star, Car, MapPin, Calendar, Users, Send, Plane, ShieldCheck, Sparkles } from 'lucide-react';
 import { COMPANY_NAP, ASSET_IMAGES, buildWhatsAppUrl } from '../data/companyData';
+import { BrandLogo } from './BrandLogo';
 
 interface HeroProps {
   onOpenQuoteModal: () => void;
@@ -141,6 +142,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             className="lg:col-span-7 space-y-6"
           >
             
+            {/* Brand Official Logo & Credential Badge */}
+            <div className="flex flex-wrap items-center gap-3">
+              <BrandLogo size="sm" showText={true} subtext="Transporte Executivo Oficial" />
+              <div className="h-6 w-px bg-slate-300 hidden sm:block" />
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50 border border-sky-200 text-xs font-semibold text-[#0284C7]">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                Empresa Regulamentada &bull; CNPJ Ativo
+              </span>
+            </div>
+
             {/* E-E-A-T Unboxed Trust Signal with Google Business Profile direct link */}
             <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600">
               <a

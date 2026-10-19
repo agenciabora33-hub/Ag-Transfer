@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Hero } from '../components/Hero';
 import { ServicesSection } from '../components/ServicesSection';
 import { AuthoritySection } from '../components/AuthoritySection';
@@ -6,66 +6,104 @@ import { FleetSection } from '../components/FleetSection';
 import { CoverageSection } from '../components/CoverageSection';
 import { ReviewsSection } from '../components/ReviewsSection';
 import { FAQSection } from '../components/FAQSection';
+import { SEOHead } from '../components/SEOHead';
+import { COMPANY_NAP } from '../data/companyData';
+import { CITIES_SERVED } from '../data/cityData';
 
 interface HomePageProps {
   onOpenQuoteModal: (serviceTitle?: string) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onOpenQuoteModal }) => {
-  useEffect(() => {
-    // Set canonical and SEO metadata for Home
-    document.title = "AG Transfer | Transporte Executivo na Serra Gaúcha | Gramado, Canela e Bento Gonçalves";
-    
-    // Canonical link
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.rel = 'canonical';
-      document.head.appendChild(canonical);
-    }
-    canonical.href = "https://ag-transfer.vercel.app/";
-
-    // Meta description
-    let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-    if (metaDesc) {
-      metaDesc.content = "Transporte executivo e transfer premium na Serra Gaúcha. Especialistas em Gramado, Canela, Bento Gonçalves (Vale dos Vinhedos) e aeroportos (POA / CXJ). Atendimento 24h.";
-    }
-
-    // OG URL
-    let ogUrl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement | null;
-    if (ogUrl) {
-      ogUrl.content = "https://ag-transfer.vercel.app/";
-    }
-
-    // Clean up any service-specific dynamic JSON-LD
-    const dynamicJsonLd = document.getElementById('service-schema-jsonld');
-    if (dynamicJsonLd) {
-      dynamicJsonLd.remove();
-    }
-  }, []);
+  const homeSchemaGraph = [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://ag-transfer.vercel.app/#website',
+      url: 'https://ag-transfer.vercel.app/',
+      name: 'AG Transfer & Transporte Executivo',
+      description: 'Transporte executivo de alto padrão e transfers privativos na Serra Gaúcha.',
+      inLanguage: 'pt-BR',
+      publisher: {
+        '@id': 'https://ag-transfer.vercel.app/#service',
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Início',
+          item: 'https://ag-transfer.vercel.app/',
+        },
+      ],
+    },
+    {
+      '@type': 'TaxiService',
+      '@id': 'https://ag-transfer.vercel.app/#taxi-service',
+      name: COMPANY_NAP.name,
+      alternateName: COMPANY_NAP.shortName,
+      image: 'https://ag-transfer.vercel.app/logo.png',
+      logo: 'https://ag-transfer.vercel.app/logo.png',
+      telephone: COMPANY_NAP.phoneRaw,
+      priceRange: '$$$',
+      areaServed: CITIES_SERVED.map((c) => ({
+        '@type': 'City',
+        name: c.name,
+      })),
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '5.0',
+        reviewCount: '200',
+        bestRating: '5',
+        worstRating: '1',
+      },
+    },
+  ];
 
   return (
-    <main className="flex-1">
-      {/* 1. Hero Section (3D Tilt Simulator + Floating Badges + H1 + E-E-A-T) */}
-      <Hero onOpenQuoteModal={() => onOpenQuoteModal()} />
+    <>
+      <SEOHead
+        title="AG Transfer | Transporte Executivo na Serra Gaúcha | Gramado, Canela e Bento Gonçalves"
+        description="Transporte executivo e transfer premium na Serra Gaúcha. Especialistas em Gramado, Canela, Bento Gonçalves (Vale dos Vinhedos) e aeroportos (POA / CXJ). Atendimento 24h."
+        canonicalUrl="https://ag-transfer.vercel.app/"
+        keywords={[
+          'transfer gramado',
+          'transfer porto alegre gramado',
+          'transporte executivo serra gaucha',
+          'transfer aeroporto caxias do sul cxj',
+          'transfer aeroporto salgado filho poa',
+          'tour vale dos vinhedos bento goncalves',
+          'transfer canela',
+          'ag transfer',
+        ]}
+        geoPlaceName="Caxias do Sul"
+        geoPosition={COMPANY_NAP.geoCoordinates}
+        schemaGraph={homeSchemaGraph}
+      />
 
-      {/* 2. Executive Services (H2 + Dynamic Motion Asymmetric Bento Grid with Links to Dedicated URLs) */}
-      <ServicesSection onSelectServiceForQuote={(title) => onOpenQuoteModal(title)} />
+      <main className="flex-1">
+        {/* 1. Hero Section (Official Logo Badge + 3D Tilt Simulator + E-E-A-T) */}
+        <Hero onOpenQuoteModal={() => onOpenQuoteModal()} />
 
-      {/* 3. Authority & Confidence Pillars (E-E-A-T + GBP + Motion) */}
-      <AuthoritySection />
+        {/* 2. Executive Services */}
+        <ServicesSection onSelectServiceForQuote={(title) => onOpenQuoteModal(title)} />
 
-      {/* 4. Executive Fleet Showcase (Motion layout + 3D Hover) */}
-      <FleetSection onSelectVehicleForQuote={(vehName) => onOpenQuoteModal(`Reserva de Veículo: ${vehName}`)} />
+        {/* 3. Authority & Confidence Pillars (E-E-A-T + Official Logo) */}
+        <AuthoritySection />
 
-      {/* 5. Geographic Coverage & Routes (GEO SEO + Motion Table & Card) */}
-      <CoverageSection />
+        {/* 4. Executive Fleet Showcase */}
+        <FleetSection onSelectVehicleForQuote={(vehName) => onOpenQuoteModal(`Reserva de Veículo: ${vehName}`)} />
 
-      {/* 6. Social Proof (Google Reviews 5.0 + 200+ GBP + Motion Cards) */}
-      <ReviewsSection />
+        {/* 5. Geographic Coverage & Routes */}
+        <CoverageSection />
 
-      {/* 7. FAQ (Animated Accordion) */}
-      <FAQSection />
-    </main>
+        {/* 6. Social Proof */}
+        <ReviewsSection />
+
+        {/* 7. FAQ */}
+        <FAQSection />
+      </main>
+    </>
   );
 };

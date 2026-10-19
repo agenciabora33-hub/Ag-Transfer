@@ -36,6 +36,8 @@ import {
   buildWhatsAppUrl
 } from '../data/companyData';
 import { CITIES_SERVED, getCityBySlug, CityItem } from '../data/cityData';
+import { BrandLogo } from '../components/BrandLogo';
+import { SEOHead } from '../components/SEOHead';
 
 interface CityDetailPageProps {
   onOpenQuoteModal: (serviceTitle?: string) => void;
@@ -91,159 +93,9 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
     }
   }, [city]);
 
-  // SEO & Head Metadata synchronization
+  // Scroll to top on city change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (city) {
-      document.title = `${city.metaTitle} | AG Transfer`;
-
-      const cityUrl = `https://ag-transfer.vercel.app/cidades/${city.slug}`;
-
-      // Canonical link
-      let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.rel = 'canonical';
-        document.head.appendChild(canonical);
-      }
-      canonical.href = cityUrl;
-
-      // Meta description
-      let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-      if (metaDesc) {
-        metaDesc.content = city.metaDescription;
-      }
-
-      // OpenGraph tags
-      let ogUrl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement | null;
-      if (ogUrl) ogUrl.content = cityUrl;
-
-      let ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null;
-      if (ogTitle) ogTitle.content = `${city.metaTitle} | AG Transfer`;
-
-      let ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null;
-      if (ogDesc) ogDesc.content = city.metaDescription;
-
-      // Twitter Cards
-      let twTitle = document.querySelector('meta[name="twitter:title"]') as HTMLMetaElement | null;
-      if (twTitle) twTitle.content = `${city.metaTitle} | AG Transfer`;
-
-      let twDesc = document.querySelector('meta[name="twitter:description"]') as HTMLMetaElement | null;
-      if (twDesc) twDesc.content = city.metaDescription;
-
-      // JSON-LD Structured Data for LocalBusiness & Breadcrumbs & FAQ
-      const structuredData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'LocalBusiness',
-            '@id': 'https://ag-transfer.vercel.app/#localbusiness',
-            name: COMPANY_NAP.name,
-            alternateName: COMPANY_NAP.shortName,
-            url: 'https://ag-transfer.vercel.app/',
-            logo: 'https://ag-transfer.vercel.app/logo.png',
-            telephone: COMPANY_NAP.phoneRaw,
-            priceRange: '$$$',
-            areaServed: {
-              '@type': 'City',
-              name: city.name,
-              containedInPlace: {
-                '@type': 'AdministrativeArea',
-                name: 'Rio Grande do Sul'
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: city.geoCoordinates.lat,
-                longitude: city.geoCoordinates.lng
-              }
-            },
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: COMPANY_NAP.address,
-              addressLocality: COMPANY_NAP.city,
-              addressRegion: COMPANY_NAP.state,
-              postalCode: COMPANY_NAP.zip,
-              addressCountry: 'BR'
-            },
-            geo: {
-              '@type': 'GeoCoordinates',
-              latitude: COMPANY_NAP.geoCoordinates.lat,
-              longitude: COMPANY_NAP.geoCoordinates.lng
-            },
-            openingHoursSpecification: [
-              {
-                '@type': 'OpeningHoursSpecification',
-                dayOfWeek: [
-                  'Monday',
-                  'Tuesday',
-                  'Wednesday',
-                  'Thursday',
-                  'Friday',
-                  'Saturday',
-                  'Sunday'
-                ],
-                opens: '00:00',
-                closes: '23:59'
-              }
-            ],
-            aggregateRating: {
-              '@type': 'AggregateRating',
-              ratingValue: '5.0',
-              bestRating: '5',
-              reviewCount: '200'
-            }
-          },
-          {
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              {
-                '@type': 'ListItem',
-                position: 1,
-                name: 'Início',
-                item: 'https://ag-transfer.vercel.app/'
-              },
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: 'Cidades Atendidas',
-                item: 'https://ag-transfer.vercel.app/#cobertura'
-              },
-              {
-                '@type': 'ListItem',
-                position: 3,
-                name: city.name,
-                item: cityUrl
-              }
-            ]
-          },
-          {
-            '@type': 'FAQPage',
-            mainEntity: city.faqs.map(faq => ({
-              '@type': 'Question',
-              name: faq.question,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer
-              }
-            }))
-          }
-        ]
-      };
-
-      const scriptTag = document.createElement('script');
-      scriptTag.type = 'application/ld+json';
-      scriptTag.id = 'city-structured-data';
-      scriptTag.text = JSON.stringify(structuredData);
-      
-      const existingScript = document.getElementById('city-structured-data');
-      if (existingScript) existingScript.remove();
-      document.head.appendChild(scriptTag);
-
-      return () => {
-        const cleanupScript = document.getElementById('city-structured-data');
-        if (cleanupScript) cleanupScript.remove();
-      };
-    }
   }, [city]);
 
   if (!city) {
@@ -283,8 +135,117 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
     passengers: passengers
   });
 
+  const cityUrl = `https://ag-transfer.vercel.app/cidades/${city.slug}`;
+  const citySchemaGraph = [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Início',
+          item: 'https://ag-transfer.vercel.app/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Cidades Atendidas',
+          item: 'https://ag-transfer.vercel.app/#cobertura',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: city.name,
+          item: cityUrl,
+        },
+      ],
+    },
+    {
+      '@type': 'Place',
+      '@id': `${cityUrl}#place`,
+      name: city.name,
+      description: city.description,
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: city.geoCoordinates.lat,
+        longitude: city.geoCoordinates.lng,
+      },
+      containedInPlace: {
+        '@type': 'AdministrativeArea',
+        name: 'Rio Grande do Sul',
+      },
+    },
+    {
+      '@type': 'TaxiService',
+      '@id': `${cityUrl}#city-service`,
+      name: `Transfer e Transporte Executivo em ${city.name} - AG Transfer`,
+      description: city.metaDescription,
+      url: cityUrl,
+      logo: 'https://ag-transfer.vercel.app/logo.png',
+      image: 'https://ag-transfer.vercel.app/logo.png',
+      telephone: COMPANY_NAP.phoneRaw,
+      priceRange: '$$$',
+      areaServed: {
+        '@type': 'City',
+        name: city.name,
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: city.geoCoordinates.lat,
+          longitude: city.geoCoordinates.lng,
+        },
+      },
+      provider: {
+        '@type': 'TaxiService',
+        name: COMPANY_NAP.name,
+        url: 'https://ag-transfer.vercel.app/',
+        logo: 'https://ag-transfer.vercel.app/logo.png',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '5.0',
+        reviewCount: '200',
+        bestRating: '5',
+        worstRating: '1',
+      },
+    },
+    ...(city.faqs && city.faqs.length > 0
+      ? [
+          {
+            '@type': 'FAQPage',
+            mainEntity: city.faqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          },
+        ]
+      : []),
+  ];
+
   return (
     <main className="min-h-screen bg-[#F8FAFC]">
+      {/* Centralized SEO & Meta tags with Official Logo */}
+      <SEOHead
+        title={city.metaTitle}
+        description={city.metaDescription}
+        canonicalUrl={cityUrl}
+        keywords={[
+          `transfer ${city.name.toLowerCase()}`,
+          `transporte executivo ${city.name.toLowerCase()}`,
+          `transfer aeroporto ${city.name.toLowerCase()}`,
+          'transfer serra gaucha',
+          'transfer aeroporto poa',
+          'transfer caxias do sul cxj',
+          `ag transfer ${city.name.toLowerCase()}`,
+        ]}
+        geoPlaceName={city.name}
+        geoPosition={city.geoCoordinates}
+        schemaGraph={citySchemaGraph}
+      />
+
       {/* 1. Urgency & Trust Strip */}
       <section className="bg-[#0A2540] text-white text-xs py-2.5 px-4 border-b border-sky-900/40 sticky top-16 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
@@ -316,7 +277,8 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
       {/* 2. Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="bg-white border-b border-slate-200 py-3 px-4">
         <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs text-slate-500">
-          <Link to="/" className="hover:text-[#0284C7] transition-colors flex items-center gap-1">
+          <Link to="/" className="hover:text-[#0284C7] transition-colors flex items-center gap-1.5">
+            <BrandLogo size="xs" />
             <span>Início</span>
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
@@ -337,6 +299,17 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 space-y-6">
+              
+              {/* Official Brand Logo & Accreditation */}
+              <div className="flex flex-wrap items-center gap-3">
+                <BrandLogo size="sm" showText={true} subtext={`Base Operacional Serra Gaúcha &bull; ${city.name}`} />
+                <div className="h-5 w-px bg-slate-200 hidden sm:block" />
+                <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#0284C7]" />
+                  Receptivo Aeroportuário Oficial
+                </span>
+              </div>
+
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-sky-50 text-[#0284C7] border border-sky-200">
                   <MapPin className="w-3.5 h-3.5" />

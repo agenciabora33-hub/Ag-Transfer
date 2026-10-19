@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Send, MapPin, Calendar, Clock, Users, Briefcase, MessageCircle } from 'lucide-react';
 import { COMPANY_NAP, SERVICES } from '../data/companyData';
+import { BrandLogo } from './BrandLogo';
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -76,16 +77,19 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
         </button>
 
         {/* Modal Header */}
-        <div className="mb-6">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7] block mb-1">
-            Cotação Personalizada
-          </span>
-          <h3 className="text-xl sm:text-2xl font-extrabold text-[#0D0A27]">
-            Solicitar Orçamento Executivo
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Preencha os detalhes para receber atendimento imediato da nossa central 24h.
-          </p>
+        <div className="mb-6 flex items-start gap-4">
+          <BrandLogo size="md" />
+          <div className="flex-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7] block mb-1">
+              AG Transfer &bull; Cotação Oficial 24h
+            </span>
+            <h3 className="text-xl sm:text-2xl font-extrabold text-[#0D0A27]">
+              Solicitar Orçamento Executivo
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Preencha os detalhes para receber atendimento imediato da nossa central 24h.
+            </p>
+          </div>
         </div>
 
         {/* Form */}

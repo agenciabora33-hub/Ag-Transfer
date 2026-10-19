@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { Phone, MessageCircle, Menu, X } from 'lucide-react';
 import { COMPANY_NAP } from '../data/companyData';
-
 import { Link } from 'react-router-dom';
+import { BrandLogo } from './BrandLogo';
 
 interface HeaderProps {
   onOpenQuoteModal: () => void;
