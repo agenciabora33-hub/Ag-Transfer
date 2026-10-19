@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Plane, Briefcase, Compass, Clock, Check, ArrowRight, MessageCircle } from 'lucide-react';
+import { Plane, Briefcase, Compass, Clock, Check, ArrowRight, MessageCircle, Sparkles, Car } from 'lucide-react';
 import { SERVICES, buildWhatsAppUrl } from '../data/companyData';
 
 interface ServicesSectionProps {
@@ -19,8 +19,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
         return <Compass className="w-6 h-6 text-[#0284C7]" />;
       case 'Clock':
         return <Clock className="w-6 h-6 text-[#0284C7]" />;
+      case 'Sparkles':
+        return <Sparkles className="w-6 h-6 text-[#0284C7]" />;
       default:
-        return <Plane className="w-6 h-6 text-[#0284C7]" />;
+        return <Car className="w-6 h-6 text-[#0284C7]" />;
     }
   };
 
@@ -40,13 +42,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
           className="max-w-3xl mb-14"
         >
           <span className="text-xs font-bold tracking-widest text-[#0284C7] uppercase block mb-2">
-            Excelência Operacional
+            Destinos & Serviços na Serra Gaúcha
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0D0A27] tracking-tight text-balance">
-            Soluções Especializadas em Mobilidade Corporativa e Privativa
+            Transfers e Passeios Privativos em Gramado, Canela e Bento Gonçalves
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 text-pretty">
-            Cada trajeto é planejado sob os mais rigorosos padrões de segurança, pontualidade britânica e discrição absoluta para pessoas físicas e empresas.
+            Atendemos às principais rotas turísticas, enoturísticas e corporativas da região. Escolha a sua modalidade e solicite sua cotação instantânea pelo WhatsApp.
           </p>
         </motion.div>
 

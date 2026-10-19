@@ -38,7 +38,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal }) => {
             </div>
 
             <p className="text-xs sm:text-sm text-slate-300 max-w-sm leading-relaxed">
-              Especialistas em mobilidade corporativa de alto padrão, transfers aeroportuários (POA / CXI) e roteiros enoturísticos VIP pela Serra Gaúcha.
+              Especialistas em transfers aeroportuários (POA / CXJ), passeios VIP em Gramado e Canela, tours no Vale dos Vinhedos em Bento Gonçalves e viagens corporativas na Serra Gaúcha.
             </p>
 
             <div className="pt-2 flex items-center gap-3 text-xs text-[#38BDF8]">

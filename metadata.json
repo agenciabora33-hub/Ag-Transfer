@@ -1,6 +1,6 @@
 {
   "name": "AG Transfer & Transporte Executivo",
-  "description": "Transporte executivo e transfer premium em Caxias do Sul e Serra Gaúcha. Viagens corporativas, aeroportos (POA / CXI) e turismo VIP 24h.",
+  "description": "Transporte executivo e transfer premium na Serra Gaúcha (Gramado, Canela, Bento Gonçalves e Caxias do Sul). Aeroportos POA e CXJ 24h.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

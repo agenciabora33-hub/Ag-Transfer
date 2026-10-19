@@ -208,7 +208,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
           {/* Flight Number if airport transfer */}
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1">
-              Prefixo do Voo (Opcional para Aeroportos POA / CXI)
+              Prefixo do Voo (Opcional para Aeroportos POA / CXJ)
             </label>
             <input
               type="text"

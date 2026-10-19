@@ -40,11 +40,20 @@ interface ServiceDetailPageProps {
 
 export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuoteModal }) => {
   const { slug } = useParams<{ slug: string }>();
-  const service = SERVICES.find((s) => s.slug === slug || s.id === slug);
+  
+  // Backward compatibility alias map
+  const aliasMap: Record<string, string> = {
+    'transfer-aeroportuario': 'transfer-porto-alegre-gramado',
+    'turismo-vip': 'tour-vale-dos-vinhedos',
+    'viagens-corporativas': 'viagens-corporativas-serra',
+    'motorista-disposicao': 'motorista-particular-diaria',
+  };
+  const resolvedSlug = (slug && aliasMap[slug]) ? aliasMap[slug] : slug;
+  const service = SERVICES.find((s) => s.slug === resolvedSlug || s.id === resolvedSlug || s.slug === slug || s.id === slug);
 
   // Form states for in-page simulator
-  const [origin, setOrigin] = useState('Caxias do Sul');
-  const [destination, setDestination] = useState('');
+  const [origin, setOrigin] = useState('Aeroporto Salgado Filho (POA)');
+  const [destination, setDestination] = useState('Gramado / Canela (Hotel)');
   const [date, setDate] = useState('');
   const [passengers, setPassengers] = useState('1 a 3 passageiros (Sedan Executivo)');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
@@ -74,13 +83,23 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (service) {
       document.title = `${service.metaTitle} | AG Transfer`;
-      if (service.slug === 'transfer-aeroportuario') {
-        setDestination('Aeroporto Salgado Filho (POA)');
-      } else if (service.slug === 'turismo-vip') {
-        setDestination('Gramado / Vale dos Vinhedos');
-      } else if (service.slug === 'viagens-corporativas') {
-        setDestination('Polo Industrial / Reunião');
+      if (service.slug === 'transfer-porto-alegre-gramado') {
+        setOrigin('Aeroporto Salgado Filho (POA)');
+        setDestination('Gramado / Canela (Hotel ou Pousada)');
+      } else if (service.slug === 'tour-vale-dos-vinhedos') {
+        setOrigin('Gramado / Canela / Caxias');
+        setDestination('Vale dos Vinhedos (Bento Gonçalves)');
+      } else if (service.slug === 'tour-gramado-canela') {
+        setOrigin('Hotel em Gramado ou Canela');
+        setDestination('Atrações / Lago Negro / Caracol / Skyglass');
+      } else if (service.slug === 'transfer-aeroporto-cxj-caxias') {
+        setOrigin('Aeroporto Hugo Cantergiani (CXJ)');
+        setDestination('Gramado / Canela ou Bento Gonçalves');
+      } else if (service.slug === 'viagens-corporativas-serra') {
+        setOrigin('Polo Industrial / Hotel Executivo');
+        setDestination('Mercopar / Fenavinho / Festuris / Fábrica');
       } else {
+        setOrigin('Caxias do Sul / Serra Gaúcha');
         setDestination('Itinerário Personalizado');
       }
     }
@@ -116,6 +135,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
         return <Compass className="w-6 h-6 text-[#0284C7]" />;
       case 'Clock':
         return <Clock className="w-6 h-6 text-[#0284C7]" />;
+      case 'Sparkles':
+        return <Sparkles className="w-6 h-6 text-[#0284C7]" />;
       default:
         return <Car className="w-6 h-6 text-[#0284C7]" />;
     }
@@ -141,50 +162,32 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
     comparisonCompetitorName: string;
     comparisonPoints: { feature: string; ag: string; other: string }[];
   }> = {
-    'transfer-aeroportuario': {
-      benefitBadge: 'Receptivo Aeroportuário VIP · Pontualidade Garantida',
-      headlineLead: 'Transfer Executivo Aeroportos Salgado Filho (POA) e Caxias do Sul (CXI)',
+    'transfer-porto-alegre-gramado': {
+      benefitBadge: 'Receptivo Aeroporto Salgado Filho · Subida Segura da Serra',
+      headlineLead: 'Transfer Executivo Porto Alegre ⇄ Gramado e Canela VIP',
       socialProofTestimonial: {
-        name: 'Dr. Ricardo Silveira',
-        role: 'Consultor de Negócios Internacionais',
-        quote: 'Desembarquei de madrugada em Porto Alegre com voo atrasado por causa de neblina. O motorista da AG Transfer já estava me aguardando pontualmente no portão com carro impecável e climatizado. Sem estresse algum.',
-        location: 'Porto Alegre ⇄ Caxias do Sul'
+        name: 'Camila Guimarães',
+        role: 'Turista de São Paulo / SP',
+        quote: 'Contratamos o transfer de Porto Alegre direto para o hotel em Gramado. O motorista estava nos aguardando com uma placa no desembarque de POA, nos ajudou com as malas volumosas e a subida da serra foi super tranquila. Nem se compara a ir de ônibus com paradas em vários hotéis!',
+        location: 'Aeroporto POA ⇄ Gramado'
       },
-      comparisonCompetitorName: 'Aplicativos & Táxis de Aeroporto',
+      comparisonCompetitorName: 'Transfers Coletivos em Ônibus / Apps Genéricos',
       comparisonPoints: [
-        { feature: 'Agendamento prévio garantido', ag: 'Sim, veículo e chauffeur reservados', other: 'Risco alto de cancelamento em viagens longas' },
-        { feature: 'Monitoramento do prefixo do voo', ag: 'Acompanhamento em radar aeronáutico 24h', other: 'Nenhum (cobrança extra ou cancelamento por atraso)' },
-        { feature: 'Receptivo no portão de desembarque', ag: 'Placa executiva e auxílio com malas', other: 'Você precisa procurar o carro na calçada movimentada' },
-        { feature: 'Conforto e silêncio a bordo', ag: 'Veículos executivos com isolamento e Wi-Fi', other: 'Qualidade e modelo do carro imprevisíveis' },
-        { feature: 'Faturamento para empresas (PJ)', ag: 'NFS-e quinzenal ou mensal cadastrada', other: 'Recibos informais e sem central B2B dedicada' }
+        { feature: 'Embarque sem espera e trajeto direto', ag: 'Direto para seu hotel sem parar em hotéis alheios', other: 'Espera de até 2h por outros voos e paradas em 10 hotéis' },
+        { feature: 'Monitoramento do prefixo do voo em POA', ag: 'Acompanhamento do voo 24h com tolerância sem multa', other: 'Se o voo atrasar você perde o ônibus e paga nova passagem' },
+        { feature: 'Receptivo no portão de desembarque', ag: 'Chauffeur com placa executiva e auxílio com bagagens', other: 'Você precisa caminhar até o estacionamento externo com malas' },
+        { feature: 'Conforto e espaço para compras e casacos', ag: 'Veículos novos e climatizados (Sedan, SUV ou Van VIP)', other: 'Assentos apertados de transporte coletivo' },
+        { feature: 'Flexibilidade de horário de retorno', ag: 'Agendamento no horário exato para o seu check-in', other: 'Horários fixos obrigando você a sair 5h antes do voo' }
       ]
     },
-    'viagens-corporativas': {
-      benefitBadge: 'Mobilidade Corporativa B2B · Padrão Indústria & Negócios',
-      headlineLead: 'Transporte Executivo Corporativo em Caxias do Sul e Região Sul',
-      socialProofTestimonial: {
-        name: 'Juliana Medeiros',
-        role: 'Gerente de Recursos Humanos & Eventos',
-        quote: 'Contratamos a AG Transfer durante a Feira Mercopar para atender diretores da matriz alemã. Pontualidade suíça, motoristas de terno impecáveis e faturamento direto com nossa controladoria. Parceria nota 10.',
-        location: 'Polo Metalmecânico de Caxias do Sul'
-      },
-      comparisonCompetitorName: 'Transporte Não Especializado',
-      comparisonPoints: [
-        { feature: 'Sigilo profissional para reuniões a bordo', ag: 'Garantido com isolamento acústico e Chauffeur discreto', other: 'Sem garantia de privacidade para ligações sigilosas' },
-        { feature: 'Conformidade fiscal e Nota Fiscal', ag: 'Faturamento quinzenal ou mensal via CNPJ', other: 'Dificuldade de conciliação fiscal e comprovantes inadequados' },
-        { feature: 'Pontualidade para agendas e reuniões', ag: 'Tolerância zero para atrasos com rotas antecipadas', other: 'Atrasos frequentes sem gestão de rota corporativa' },
-        { feature: 'Conectividade e ambiente de trabalho', ag: 'Wi-Fi de alta estabilidade e carregadores multiportas', other: 'Sem estrutura adequada para notebooks a bordo' },
-        { feature: 'Gestor de conta corporativo 24h', ag: 'Central dedicada com atendimento imediato', other: 'Atendimento por robôs em plataformas genéricas' }
-      ]
-    },
-    'turismo-vip': {
-      benefitBadge: 'Enoturismo de Luxo · Vale dos Vinhedos, Gramado & Canela',
-      headlineLead: 'Turismo VIP e Roteiros Personalizados na Serra Gaúcha',
+    'tour-vale-dos-vinhedos': {
+      benefitBadge: 'Enoturismo Seguro · Bento Gonçalves, Garibaldi & Monte Belo',
+      headlineLead: 'Tour Privativo Vale dos Vinhedos & Bento Gonçalves',
       socialProofTestimonial: {
         name: 'Fabrício e Larissa Guimarães',
-        role: 'Turistas de São Paulo / SP',
-        quote: 'Fizemos o roteiro do Vale dos Vinhedos em Bento Gonçalves e depois fomos a Gramado. Poder degustar os melhores vinhos e espumantes sem se preocupar com volante ou blitz da serra não tem preço. Motorista conhecia os melhores mirantes!',
-        location: 'São Paulo → Serra Gaúcha'
+        role: 'Confraria do Vinho SP',
+        quote: 'Fizemos o roteiro das vinícolas em Bento Gonçalves com o chauffeur da AG Transfer. Poder degustar os melhores vinhos da Miolo e Casa Valduga sem preocupação com volante e Lei Seca foi a melhor escolha. Motorista super atencioso com as compras!',
+        location: 'Vale dos Vinhedos · Bento Gonçalves'
       },
       comparisonCompetitorName: 'Excursões em Ônibus / Aluguel de Carro Comum',
       comparisonPoints: [
@@ -195,13 +198,67 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
         { feature: 'Privacidade exclusiva para casal ou família', ag: 'Veículo 100% privativo sem estranhos a bordo', other: 'Vans e ônibus cheios de turistas desconhecidos' }
       ]
     },
-    'motorista-disposicao': {
-      benefitBadge: 'Chauffeur Dedicado · Por Hora ou Diária',
-      headlineLead: 'Motorista Executivo À Disposição em Caxias do Sul e RS',
+    'tour-gramado-canela': {
+      benefitBadge: 'Roteiro Exclusivo VIP · Gramado, Canela & Atrações',
+      headlineLead: 'Tour Privativo Gramado & Canela VIP no Seu Ritmo',
+      socialProofTestimonial: {
+        name: 'Juliana Bertolucci',
+        role: 'Família em Férias na Serra',
+        quote: 'Contratamos a diária com a AG Transfer para fazer Lago Negro, Cascata do Caracol e Skyglass. O motorista sabia exatamente a melhor ordem dos passeios para não pegar filas. Com duas crianças pequenas, essa comodidade foi indispensável!',
+        location: 'Gramado & Canela'
+      },
+      comparisonCompetitorName: 'Excursões Coletivas / Táxi de Ponto',
+      comparisonPoints: [
+        { feature: 'Roteiro customizado para sua família', ag: 'Você escolhe as atrações que deseja visitar', other: 'Paradas obrigatórias em lojas parceiras de excursão' },
+        { feature: 'Tempo livre em cada ponto turístico', ag: 'Fique o tempo que quiser sem pressa', other: 'Tempo cronometrado em grupos de 40 pessoas' },
+        { feature: 'Espera garantida na saída dos parques', ag: 'Carro refrigerado e chauffeur aguardando na porta', other: 'Dificuldade para conseguir carros de app em parques afastados' },
+        { feature: 'Atendimento noturno para jantares e fondue', ag: 'Transporte seguro para Noite Gaúcha e Natal Luz', other: 'Filas enormes de táxi na chuva nas noites de Gramado' },
+        { feature: 'Conhecimento local da serra', ag: 'Dicas de rotas alternativas e mirantes secretos', other: 'Motoristas desinformados ou dependentes de GPS confuso' }
+      ]
+    },
+    'transfer-aeroporto-cxj-caxias': {
+      benefitBadge: 'Conexão Aérea Expressa · Aeroporto Hugo Cantergiani (CXJ)',
+      headlineLead: 'Transfer Aeroporto de Caxias do Sul (CXJ) ⇄ Serra Gaúcha',
+      socialProofTestimonial: {
+        name: 'Dr. Ricardo Silveira',
+        role: 'Empresário & Palestrante',
+        quote: 'Pousamos no Aeroporto de Caxias do Sul (CXJ) e em pouco mais de 1 hora já estávamos no hotel em Gramado. O motorista da AG Transfer já estava com o carro a postos no desembarque. A rota por CXJ é a mais rápida para a Serra Gaúcha!',
+        location: 'Aeroporto CXJ ⇄ Gramado e Bento'
+      },
+      comparisonCompetitorName: 'Aplicativos & Táxis Comuns de Aeroporto',
+      comparisonPoints: [
+        { feature: 'Agendamento garantido com antecedência', ag: 'Carro e motorista confirmados antes da sua decolagem', other: 'Risco alto de falta de motoristas disponíveis em voos noturnos' },
+        { feature: 'Monitoramento de voos no Aeroporto CXJ', ag: 'Acompanhamento do prefixo pelo radar de Caxias do Sul', other: 'Sem controle de pouso ou tolerância para neblina/atrasos' },
+        { feature: 'Receptivo executivo com identificação', ag: 'Placa discreta no terminal e auxílio imediato com malas', other: 'Sem assistência e necessidade de buscar veículos na rua' },
+        { feature: 'Veículos seguros para as curvas da RS-235 e RS-453', ag: 'Sedans, SUVs e Vans revisados com seguro integral APP', other: 'Veículos pequenos sem garantia mecânica para serra' },
+        { feature: 'Faturamento facilitado para empresas', ag: 'Emissão ágil de Nota Fiscal eletrônica com CNPJ', other: 'Comprovantes manuais de difícil prestação de contas' }
+      ]
+    },
+    'viagens-corporativas-serra': {
+      benefitBadge: 'Mobilidade Corporativa B2B · Padrão Indústria & Negócios',
+      headlineLead: 'Transporte Corporativo & Feiras na Serra Gaúcha (B2B)',
+      socialProofTestimonial: {
+        name: 'Dr. Marcelo Castilhos',
+        role: 'Diretor de Relações Institucionais',
+        quote: 'Utilizamos a AG Transfer para transportar clientes internacionais durante a Mercopar e visitas fabris em Caxias e Bento Gonçalves. Pontualidade impecável, motoristas de terno e faturamento descomplicado com Nota Fiscal quinzenal.',
+        location: 'Polo Industrial de Caxias do Sul'
+      },
+      comparisonCompetitorName: 'Transporte Não Especializado',
+      comparisonPoints: [
+        { feature: 'Sigilo profissional para reuniões a bordo', ag: 'Garantido com isolamento acústico e Chauffeur discreto', other: 'Sem garantia de privacidade para ligações sigilosas' },
+        { feature: 'Conformidade fiscal e Nota Fiscal', ag: 'Faturamento quinzenal ou mensal via CNPJ (NFS-e)', other: 'Dificuldade de conciliação fiscal e comprovantes inadequados' },
+        { feature: 'Pontualidade para agendas e reuniões', ag: 'Tolerância zero para atrasos com rotas antecipadas', other: 'Atrasos frequentes sem gestão de rota corporativa' },
+        { feature: 'Conectividade e ambiente de trabalho', ag: 'Wi-Fi de alta estabilidade e carregadores multiportas', other: 'Sem estrutura adequada para notebooks a bordo' },
+        { feature: 'Gestor de conta corporativo 24h', ag: 'Central dedicada com atendimento imediato', other: 'Atendimento por robôs em plataformas genéricas' }
+      ]
+    },
+    'motorista-particular-diaria': {
+      benefitBadge: 'Chauffeur Dedicado · Por Hora ou Diária Integral',
+      headlineLead: 'Motorista Particular por Diária na Serra Gaúcha 24h',
       socialProofTestimonial: {
         name: 'Eduardo Fagundes',
         role: 'Diretor Comercial Regional',
-        quote: 'Precisei fazer 5 reuniões no mesmo dia entre Bento Gonçalves, Farroupilha e Caxias. O motorista esteve de prontidão o dia todo na porta das empresas. Ganhei horas preciosas revisando propostas no banco de trás.',
+        quote: 'Precisei fazer 5 reuniões no mesmo dia entre Bento Gonçalves, Farroupilha e Gramado. O motorista esteve de prontidão o dia todo na porta das empresas. Ganhei horas preciosas revisando propostas no banco de trás.',
         location: 'Serra Gaúcha'
       },
       comparisonCompetitorName: 'Aluguel Convencional sem Motorista',
@@ -215,7 +272,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
     }
   };
 
-  const currentHighlight = serviceHighlights[service.slug] || serviceHighlights['transfer-aeroportuario'];
+  const currentHighlight = serviceHighlights[service.slug] || serviceHighlights['transfer-porto-alegre-gramado'];
   const otherServices = SERVICES.filter((s) => s.id !== service.id);
 
   return (

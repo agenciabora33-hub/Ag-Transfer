@@ -8,9 +8,9 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
-  const [selectedService, setSelectedService] = useState('Transfer Aeroporto (POA / CXI)');
-  const [origin, setOrigin] = useState('Caxias do Sul');
-  const [destination, setDestination] = useState('Aeroporto Salgado Filho (POA)');
+  const [selectedService, setSelectedService] = useState('Transfer Porto Alegre ⇄ Gramado e Canela VIP');
+  const [origin, setOrigin] = useState('Aeroporto Salgado Filho (POA)');
+  const [destination, setDestination] = useState('Gramado / Canela (Hotel)');
   const [date, setDate] = useState('');
   const [passengers, setPassengers] = useState('1 a 3 passageiros (Sedan Executivo)');
 
@@ -171,15 +171,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
 
             {/* Strict Single H1 for SEO/GEO with balanced typography in deep navy and blue */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0D0A27] tracking-tight leading-[1.14] text-balance">
-              Transporte Executivo e Transfer Premium em{' '}
+              Transporte Executivo e Transfer na{' '}
               <span className="bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] bg-clip-text text-transparent">
-                Caxias do Sul e Serra Gaúcha
+                Serra Gaúcha · Gramado, Canela e Bento Gonçalves
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed text-pretty">
-              Pontualidade absoluta, discrição e veículos de alto padrão para viagens corporativas, aeroportos (POA / CXI) e rotas turísticas. Atendimento 24 horas com motoristas qualificados.
+              Transfers privativos para aeroportos (POA / CXJ), passeios VIP em Gramado e Canela, e tours enoturísticos no Vale dos Vinhedos. Pontualidade britânica, discrição e veículos de alto padrão 24 horas.
             </p>
 
             {/* CTAs */}
@@ -196,10 +196,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               </a>
 
               <a
-                href="#frota"
+                href="#servicos"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-slate-300 hover:border-[#0284C7] text-slate-800 hover:text-[#0284C7] font-semibold text-sm transition-all duration-200 hover:bg-white text-center shadow-xs"
               >
-                <span>Conhecer Frota e Serviços</span>
+                <span>Conhecer Destinos e Serviços</span>
                 <ChevronRight className="w-4 h-4 text-[#0284C7]" />
               </a>
             </div>
@@ -220,8 +220,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 <Plane className="w-4 h-4" />
               </div>
               <div>
-                <span className="text-[#0D0A27] font-bold block">Receptivo Aeroportos POA & CXI</span>
-                <span className="text-slate-500 text-[11px]">Monitoramento contínuo de status do voo para pontualidade rigorosa</span>
+                <span className="text-[#0D0A27] font-bold block">Receptivo Aeroportos POA & CXJ</span>
+                <span className="text-slate-500 text-[11px]">Monitoramento contínuo de status de voos comerciais e executivos</span>
               </div>
             </motion.div>
 
@@ -330,25 +330,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
 
               {/* Fast Presets Selector */}
               <div className="mb-4">
-                <span className="block text-[11px] text-slate-500 mb-1.5 font-medium">Rotas Rápidas Mais Solicitadas:</span>
+                <span className="block text-[11px] text-slate-500 mb-1.5 font-medium">Rotas Mais Procuradas na Serra Gaúcha:</span>
                 <div className="grid grid-cols-3 gap-1.5">
                   <button
                     type="button"
-                    onClick={() => handleQuickPreset('Caxias do Sul', 'Aeroporto Salgado Filho (POA)', 'Transfer Aeroporto (POA / CXI)')}
+                    onClick={() => handleQuickPreset('Aeroporto Salgado Filho (POA)', 'Gramado / Canela', 'Transfer Porto Alegre ⇄ Gramado e Canela VIP')}
                     className="p-1.5 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-medium transition-all text-center cursor-pointer"
                   >
-                    POA ⇄ CXI
+                    POA ⇄ Gramado
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleQuickPreset('Caxias do Sul', 'Gramado / Canela', 'Turismo VIP Gramado & Canela')}
+                    onClick={() => handleQuickPreset('Aeroporto Caxias do Sul (CXJ)', 'Gramado / Canela', 'Transfer Aeroporto de Caxias do Sul (CXJ)')}
                     className="p-1.5 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-medium transition-all text-center cursor-pointer"
                   >
-                    CXI ⇄ Gramado
+                    CXJ ⇄ Gramado
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleQuickPreset('Caxias do Sul', 'Bento Gonçalves (Vale dos Vinhedos)', 'Rota Vale dos Vinhedos (Bento)')}
+                    onClick={() => handleQuickPreset('Caxias / Gramado', 'Vale dos Vinhedos (Bento Gonçalves)', 'Tour Vale dos Vinhedos & Bento Gonçalves')}
                     className="p-1.5 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-medium transition-all text-center cursor-pointer"
                   >
                     Vale Vinhedos
@@ -360,18 +360,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 {/* Service Selection */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Tipo de Serviço
+                    Tipo de Serviço na Serra Gaúcha
                   </label>
                   <select
                     value={selectedService}
                     onChange={(e) => setSelectedService(e.target.value)}
                     className="w-full bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 focus:outline-none transition-colors"
                   >
-                    <option value="Transfer Aeroporto (POA / CXI)">Transfer Aeroporto (POA / CXI)</option>
-                    <option value="Viagem Corporativa / Negócios">Viagem Corporativa / Negócios</option>
-                    <option value="Turismo VIP Gramado & Canela">Turismo VIP Gramado & Canela</option>
-                    <option value="Rota Vale dos Vinhedos (Bento)">Rota Vale dos Vinhedos (Bento)</option>
-                    <option value="Motorista à Disposição (Por Hora/Diária)">Motorista à Disposição (Por Hora/Diária)</option>
+                    <option value="Transfer Porto Alegre ⇄ Gramado e Canela VIP">Transfer Porto Alegre ⇄ Gramado e Canela VIP</option>
+                    <option value="Tour Vale dos Vinhedos & Bento Gonçalves">Tour Vale dos Vinhedos & Bento Gonçalves</option>
+                    <option value="Tour Privativo Gramado & Canela VIP">Tour Privativo Gramado & Canela VIP</option>
+                    <option value="Transfer Aeroporto de Caxias do Sul (CXJ)">Transfer Aeroporto de Caxias do Sul (CXJ)</option>
+                    <option value="Transporte Corporativo & Feiras na Serra Gaúcha">Transporte Corporativo & Feiras na Serra Gaúcha</option>
+                    <option value="Motorista Particular por Diária na Serra Gaúcha">Motorista Particular por Diária na Serra Gaúcha</option>
                   </select>
                 </div>
 
