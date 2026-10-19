@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+
+    <!-- Title & SEO Meta Tags -->
+    <title>AG Transfer & Transporte Executivo | Caxias do Sul e Serra Gaúcha</title>
+    <meta name="description" content="Transporte executivo e transfer premium em Caxias do Sul e Serra Gaúcha. Pontualidade absoluta, discrição e veículos de luxo 24/7. Solicite cotação via WhatsApp." />
+    <link rel="canonical" href="https://www.agtransfer.com.br/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- GEO / Local SEO Tags -->
+    <meta name="geo.region" content="BR-RS" />
+    <meta name="geo.placename" content="Caxias do Sul" />
+    <meta name="geo.position" content="-29.1833;-51.1833" />
+    <meta name="ICBM" content="-29.1833, -51.1833" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="AG Transfer & Transporte Executivo | Caxias do Sul e Serra Gaúcha" />
+    <meta property="og:description" content="Transporte executivo de alto padrão, transfers aeroportuários (POA / CXI), viagens corporativas e turismo VIP na Serra Gaúcha. Atendimento 24h." />
+    <meta property="og:url" content="https://www.agtransfer.com.br/" />
+    <meta property="og:site_name" content="AG Transfer & Transporte Executivo LTDA." />
+    <meta property="og:image" content="/logo.png" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AG Transfer & Transporte Executivo | Caxias do Sul" />
+    <meta name="twitter:description" content="Transporte executivo e transfers premium em Caxias do Sul e Serra Gaúcha. Atendimento 24/7." />
+    <meta name="twitter:image" content="/logo.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                navy: '#0D0A27',
+                blue: '#0284C7',
+                sky: '#38BDF8',
+                light: '#F8FAFC',
+                textDark: '#0F172A',
+                textMuted: '#64748B'
+              }
+            },
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'sans-serif'],
+              serif: ['Cinzel', 'serif']
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Lucide Icons via CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Schema.org / JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "TaxiService",
+          "@id": "https://www.agtransfer.com.br/#service",
+          "name": "AG Transfer & Transporte Executivo LTDA.",
+          "image": "https://www.agtransfer.com.br/logo.png",
+          "telephone": "+5554991537288",
+          "priceRange": "$$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Av. Salgado Filho, 3451",
+            "addressLocality": "Caxias do Sul",
+            "addressRegion": "RS",
+            "postalCode": "95098-420",
+            "addressCountry": "BR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -29.1833,
+            "longitude": -51.1833
+          },
+          "url": "https://www.agtransfer.com.br/",
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Caxias do Sul" },
+            { "@type": "City", "name": "Bento Gonçalves" },
+            { "@type": "City", "name": "Gramado" },
+            { "@type": "City", "name": "Canela" },
+            { "@type": "City", "name": "Porto Alegre" }
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "200",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "hasMap": "https://share.google/Zr42iNP6P3vhu2am0",
+          "sameAs": [
+            "https://share.google/Zr42iNP6P3vhu2am0"
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @keyframes floatSlow {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-7px); }
+      }
+      .animate-float {
+        animation: floatSlow 6s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-[#F8FAFC] text-slate-800 font-sans antialiased selection:bg-[#38BDF8]/20 selection:text-[#0F172A]">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-[2.5px] bg-gradient-to-r from-[#0D0A27] via-[#0284C7] to-[#38BDF8] z-[60] w-0"></div>
+
+    <!-- Header Glassmorphism (Top Bar Contract) -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-slate-200/80 py-3">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-12">
+        <a href="#inicio" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 p-0.5 flex items-center justify-center shadow-xs">
+            <img src="/logo.png" alt="Logo AG Transfer" class="w-full h-full object-contain" />
+          </div>
+          <span class="font-serif text-xl sm:text-2xl font-bold tracking-wider text-[#0D0A27]">
+            AG TRANSFER
+          </span>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
+          <a href="#inicio" class="hover:text-[#0284C7] transition-colors">Início</a>
+          <a href="#servicos" class="hover:text-[#0284C7] transition-colors">Serviços</a>
+          <a href="#diferenciais" class="hover:text-[#0284C7] transition-colors">Diferenciais</a>
+          <a href="#frota" class="hover:text-[#0284C7] transition-colors">Frota</a>
+          <a href="#cobertura" class="hover:text-[#0284C7] transition-colors">Cobertura</a>
+          <a href="#avaliacoes" class="hover:text-[#0284C7] transition-colors">Avaliações</a>
+        </nav>
+
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="tel:5554991537288" class="text-xs font-semibold text-slate-700 hover:text-[#0284C7] px-2 py-1">
+            (54) 99153-7288
+          </a>
+          <a href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20transfer%20executivo." target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#0D0A27] to-[#0284C7] text-white font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-sm">
+            Solicitar Orçamento
+          </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="lg:hidden p-2 text-slate-700" aria-label="Abrir Menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/98 backdrop-blur-xl px-4 py-3 space-y-2 shadow-lg">
+        <a href="#inicio" class="block py-2 text-sm font-semibold text-slate-700 hover:text-[#0284C7]">Início</a>
+        <a href="#servicos" class="block py-2 text-sm font-semibold text-slate-700 hover:text-[#0284C7]">Serviços</a>
+        <a href="#diferenciais" class="block py-2 text-sm font-semibold text-slate-700 hover:text-[#0284C7]">Diferenciais</a>
+        <a href="#frota" class="block py-2 text-sm font-semibold text-slate-700 hover:text-[#0284C7]">Frota</a>
+        <a href="#cobertura" class="block py-2 text-sm font-semibold text-slate-700 hover:text-[#0284C7]">Cobertura</a>
+        <a href="#avaliacoes" class="block py-2 text-sm font-semibold text-slate-700 hover:text-[#0284C7]">Avaliações</a>
+        <div class="pt-2 border-t border-slate-200">
+          <a href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20transfer%20executivo." class="block w-full py-2.5 text-center text-xs font-bold uppercase rounded-xl bg-[#0284C7] text-white shadow-xs">
+            WhatsApp (54) 99153-7288
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section id="inicio" class="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 overflow-hidden bg-[#F8FAFC]">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/90 to-[#F8FAFC]/75 z-0"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#0284C7]/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div class="max-w-3xl space-y-6 reveal active">
+            
+            <!-- E-E-A-T Unboxed Proof Line -->
+            <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-600 font-semibold">
+              <a href="https://share.google/Zr42iNP6P3vhu2am0" target="_blank" rel="noopener noreferrer" class="text-[#0284C7] font-bold hover:underline flex items-center gap-1">
+                <span class="text-[#F59E0B]">★ 5.0</span>
+                <span>no Google (GBP)</span>
+                <span class="text-[#0D0A27]">(+200 Avaliações 5 Estrelas)</span>
+              </a>
+              <span aria-hidden="true" class="text-slate-300">·</span>
+              <span class="text-[#0D0A27]">Motoristas Profissionais</span>
+              <span aria-hidden="true" class="text-slate-300">·</span>
+              <span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Atendimento 24/7</span>
+            </div>
+
+            <!-- Single H1 for SEO/GEO -->
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0D0A27] tracking-tight leading-[1.15]">
+              Transporte Executivo e Transfer Premium em <span class="text-[#0284C7]">Caxias do Sul e Serra Gaúcha</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+              Pontualidade absoluta, discrição e veículos de alto padrão para viagens corporativas, aeroportos (POA / CXI) e rotas turísticas. Atendimento 24 horas.
+            </p>
+
+            <div class="pt-2 flex flex-col sm:flex-row gap-4">
+              <a href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20transfer%20executivo." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#0D0A27] to-[#0284C7] text-white font-bold text-sm uppercase tracking-wider hover:brightness-110 shadow-md transition-all text-center">
+                <i data-lucide="message-circle" class="w-5 h-5 text-[#38BDF8]"></i>
+                Solicitar Cotação no WhatsApp
+              </a>
+              <a href="#frota" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-slate-300 hover:border-[#0284C7] text-slate-800 hover:text-[#0284C7] font-semibold text-sm transition-all text-center shadow-xs">
+                Conhecer Frota e Serviços
+              </a>
+            </div>
+
+            <div class="pt-6 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+              <div>
+                <a href="https://share.google/Zr42iNP6P3vhu2am0" target="_blank" rel="noopener noreferrer" class="hover:underline">
+                  <span class="block text-xl font-bold text-[#0284C7]">+200</span>
+                  <span class="text-slate-600 font-medium">Avaliações 5★ Google</span>
+                </a>
+              </div>
+              <div>
+                <span class="block text-xl font-bold text-[#0D0A27]">24 Horas</span>
+                <span class="text-slate-500 font-medium">Atendimento 24/7</span>
+              </div>
+              <div>
+                <span class="block text-xl font-bold text-[#0D0A27]">100% Seguro</span>
+                <span class="text-slate-500 font-medium">Cobertura APP</span>
+              </div>
+              <div>
+                <span class="block text-xl font-bold text-[#0D0A27]">PJ & NF</span>
+                <span class="text-slate-500 font-medium">Faturamento B2B</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Serviços Executivos -->
+      <section id="servicos" class="py-20 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl mb-12 reveal">
+            <span class="text-xs font-bold tracking-widest text-[#0284C7] uppercase block mb-1">Serviços Premium</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0D0A27]">
+              Soluções Especializadas em Mobilidade Corporativa e Privativa
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
+            <!-- Card 1 -->
+            <article class="bg-[#F8FAFC] hover:bg-white border border-slate-200 hover:border-[#0284C7]/50 rounded-2xl p-6 sm:p-8 transition-all shadow-xs hover:shadow-md">
+              <span class="text-xs font-mono text-[#0284C7] font-bold">01 · RECEPTIVO</span>
+              <h3 class="text-xl font-bold text-[#0D0A27] mt-2 mb-2">Transfer Aeroportuário (POA / CXI / FLN)</h3>
+              <p class="text-sm text-slate-600 mb-4">Receptivo personalizado e monitoramento de voos em tempo real para evitar atrasos na conexão com a Serra Gaúcha.</p>
+              <ul class="text-xs text-slate-700 space-y-1.5 mb-6">
+                <li>✓ Monitoramento do status do voo em tempo real</li>
+                <li>✓ Motorista aguardando com placa executiva no portão</li>
+                <li>✓ Conexão direta Porto Alegre ⇄ Caxias do Sul</li>
+              </ul>
+              <a href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20cotar%20um%20Transfer%20Aeroportu%C3%A1rio." class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284C7] hover:underline">
+                Cotar Transfer Aeroporto →
+              </a>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="bg-[#F8FAFC] hover:bg-white border border-slate-200 hover:border-[#0284C7]/50 rounded-2xl p-6 sm:p-8 transition-all shadow-xs hover:shadow-md">
+              <span class="text-xs font-mono text-[#0284C7] font-bold">02 · B2B</span>
+              <h3 class="text-xl font-bold text-[#0D0A27] mt-2 mb-2">Viagens e Agendas Corporativas</h3>
+              <p class="text-sm text-slate-600 mb-4">Transporte privativo de executivos e equipes para reuniões, congressos, Mercopar e visitas a unidades industriais.</p>
+              <ul class="text-xs text-slate-700 space-y-1.5 mb-6">
+                <li>✓ Faturamento quinzenal/mensal via Nota Fiscal</li>
+                <li>✓ Conexão Wi-Fi e tomadas para trabalho a bordo</li>
+                <li>✓ Discrição rigorosa e pontualidade corporativa</li>
+              </ul>
+              <a href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20cotar%20Viagem%20Corporativa." class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284C7] hover:underline">
+                Cotar Viagem Corporativa →
+              </a>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="bg-[#F8FAFC] hover:bg-white border border-slate-200 hover:border-[#0284C7]/50 rounded-2xl p-6 sm:p-8 transition-all shadow-xs hover:shadow-md">
+              <span class="text-xs font-mono text-[#0284C7] font-bold">03 · TURISMO VIP</span>
+              <h3 class="text-xl font-bold text-[#0D0A27] mt-2 mb-2">Turismo VIP & Serra Gaúcha</h3>
+              <p class="text-sm text-slate-600 mb-4">Roteiros exclusivos para Gramado, Canela e Região dos Vinhedos em Bento Gonçalves com flexibilidade e conforto total.</p>
+              <ul class="text-xs text-slate-700 space-y-1.5 mb-6">
+                <li>✓ Roteiros customizados em vinícolas premiadas</li>
+                <li>✓ Porta-malas amplo para compras e caixas de vinho</li>
+                <li>✓ Motorista conhecedor dos melhores caminhos</li>
+              </ul>
+              <a href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20cotar%20um%20Roteiro%20Tur%C3%ADstico%20VIP." class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284C7] hover:underline">
+                Cotar Roteiro VIP →
+              </a>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="bg-[#F8FAFC] hover:bg-white border border-slate-200 hover:border-[#0284C7]/50 rounded-2xl p-6 sm:p-8 transition-all shadow-xs hover:shadow-md">
+              <span class="text-xs font-mono text-[#0284C7] font-bold">04 · CHAUFFEUR</span>
+              <h3 class="text-xl font-bold text-[#0D0A27] mt-2 mb-2">Motorista À Disposição</h3>
+              <p class="text-sm text-slate-600 mb-4">Chauffeur dedicado por hora ou diária com total flexibilidade de itinerário para eventos, casamentos ou viagens longas.</p>
+              <ul class="text-xs text-slate-700 space-y-1.5 mb-6">
+                <li>✓ Contratação por turnos (4h, 8h ou diária 24h)</li>
+                <li>✓ Espera em reuniões e jantares exclusivos</li>
+                <li>✓ Disponibilidade ininterrupta em fins de semana</li>
+              </ul>
+              <a href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20cotar%20um%20Motorista%20%C3%A0%20Disposi%C3%A7%C3%A3o." class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284C7] hover:underline">
+                Cotar Motorista Dedicado →
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Diferenciais E-E-A-T -->
+      <section id="diferenciais" class="py-20 bg-[#F8FAFC] border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-14 reveal">
+            <span class="text-xs font-bold tracking-widest text-[#0284C7] uppercase block mb-1">Diferenciais</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0D0A27]">Por Que Escolher a AG Transfer Executivo?</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+              <i data-lucide="shield-check" class="w-8 h-8 text-[#0284C7] mb-3"></i>
+              <h3 class="text-base font-bold text-[#0D0A27] mb-2">Frota Higienizada</h3>
+              <p class="text-xs text-slate-600">Sedans, SUVs e Vans executivas revisadas com seguro total de passageiros (APP).</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+              <i data-lucide="award" class="w-8 h-8 text-[#0284C7] mb-3"></i>
+              <h3 class="text-base font-bold text-[#0D0A27] mb-2">Motoristas Qualificados</h3>
+              <p class="text-xs text-slate-600">Profissionais experientes, treinados em direção defensiva e protocolo de atendimento VIP.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+              <i data-lucide="clock" class="w-8 h-8 text-[#0284C7] mb-3"></i>
+              <h3 class="text-base font-bold text-[#0D0A27] mb-2">Pontualidade Britânica</h3>
+              <p class="text-xs text-slate-600">Planejamento prévio de rotas para garantir que você nunca perca um compromisso ou voo.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+              <i data-lucide="file-text" class="w-8 h-8 text-[#0284C7] mb-3"></i>
+              <h3 class="text-base font-bold text-[#0D0A27] mb-2">Faturamento Corporativo</h3>
+              <p class="text-xs text-slate-600">Emissão de Nota Fiscal e condições facilitadas com faturamento quinzenal para empresas.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cobertura Geográfica GEO SEO -->
+      <section id="cobertura" class="py-20 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl mb-10 reveal">
+            <span class="text-xs font-bold tracking-widest text-[#0284C7] uppercase block mb-1">Localização Estratégica</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0D0A27]">Atendimento em Caxias do Sul, Serra Gaúcha e Conexões</h2>
+            <p class="text-sm text-slate-600 mt-3">
+              Localizada na <strong class="text-[#0D0A27]">Av. Salgado Filho, 3451 (Bairro Salgado Filho, Caxias do Sul - RS, CEP 95098-420)</strong>, a AG Transfer atende com agilidade Caxias do Sul, Bento Gonçalves, Farroupilha, Flores da Cunha, Gramado, Canela, Porto Alegre e toda a Região Sul.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 reveal">
+            <div class="bg-[#F8FAFC] p-6 rounded-2xl border border-slate-200 lg:col-span-2 shadow-xs">
+              <h3 class="text-base font-bold text-[#0D0A27] mb-4">Principais Conexões com Saída de Caxias do Sul</h3>
+              <div class="space-y-3 text-xs">
+                <div class="flex justify-between items-center py-2 border-b border-slate-200">
+                  <span class="font-bold text-[#0D0A27]">Caxias do Sul ⇄ Aeroporto Salgado Filho (POA)</span>
+                  <span class="font-mono text-[#0284C7] font-bold">1h 45m - 2h 00m</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-slate-200">
+                  <span class="font-bold text-[#0D0A27]">Caxias do Sul ⇄ Gramado / Canela</span>
+                  <span class="font-mono text-[#0284C7] font-bold">1h 10m - 1h 25m</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-slate-200">
+                  <span class="font-bold text-[#0D0A27]">Caxias do Sul ⇄ Bento Gonçalves (Vale dos Vinhedos)</span>
+                  <span class="font-mono text-[#0284C7] font-bold">40m - 50m</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-slate-200">
+                  <span class="font-bold text-[#0D0A27]">Aeroporto POA ⇄ Gramado / Canela</span>
+                  <span class="font-mono text-[#0284C7] font-bold">1h 50m - 2h 10m</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                  <span class="font-bold text-[#0D0A27]">Caxias do Sul ⇄ Farroupilha / Flores da Cunha</span>
+                  <span class="font-mono text-[#0284C7] font-bold">20m - 30m</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <h3 class="text-base font-bold text-[#0D0A27] mb-3">Base Operacional NAP</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                Av. Salgado Filho, 3451<br/>
+                Bairro Salgado Filho<br/>
+                Caxias do Sul - RS, CEP 95098-420<br/>
+                <strong class="text-emerald-700">Atendimento: 24 Horas / 7 dias</strong>
+              </p>
+              <a href="https://share.google/Zr42iNP6P3vhu2am0" target="_blank" rel="noopener noreferrer" class="block w-full py-2.5 px-4 text-center rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-800 hover:bg-slate-100">
+                Ver no Google Maps (Place ID)
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prova Social Google Reviews -->
+      <section id="avaliacoes" class="py-20 bg-[#F8FAFC] border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl mb-12 reveal">
+            <span class="text-xs font-bold tracking-widest text-[#0284C7] uppercase block mb-1">Reputação Comprovada</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0D0A27]">A Escolha de Executivos e Empresas Exigentes</h2>
+            <p class="text-sm text-slate-600 mt-1">★ 5.0 estrelas no Google Business Profile (+200 avaliações)</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+              <div class="text-[#F59E0B] mb-2">★★★★★</div>
+              <p class="text-xs sm:text-sm text-slate-700 italic mb-4">
+                "Utilizamos a AG Transfer para receber executivos internacionais na Mercopar. Pontualidade impecável, motorista extremamente educado e carro impecável. O faturamento corporativo foi simples e ágil."
+              </p>
+              <div class="text-xs font-bold text-[#0D0A27]">Dr. Marcelo Castilhos</div>
+              <div class="text-[11px] text-slate-500 font-medium">Diretor de Relações Institucionais</div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+              <div class="text-[#F59E0B] mb-2">★★★★★</div>
+              <p class="text-xs sm:text-sm text-slate-700 italic mb-4">
+                "Contratamos o transfer de Porto Alegre para Gramado e passeios no Vale dos Vinhedos. Carro muito espaçoso, motorista conhecia todos os atalhos para evitar o tráfego da serra. Sensacional!"
+              </p>
+              <div class="text-xs font-bold text-[#0D0A27]">Camila Guimarães</div>
+              <div class="text-[11px] text-slate-500 font-medium">Gerente de Eventos & Incentivo</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer NAP -->
+    <footer class="bg-[#0D0A27] text-slate-300 border-t border-slate-800 py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-white p-0.5 flex items-center justify-center">
+              <img src="/logo.png" alt="Logo AG Transfer" class="w-full h-full object-contain" />
+            </div>
+            <span class="font-serif text-lg font-bold text-white block">AG TRANSFER</span>
+          </div>
+          <p class="text-xs text-slate-400">AG Transfer & Transporte Executivo LTDA.</p>
+          <p class="text-xs text-slate-300 mt-2">Especialistas em transporte privativo de luxo na Serra Gaúcha e Região Sul.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase text-white mb-2">Dados Físicos (NAP)</h4>
+          <p class="text-xs text-slate-300 space-y-1">
+            <span>Av. Salgado Filho, 3451 - Salgado Filho, Caxias do Sul - RS, 95098-420</span><br/>
+            <span>WhatsApp / Telefone: (54) 99153-7288</span><br/>
+            <span class="text-emerald-400 font-medium">Atendimento 24 Horas / 7 dias</span>
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase text-white mb-2">Links Rápidos</h4>
+          <ul class="text-xs space-y-1.5">
+            <li><a href="#inicio" class="hover:text-white">Início</a></li>
+            <li><a href="#servicos" class="hover:text-white">Serviços Executivos</a></li>
+            <li><a href="#diferenciais" class="hover:text-white">Diferenciais</a></li>
+            <li><a href="#cobertura" class="hover:text-white">Cobertura e Rotas</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-white/10 text-[11px] text-slate-400 text-center">
+        © AG Transfer & Transporte Executivo LTDA. Todos os direitos reservados. Google Place ID: ChIJLxRoT8GjHpURkRBdWM5i_g0 (+200 avaliações no GBP)
+      </div>
+    </footer>
+
+    <!-- Permanent Floating WhatsApp CTA (Bottom Right) -->
+    <a
+      href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20transfer%20executivo."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Fale Conosco no WhatsApp 24h"
+      class="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-emerald-600 via-[#25D366] to-emerald-400 text-white shadow-[0_10px_30px_rgba(37,211,102,0.45)] hover:scale-105 transition-transform"
+    >
+      <span class="absolute -inset-1 rounded-full bg-[#25D366] opacity-35 animate-ping pointer-events-none"></span>
+      <i data-lucide="message-circle" class="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white"></i>
+      <span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-extrabold text-white border-2 border-white shadow-sm">1</span>
+    </a>
+
+    <!-- Mobile Sticky Thumb-Zone CTA (<= 15% viewport height) -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 p-2.5 shadow-lg">
+      <a href="https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20transfer%20executivo." target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-[#0D0A27] to-[#0284C7] text-white font-bold text-xs uppercase tracking-wider shadow-sm">
+        <i data-lucide="message-circle" class="w-4 h-4 text-[#38BDF8]"></i>
+        Solicitar Transfer via WhatsApp 24h
+      </a>
+    </div>
+
+    <!-- Vanilla JS Interactions -->
+    <script>
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Mobile Menu Toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Header Glassmorphism & Scroll Progress on scroll
+      const header = document.getElementById('main-header');
+      const progressBar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (progressBar && docHeight > 0) {
+          const progress = (scrollTop / docHeight) * 100;
+          progressBar.style.width = progress + '%';
+        }
+
+        if (scrollTop > 20) {
+          header.classList.add('bg-white/95', 'shadow-md');
+          header.classList.remove('bg-white/80');
+        } else {
+          header.classList.add('bg-white/80');
+          header.classList.remove('bg-white/95', 'shadow-md');
+        }
+      }, { passive: true });
+
+      // Scroll Reveal Observer
+      const reveals = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      reveals.forEach((el) => revealObserver.observe(el));
+    </script>
+  </body>
+</html>
