@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { MapPin, Navigation, ArrowRight, ExternalLink, Star } from 'lucide-react';
+import { MapPin, Navigation, ArrowRight, ExternalLink, Star, ChevronRight, Zap, Building2, Mountain } from 'lucide-react';
 import { COMPANY_NAP, POPULAR_ROUTES, buildWhatsAppUrl } from '../data/companyData';
+import { CITIES_SERVED } from '../data/cityData';
 
 export const CoverageSection: React.FC = () => {
   return (
@@ -17,7 +19,7 @@ export const CoverageSection: React.FC = () => {
           className="max-w-3xl mb-14"
         >
           <span className="text-xs font-bold tracking-widest text-[#0284C7] uppercase block mb-2">
-            Localização & Abrangência Geográfica
+            Localização & Abrangência Geográfica (GEO)
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0D0A27] tracking-tight text-balance">
             Atendimento em Caxias do Sul, Serra Gaúcha e Conexões
@@ -27,12 +29,12 @@ export const CoverageSection: React.FC = () => {
             <strong className="text-[#0D0A27] font-semibold">
               Av. Salgado Filho, 3451 (Bairro Salgado Filho, Caxias do Sul - RS, CEP 95098-420)
             </strong>
-            , a AG Transfer atende com agilidade Caxias do Sul, Bento Gonçalves, Farroupilha, Flores da Cunha, Gramado, Canela, Porto Alegre e toda a Região Sul.
+            , a AG Transfer atende com agilidade Caxias do Sul, Bento Gonçalves, Farroupilha, Flores da Cunha, Gramado, Canela, Nova Petrópolis, Garibaldi, Porto Alegre e toda a Região Sul.
           </p>
         </motion.div>
 
         {/* Two-Column Grid: Popular Routes Table + Physical Location NAP Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
           
           {/* Routes Table */}
           <motion.div
@@ -178,33 +180,94 @@ export const CoverageSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Coverage Regions list */}
+            {/* Coverage Regions list with links */}
             <div className="bg-white border border-slate-200 rounded-2xl p-5 text-xs text-slate-600 shadow-xs">
               <span className="font-bold text-[#0D0A27] block mb-2">Cidades com Atendimento Prioritário:</span>
               <div className="flex flex-wrap gap-2 text-slate-600 font-medium">
-                <span>Caxias do Sul</span>
-                <span>·</span>
-                <span>Bento Gonçalves</span>
-                <span>·</span>
-                <span>Gramado</span>
-                <span>·</span>
-                <span>Canela</span>
-                <span>·</span>
-                <span>Porto Alegre</span>
-                <span>·</span>
-                <span>Farroupilha</span>
-                <span>·</span>
-                <span>Flores da Cunha</span>
-                <span>·</span>
-                <span>Nova Petrópolis</span>
-                <span>·</span>
-                <span>Garibaldi</span>
+                {CITIES_SERVED.map((c, i) => (
+                  <React.Fragment key={c.id}>
+                    <Link
+                      to={`/cidades/${c.slug}`}
+                      className="hover:text-[#0284C7] hover:underline font-semibold text-slate-700"
+                    >
+                      {c.name}
+                    </Link>
+                    {i < CITIES_SERVED.length - 1 && <span className="text-slate-300">·</span>}
+                  </React.Fragment>
+                ))}
               </div>
             </div>
 
           </motion.div>
 
         </div>
+
+        {/* Dedicated City Hub (SEO / GEO / SXO Hub) */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.7 }}
+          className="pt-8 border-t border-slate-200"
+        >
+          <div className="max-w-3xl mb-8">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7] block mb-1">
+              Páginas Dedicadas por Cidade (SEO & GEO)
+            </span>
+            <h3 className="text-xl sm:text-2xl font-extrabold text-[#0D0A27]">
+              Conheça Nossa Operação Executiva em Cada Cidade Atendida
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1">
+              Acesse a página específica da sua cidade de destino para conferir distâncias, rotas recomendadas, atrativos turísticos, perfil geográfico e respostas às dúvidas mais frequentes.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {CITIES_SERVED.map((c) => (
+              <Link
+                key={c.id}
+                to={`/cidades/${c.slug}`}
+                className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs hover:border-[#0284C7] hover:shadow-md transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#0284C7] bg-sky-50 px-2 py-0.5 rounded-md border border-sky-100">
+                      <MapPin className="w-3 h-3" />
+                      {c.name}
+                    </span>
+                    <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      {c.badge}
+                    </span>
+                  </div>
+
+                  <h4 className="text-base font-bold text-[#0D0A27] group-hover:text-[#0284C7] transition-colors mb-1.5">
+                    Transfer Executivo em {c.name}
+                  </h4>
+
+                  <p className="text-xs text-slate-500 line-clamp-2 mb-3 leading-relaxed">
+                    {c.description}
+                  </p>
+
+                  <div className="space-y-1 text-[11px] text-slate-500 pt-2 border-t border-slate-100 mb-4">
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Do Aeroporto POA:</span>
+                      <strong className="text-slate-700">{c.distanceFromPoa.split('(')[0]}</strong>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Do Aeroporto CXJ:</span>
+                      <strong className="text-[#0284C7]">{c.distanceFromCxj.split('(')[0]}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 text-xs font-bold text-[#0284C7]">
+                  <span>Ver Página Completa de {c.name}</span>
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </motion.div>
 
       </div>
     </section>

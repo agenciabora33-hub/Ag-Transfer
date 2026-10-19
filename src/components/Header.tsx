@@ -32,9 +32,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
   const navLinks = [
     { label: 'Início', href: '/#inicio' },
     { label: 'Serviços', href: '/#servicos' },
-    { label: 'Diferenciais', href: '/#diferenciais' },
+    { label: 'Cidades Atendidas', href: '/#cobertura' },
     { label: 'Frota', href: '/#frota' },
-    { label: 'Cobertura', href: '/#cobertura' },
+    { label: 'Diferenciais', href: '/#diferenciais' },
     { label: 'Avaliações', href: '/#avaliacoes' },
   ];
 

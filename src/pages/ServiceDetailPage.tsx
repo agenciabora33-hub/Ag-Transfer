@@ -44,9 +44,20 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
   // Backward compatibility alias map
   const aliasMap: Record<string, string> = {
     'transfer-aeroportuario': 'transfer-porto-alegre-gramado',
+    'passeios-gramado-canela': 'tour-gramado-canela',
     'turismo-vip': 'tour-vale-dos-vinhedos',
     'viagens-corporativas': 'viagens-corporativas-serra',
     'motorista-disposicao': 'motorista-particular-diaria',
+    'transfer-aeroporto-caxias-do-sul-cxj': 'transfer-aeroporto-cxj-caxias',
+    'transfer-aeroporto-caxias': 'transfer-aeroporto-cxj-caxias',
+    'transfer-cxj': 'transfer-aeroporto-cxj-caxias',
+    'transfer-gramado': 'transfer-para-gramado',
+    'transfer-canela': 'transfer-para-canela',
+    'transporte-executivo': 'transporte-executivo-gramado',
+    'carro-executivo-gramado': 'transporte-executivo-gramado',
+    'passeio-vale-dos-vinhedos': 'tour-vale-dos-vinhedos',
+    'tour-bento-goncalves': 'tour-vale-dos-vinhedos',
+    'passeios-gramado': 'tour-gramado-canela',
   };
   const resolvedSlug = (slug && aliasMap[slug]) ? aliasMap[slug] : slug;
   const service = SERVICES.find((s) => s.slug === resolvedSlug || s.id === resolvedSlug || s.slug === slug || s.id === slug);
@@ -83,7 +94,114 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (service) {
       document.title = `${service.metaTitle} | AG Transfer`;
-      if (service.slug === 'transfer-porto-alegre-gramado') {
+
+      const serviceUrl = `https://ag-transfer.vercel.app/servicos/${service.slug}`;
+
+      // Canonical link for GSC
+      let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        document.head.appendChild(canonical);
+      }
+      canonical.href = serviceUrl;
+
+      // Meta description for GSC
+      let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+      if (metaDesc) {
+        metaDesc.content = service.metaDescription;
+      }
+
+      // OpenGraph tags
+      let ogUrl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement | null;
+      if (ogUrl) ogUrl.content = serviceUrl;
+
+      let ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null;
+      if (ogTitle) ogTitle.content = `${service.metaTitle} | AG Transfer`;
+
+      let ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null;
+      if (ogDesc) ogDesc.content = service.metaDescription;
+
+      // Inject Schema.org JSON-LD (BreadcrumbList + Service + FAQPage)
+      let dynamicScript = document.getElementById('service-schema-jsonld') as HTMLScriptElement | null;
+      if (!dynamicScript) {
+        dynamicScript = document.createElement('script');
+        dynamicScript.id = 'service-schema-jsonld';
+        dynamicScript.type = 'application/ld+json';
+        document.head.appendChild(dynamicScript);
+      }
+
+      const schemaData = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Início",
+                "item": "https://ag-transfer.vercel.app/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Serviços",
+                "item": "https://ag-transfer.vercel.app/#servicos"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": service.title,
+                "item": serviceUrl
+              }
+            ]
+          },
+          {
+            "@type": "Service",
+            "@id": `${serviceUrl}#service`,
+            "name": service.title,
+            "description": service.metaDescription,
+            "url": serviceUrl,
+            "provider": {
+              "@type": "TaxiService",
+              "name": "AG Transfer & Transporte Executivo LTDA.",
+              "url": "https://ag-transfer.vercel.app/"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Gramado" },
+              { "@type": "City", "name": "Canela" },
+              { "@type": "City", "name": "Bento Gonçalves" },
+              { "@type": "City", "name": "Caxias do Sul" },
+              { "@type": "City", "name": "Porto Alegre" }
+            ]
+          },
+          ...(service.serviceFaq && service.serviceFaq.length > 0 ? [{
+            "@type": "FAQPage",
+            "mainEntity": service.serviceFaq.map((faq) => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+              }
+            }))
+          }] : [])
+        ]
+      };
+
+      dynamicScript.textContent = JSON.stringify(schemaData);
+
+      if (service.slug === 'transfer-para-gramado') {
+        setOrigin('Aeroporto Salgado Filho (POA) ou Caxias (CXJ)');
+        setDestination('Gramado (Hotel, Pousada ou Endereço)');
+      } else if (service.slug === 'transfer-para-canela') {
+        setOrigin('Aeroporto Salgado Filho (POA) ou Caxias (CXJ)');
+        setDestination('Canela (Hotel, Pousada, Catedral ou Caracol)');
+      } else if (service.slug === 'transporte-executivo-gramado') {
+        setOrigin('Hotel / Hospedagem em Gramado ou Canela');
+        setDestination('Restaurantes, Fondue, Serra Park ou Eventos');
+      } else if (service.slug === 'transfer-porto-alegre-gramado') {
         setOrigin('Aeroporto Salgado Filho (POA)');
         setDestination('Gramado / Canela (Hotel ou Pousada)');
       } else if (service.slug === 'tour-vale-dos-vinhedos') {
@@ -103,6 +221,11 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
         setDestination('Itinerário Personalizado');
       }
     }
+
+    return () => {
+      const dynamicScript = document.getElementById('service-schema-jsonld');
+      if (dynamicScript) dynamicScript.remove();
+    };
   }, [service, slug]);
 
   if (!service) {
@@ -162,6 +285,60 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
     comparisonCompetitorName: string;
     comparisonPoints: { feature: string; ag: string; other: string }[];
   }> = {
+    'transfer-para-gramado': {
+      benefitBadge: 'Receptivo Aeroportos POA / CXJ · Subida Direta para Hotéis de Gramado',
+      headlineLead: 'Transfer Para Gramado Privativo VIP Sem Paradas',
+      socialProofTestimonial: {
+        name: 'Rodrigo & Mariana Vasconcelos',
+        role: 'Turistas de Belo Horizonte / MG',
+        quote: 'Desembarcamos em POA com duas crianças e três malas grandes. O motorista da AG Transfer já nos esperava na saída com uma placa e as duas cadeirinhas perfeitamente instaladas. Chegamos em Gramado descansados e sem estresse. Experiência nota 10!',
+        location: 'Aeroporto Salgado Filho (POA) ⇄ Gramado'
+      },
+      comparisonCompetitorName: 'Ônibus Coletivos de Excursão / Transfers Compartilhados',
+      comparisonPoints: [
+        { feature: 'Chegada direta ao seu hotel', ag: 'Direto sem desvios para seu hotel ou pousada em Gramado', other: 'Ônibus para em até 15 hotéis diferentes de outros passageiros' },
+        { feature: 'Zero tempo de espera no aeroporto', ag: 'Embarque imediato assim que você pega suas malas', other: 'Espera de 1h30 a 2h no terminal aguardando outros voos' },
+        { feature: 'Cadeirinha infantil e bebê conforto', ag: 'Inclusas e instaladas gratuitamente sob solicitação prévia', other: 'Raramente oferecidas ou com taxa diária abusiva' },
+        { feature: 'Atrasos de voo sem cobrança extra', ag: 'Monitoramento 24h via radar e reagendamento automático', other: 'Você perde a vaga no ônibus e precisa comprar novo bilhete' },
+        { feature: 'Espaço garantido para compras de inverno', ag: 'Porta-malas espaçoso para casacos, chocolates e vinhos', other: 'Bagageiro lotado e restrições de peso ou volume' }
+      ]
+    },
+    'transfer-para-canela': {
+      benefitBadge: 'Conexão Direta Aeroportos POA / CXJ · Pousadas & Charme de Canela',
+      headlineLead: 'Transfer Para Canela Privativo VIP Sem Conexões',
+      socialProofTestimonial: {
+        name: 'Fernanda & Lucas Peixoto',
+        role: 'Hóspedes em Canela / RJ',
+        quote: 'Ficamos hospedados em uma pousada na rota da Cascata do Caracol em Canela. Todos os transfers convencionais queriam nos deixar no centro de Gramado ou cobrar taxas adicionais. A AG Transfer nos levou direto para Canela na porta da nossa pousada com pontualidade impecável!',
+        location: 'Aeroporto POA ⇄ Canela (Cascata do Caracol)'
+      },
+      comparisonCompetitorName: 'Transfers que Param em Gramado / Ônibus de Linha',
+      comparisonPoints: [
+        { feature: 'Trajeto 100% direto para Canela', ag: 'Chegue até 1 hora mais rápido sem desembarques em Gramado', other: 'Você precisa esperar todos os passageiros de Gramado descerem' },
+        { feature: 'Atendimento em todas as pousadas e chalés', ag: 'Porta a porta em qualquer ponto de Canela e região do Caracol', other: 'Restrito a hotéis convencionais da avenida central' },
+        { feature: 'Parada fotográfica na Catedral de Pedra', ag: 'Flexibilidade para registrar fotos na chegada ou partida', other: 'Zero flexibilidade, horários engessados de transporte coletivo' },
+        { feature: 'Conforto nas curvas da serra', ag: 'Veículo executivo premium com condução suave e segura', other: 'Ônibus balançando nas curvas sinuosas da serra gaúcha' },
+        { feature: 'Retorno com horário personalizado', ag: 'Calculado com folga exata para seu check-in aéreo', other: 'Exigem saída 5 a 6 horas antes do seu voo' }
+      ]
+    },
+    'transporte-executivo-gramado': {
+      benefitBadge: 'Chauffeur Particular VIP · Alta Gastronomia, Serra Park & Eventos',
+      headlineLead: 'Transporte Executivo em Gramado & Serra Gaúcha',
+      socialProofTestimonial: {
+        name: 'Guilherme Sampaio',
+        role: 'Empresário & Expositor no Serra Park',
+        quote: 'Contratei o transporte executivo da AG Transfer durante a semana de eventos no Serra Park e para os jantares de fondue com clientes à noite. Em dias de frio e chuva, ter o carro aquecido nos esperando na porta de cada restaurante fez toda a diferença.',
+        location: 'Gramado & Canela · Circuito Gastronômico e Corporativo'
+      },
+      comparisonCompetitorName: 'Carros de Aplicativo (Uber/99) / Táxis Convencionais',
+      comparisonPoints: [
+        { feature: 'Disponibilidade garantida em noites de chuva/frio', ag: 'Hora marcada com veículo e motorista 100% confirmados', other: 'Cancelamentos em série e espera de até 40 min na chuva' },
+        { feature: 'Tarifa fixa e transparente', ag: 'Preço justo acordado previamente sem surpresas', other: 'Tarifa dinâmica abusiva em feriados, inverno e Natal Luz' },
+        { feature: 'Padrão executivo dos veículos', ag: 'Sedans, SUVs e Vans novos, climatizados e higienizados', other: 'Veículos compactos, desgastados e sem isolamento térmico' },
+        { feature: 'Espera dedicada na porta do restaurante', ag: 'Chauffeur aguarda a finalização do seu jantar com conforto', other: 'Você sai do restaurante e fica no frio procurando carro' },
+        { feature: 'Discrição e motorista em traje social', ag: 'Postura impecável e sigilo para conversas de negócios', other: 'Motoristas desconhecidos sem preparo para atendimento VIP' }
+      ]
+    },
     'transfer-porto-alegre-gramado': {
       benefitBadge: 'Receptivo Aeroporto Salgado Filho · Subida Segura da Serra',
       headlineLead: 'Transfer Executivo Porto Alegre ⇄ Gramado e Canela VIP',

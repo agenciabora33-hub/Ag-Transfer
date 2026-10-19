@@ -1,0 +1,8 @@
+# Robots.txt for AG Transfer & Transporte Executivo
+# Production URL: https://ag-transfer.vercel.app/
+
+User-agent: *
+Allow: /
+
+# Direct Googlebot and other crawlers to the sitemap
+Sitemap: https://ag-transfer.vercel.app/sitemap.xml

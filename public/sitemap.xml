@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Página Principal / Home -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- PÁGINAS DEDICADAS DE CIDADES (GEO, LOCAL SEO & SXO) -->
+  <!-- Cidade: Gramado RS -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/gramado</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Cidade: Canela RS -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/canela</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Cidade: Bento Gonçalves RS -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/bento-goncalves</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Cidade: Caxias do Sul RS (Sede Operacional & CXJ) -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/caxias-do-sul</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Cidade: Porto Alegre RS (Aeroporto Salgado Filho POA) -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/porto-alegre</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Cidade: Garibaldi RS (Capital do Espumante) -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/garibaldi</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Cidade: Nova Petrópolis RS (Rota Romântica) -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/nova-petropolis</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Cidade: Farroupilha RS (Polo Têxtil / Caravaggio) -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/farroupilha</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Cidade: Flores da Cunha RS (Altos Montes) -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/cidades/flores-da-cunha</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- PÁGINAS DEDICADAS DE SERVIÇOS (LANDING PAGES CONVERSÃO) -->
+  <!-- Landing Page: Transfer Para Gramado Privativo VIP -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/transfer-para-gramado</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Landing Page: Transfer Para Canela Privativo VIP -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/transfer-para-canela</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Landing Page: Transporte Executivo em Gramado & Serra Gaúcha -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/transporte-executivo-gramado</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Landing Page: Transfer Aeroporto Porto Alegre (POA) ⇄ Serra Gaúcha -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/transfer-porto-alegre-gramado</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Landing Page: Transfer Aeroporto Caxias do Sul (CXJ) ⇄ Serra Gaúcha -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/transfer-aeroporto-cxj-caxias</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Landing Page: Tour Vale dos Vinhedos & Bento Gonçalves -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/tour-vale-dos-vinhedos</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Landing Page: Tour Privativo Gramado & Canela VIP -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/tour-gramado-canela</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Landing Page: Transporte Corporativo & Feiras na Serra Gaúcha -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/viagens-corporativas-serra</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Landing Page: Motorista Particular por Diária (Chauffeur) -->
+  <url>
+    <loc>https://ag-transfer.vercel.app/servicos/motorista-particular-diaria</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+</urlset>

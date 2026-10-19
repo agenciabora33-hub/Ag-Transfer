@@ -1,6 +1,8 @@
 import React from 'react';
-import { MapPin, Phone, MessageCircle, Clock, ExternalLink, Code2, Star } from 'lucide-react';
-import { COMPANY_NAP } from '../data/companyData';
+import { Link } from 'react-router-dom';
+import { MapPin, Phone, MessageCircle, Clock, ExternalLink, Code2, Star, ChevronRight, Navigation } from 'lucide-react';
+import { COMPANY_NAP, SERVICES } from '../data/companyData';
+import { CITIES_SERVED } from '../data/cityData';
 
 interface FooterProps {
   onOpenExportModal: () => void;
@@ -10,38 +12,33 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal }) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0D0A27] text-slate-300 border-t border-slate-800 pt-16 pb-24 sm:pb-16 relative">
+    <footer className="bg-[#0D0A27] text-white border-t border-slate-800 pt-16 pb-12 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main 3-Column NAP Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/10">
+        {/* 5-Column Grid Layout for Complete NAP, Services, Cities, and Institutional */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-slate-800/80">
           
-          {/* Column 1: Brand & Logo (Col 5) */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center shadow-sm">
+          {/* Column 1: Brand & NAP Summary (Col 3) */}
+          <div className="lg:col-span-3 space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center overflow-hidden">
                 <img
                   src={COMPANY_NAP.logoUrl}
-                  alt="Logo Oficial AG Transfer"
+                  alt="AG Transfer Logo"
                   className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div>
-                <span className="font-['Cinzel',serif] text-xl font-bold tracking-wider text-white block">
-                  AG TRANSFER
-                </span>
-                <span className="text-[11px] text-[#38BDF8] font-semibold tracking-wider uppercase">
-                  Transporte Executivo LTDA.
-                </span>
-              </div>
+              <span className="font-['Cinzel',serif] text-xl font-bold tracking-wider text-white">
+                AG TRANSFER
+              </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-300 max-w-sm leading-relaxed">
-              Especialistas em transfers aeroportuários (POA / CXJ), passeios VIP em Gramado e Canela, tours no Vale dos Vinhedos em Bento Gonçalves e viagens corporativas na Serra Gaúcha.
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Transporte executivo de alto padrão, transfers privativos para aeroportos e tours na Serra Gaúcha. Pontualidade britânica, conforto absoluto e segurança 24 horas.
             </p>
 
-            <div className="pt-2 flex items-center gap-3 text-xs text-[#38BDF8]">
+            <div className="pt-2 text-xs text-slate-400 flex items-center gap-2">
               <a
                 href={COMPANY_NAP.gbpUrl}
                 target="_blank"
@@ -57,10 +54,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal }) => {
             </div>
           </div>
 
-          {/* Column 2: Physical NAP Information (Col 4) */}
-          <div className="lg:col-span-4 space-y-3">
+          {/* Column 2: Physical NAP Information (Col 3) */}
+          <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              Dados Operacionais (NAP)
+              Sede Operacional (NAP)
             </h4>
             
             <div className="space-y-2.5 text-xs text-slate-300">
@@ -107,29 +104,70 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal }) => {
             </div>
           </div>
 
-          {/* Column 3: Navigation & Quick Shortcuts (Col 3) */}
-          <div className="lg:col-span-3 space-y-3">
+          {/* Column 3: Landing Pages & Dedicated Services (Col 2) - SEO */}
+          <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              Navegação & Links Rápidos
+              Serviços (SEO)
+            </h4>
+            <ul className="space-y-1.5 text-xs">
+              {SERVICES.slice(0, 6).map((s) => (
+                <li key={s.id}>
+                  <Link
+                    to={`/servicos/${s.slug}`}
+                    className="hover:text-[#38BDF8] transition-colors flex items-center gap-1 group text-slate-300"
+                  >
+                    <ChevronRight className="w-3 h-3 text-[#38BDF8] opacity-70 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                    <span className="group-hover:underline truncate">{s.title.replace(' VIP', '')}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Cidades Atendidas (Col 2) - GEO */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
+              <Navigation className="w-3 h-3 text-[#38BDF8]" />
+              <span>Cidades (GEO)</span>
+            </h4>
+            <ul className="space-y-1.5 text-xs">
+              {CITIES_SERVED.map((c) => (
+                <li key={c.id}>
+                  <Link
+                    to={`/cidades/${c.slug}`}
+                    className="hover:text-[#38BDF8] transition-colors flex items-center gap-1 group text-slate-300"
+                  >
+                    <ChevronRight className="w-3 h-3 text-[#38BDF8] opacity-70 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                    <span className="group-hover:underline truncate">{c.name} (RS)</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 5: Institucional & Export (Col 2) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              Navegação
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#inicio" className="hover:text-[#38BDF8] transition-colors">Início</a>
+                <a href="/#inicio" className="hover:text-[#38BDF8] transition-colors">Início</a>
               </li>
               <li>
-                <a href="#servicos" className="hover:text-[#38BDF8] transition-colors">Serviços Executivos</a>
+                <a href="/#servicos" className="hover:text-[#38BDF8] transition-colors">Serviços</a>
               </li>
               <li>
-                <a href="#diferenciais" className="hover:text-[#38BDF8] transition-colors">Diferenciais e Segurança</a>
+                <a href="/#cobertura" className="hover:text-[#38BDF8] transition-colors">Cidades Atendidas</a>
               </li>
               <li>
-                <a href="#frota" className="hover:text-[#38BDF8] transition-colors">Frota de Veículos</a>
+                <a href="/#frota" className="hover:text-[#38BDF8] transition-colors">Nossa Frota</a>
               </li>
               <li>
-                <a href="#cobertura" className="hover:text-[#38BDF8] transition-colors">Cobertura Geográfica</a>
+                <a href="/#diferenciais" className="hover:text-[#38BDF8] transition-colors">Diferenciais</a>
               </li>
               <li>
-                <a href="#avaliacoes" className="hover:text-[#38BDF8] transition-colors">Avaliações Google GBP (5.0)</a>
+                <a href="/#avaliacoes" className="hover:text-[#38BDF8] transition-colors">Avaliações GBP (5.0)</a>
               </li>
               <li className="pt-2">
                 <button

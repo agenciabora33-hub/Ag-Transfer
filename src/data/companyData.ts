@@ -81,7 +81,7 @@ export const COMPANY_NAP = {
   gbpUrl: "https://share.google/Zr42iNP6P3vhu2am0",
   googleMapsUrl: "https://share.google/Zr42iNP6P3vhu2am0",
   whatsappBaseUrl: "https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20transfer%20executivo.",
-  canonicalUrl: "https://www.agtransfer.com.br/",
+  canonicalUrl: "https://ag-transfer.vercel.app/",
   geoCoordinates: {
     lat: -29.1833,
     lng: -51.1833,
@@ -147,10 +147,220 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
 
 export const SERVICES: ServiceItem[] = [
   {
+    id: "transfer-para-gramado",
+    slug: "transfer-para-gramado",
+    title: "Transfer Para Gramado Privativo VIP",
+    subtitle: "Aeroportos POA (118 km) e CXJ (68 km) ⇄ Hotéis de Gramado",
+    description: "Receptivo exclusivo nos aeroportos Salgado Filho (POA) ou Caxias do Sul (CXJ) com transporte 100% privativo até seu hotel ou pousada em Gramado. Conforto e zero paradas em hotéis de terceiros.",
+    fullDescription: "O serviço de Transfer Para Gramado Privativo da AG Transfer é a forma mais rápida, segura e sofisticada de chegar ao principal destino turístico da Serra Gaúcha. Ao desembarcar no Aeroporto Salgado Filho (POA) ou no Aeroporto Regional Hugo Cantergiani (CXJ), seu chauffeur particular estará pontualmente no portão com identificação formal, cuidará de todas as suas malas e conduzirá sua família ou equipe direto ao hotel em Gramado. Diferente dos transfers de ônibus com dezenas de paradas exaustivas, nossa viagem é direta, com rota planejada e ar climatizado para você já começar suas férias relaxando.",
+    features: [
+      "Receptivo no portão de desembarque de POA ou CXJ com placa personalizada",
+      "Viagem 100% privativa e direta até a porta do seu hotel em Gramado (sem paradas alheias)",
+      "Monitoramento de voo em tempo real via satélite (tolerância ilimitada a atrasos da malha aérea)",
+      "Opção de parada fotográfica ou café colonial em Nova Petrópolis sob solicitação",
+      "Veículos Sedan Executivo, SUV Premium e Vans VIP com seguro APP de passageiros"
+    ],
+    includedAmenities: [
+      "Água mineral fresca e climatização ajustada para o clima serrano",
+      "Cadeirinhas de bebê, bebê conforto e assentos de elevação higienizados (sem custo extra)",
+      "Conexão Wi-Fi veloz e carregadores USB / Tipo C para smartphones",
+      "Porta-malas espaçoso para casacos volumosos, malas grandes e compras de vinhos e chocolates"
+    ],
+    targetAudience: [
+      "Casais e famílias visitando Gramado, Natal Luz, Festival de Cinema e Snowland",
+      "Turistas que valorizam pontualidade, privacidade e conforto sem filas de ônibus",
+      "Passageiros com bebês, crianças pequenas ou idosos que precisam de ritmo próprio",
+      "Congressistas e palestrantes participando de convenções no Serra Park e Expogramado"
+    ],
+    commonRoutes: [
+      {
+        route: "Aeroporto Porto Alegre (POA) ⇄ Gramado (Centro / Bavária / Planalto)",
+        time: "1h 45m - 2h 00m",
+        distance: "118 km",
+        details: "Subida panorâmica via BR-116/Nova Petrópolis ou RS-020/RS-115 com pedágios e seguro inclusos."
+      },
+      {
+        route: "Aeroporto Caxias do Sul (CXJ) ⇄ Gramado",
+        time: "1h 10m - 1h 20m",
+        distance: "68 km",
+        details: "A conexão aérea mais rápida para Gramado via RS-235 em pista segura."
+      },
+      {
+        route: "Gramado (Hotel) ⇄ Aeroporto Salgado Filho (POA) - Retorno",
+        time: "1h 45m - 2h 00m",
+        distance: "118 km",
+        details: "Agendamento programado com antecedência ideal para check-in tranquilo no aeroporto."
+      }
+    ],
+    serviceFaq: [
+      {
+        question: "Quanto tempo dura a viagem de transfer do aeroporto até Gramado?",
+        answer: "Saindo do Aeroporto Salgado Filho em Porto Alegre (POA), a viagem até Gramado dura em média entre 1h45 e 2h00 (aproximadamente 118 km). Já saindo do Aeroporto de Caxias do Sul (CXJ), o tempo é de apenas 1h10 a 1h20 (68 km). Por ser um transfer 100% privativo, não há perda de tempo em hotéis de outros turistas."
+      },
+      {
+        question: "Como o motorista me recepciona no aeroporto?",
+        answer: "Nosso motorista executivo aguarda você no saguão de desembarque imediatamente após a esteira de bagagens, segurando uma placa personalizada com o seu nome ou da sua família. Ele assume suas malas e acompanha até o veículo no estacionamento coberto."
+      },
+      {
+        question: "O transfer inclui cadeirinha para crianças ou bebê conforto?",
+        answer: "Sim! Disponibilizamos bebê conforto (0 a 1 ano), cadeirinha infantil (1 a 4 anos) ou assento de elevação (4 a 7 anos) higienizados e certificados pelo Inmetro, sem cobrança de nenhuma taxa extra. Basta sinalizar a necessidade ao reservar."
+      },
+      {
+        question: "E se o meu voo para Porto Alegre ou Caxias do Sul atrasar?",
+        answer: "Fique totalmente tranquilo: nossa central de operações monitora o prefixo do seu voo em tempo real 24 horas por dia. Se a companhia aérea atrasar o pouso ou adiantar, seu motorista estará no desembarque no novo horário exato, sem cobrança de hora de espera."
+      },
+      {
+        question: "Qual a diferença entre o transfer privativo e o coletivo de ônibus para Gramado?",
+        answer: "No transfer coletivo você precisa esperar todos os voos do grupo chegarem (geralmente até 2 horas de espera no aeroporto) e, ao chegar em Gramado, o ônibus passa em 10 a 15 hotéis diferentes antes de chegar ao seu. No transfer privativo da AG Transfer, você desembarca, entra no carro exclusivo e sobe a serra direto para a sua acomodação."
+      }
+    ],
+    metaTitle: "Transfer Para Gramado Privativo VIP | Aeroporto POA e CXJ | AG Transfer",
+    metaDescription: "Transfer executivo privativo para Gramado saindo dos aeroportos de Porto Alegre (POA) ou Caxias do Sul (CXJ). Receptivo VIP, seguro total, cadeirinha infantil e atendimento 24h.",
+    icon: "Plane",
+    tag: "Mais Procurado"
+  },
+  {
+    id: "transfer-para-canela",
+    slug: "transfer-para-canela",
+    title: "Transfer Para Canela Privativo VIP",
+    subtitle: "Conexão Direta Aeroportos POA / CXJ ⇄ Pousadas de Canela",
+    description: "Transporte executivo direto para seu hotel ou pousada em Canela sem conexões ou paradas intermediárias em Gramado. Conforto total para desfrutar da charmosa cidade serrana.",
+    fullDescription: "Quem escolhe se hospedar em Canela busca a tranquilidade de suas pousadas charmosas, o ecoturismo na Cascata do Caracol, Skyglass e a imponente Catedral de Pedra. A AG Transfer oferece o serviço exclusivo de Transfer Para Canela: seu motorista busca você no Aeroporto de Porto Alegre (POA) ou de Caxias do Sul (CXJ) e conduz você diretamente até Canela. Com isso, você não perde até 1 hora desembarcando passageiros em hotéis de Gramado, garantindo uma chegada relaxante com assistência de bagagens até a recepção da sua pousada.",
+    features: [
+      "Transporte 100% direto para Canela sem paradas nos hotéis de Gramado",
+      "Atendimento em todas as pousadas da serra, condomínios fechados e hotéis de Canela",
+      "Receptivo VIP nos aeroportos com placa identificadora e monitoramento 24h de voo",
+      "Possibilidade de parada estratégica na Catedral de Pedra ou mirantes de Canela",
+      "Frota premium com Sedans, SUVs e Vans para famílias e grupos grandes"
+    ],
+    includedAmenities: [
+      "Climatização dual-zone eficiente para o frio ou calor serrano",
+      "Água mineral lacrada e higienização garantida antes de cada embarque",
+      "Cadeirinhas infantis e bebê conforto inclusos mediante reserva",
+      "Tomadas e cabos carregadores para dispositivos móveis"
+    ],
+    targetAudience: [
+      "Hóspedes de pousadas de charme, resorts e chalés privativos em Canela",
+      "Famílias explorando o Parque do Caracol, Alpen Park, Terra Mágica Florybal e Skyglass",
+      "Casais em lua de mel buscando discrição e atendimento de primeira classe"
+    ],
+    commonRoutes: [
+      {
+        route: "Aeroporto Salgado Filho (POA) ⇄ Canela (Centro / Catedral / Caracol)",
+        time: "1h 55m - 2h 10m",
+        distance: "126 km",
+        details: "Conexão expressa direta até a sua pousada em Canela sem desvios."
+      },
+      {
+        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Canela",
+        time: "1h 20m - 1h 30m",
+        distance: "75 km",
+        details: "Trajeto cênico e rápido via RS-235 passando por Gramado até Canela."
+      },
+      {
+        route: "Canela ⇄ Aeroporto Salgado Filho (POA) - Retorno",
+        time: "1h 55m - 2h 10m",
+        distance: "126 km",
+        details: "Agendamento pontual calculado com folga para check-in aéreo em POA."
+      }
+    ],
+    serviceFaq: [
+      {
+        question: "O transfer para Canela faz paradas em Gramado?",
+        answer: "Não! No nosso transfer privativo, o veículo é de uso exclusivo seu. Seguimos diretamente de Porto Alegre ou Caxias do Sul até a porta da sua pousada ou hotel em Canela, poupando até 1 hora de viagem se comparado a transfers coletivos."
+      },
+      {
+        question: "Vocês atendem pousadas afastadas na Rota do Caracol e Ferradura?",
+        answer: "Sim, atendemos todas as pousadas e refúgios ecológicos de Canela, incluindo a Estrada do Caracol, Parque da Ferradura, Vale da Ferradura e condomínios fechados da região."
+      },
+      {
+        question: "Quanto tempo dura o transfer do Aeroporto de POA até Canela?",
+        answer: "A viagem dura aproximadamente 2 horas (cerca de 126 km). A condução de nossos motoristas é suave e defensiva, garantindo conforto nas curvas da serra."
+      },
+      {
+        question: "Podemos fazer uma parada para fotos na Catedral de Pedra na chegada?",
+        answer: "Sim, a flexibilidade é um dos maiores diferenciais do nosso transfer. Caso deseje uma rápida pausa fotográfica na espetacular Catedral de Pedra de Canela, basta alinhar com o motorista."
+      }
+    ],
+    metaTitle: "Transfer Para Canela Privativo VIP | Aeroporto POA e CXJ | AG Transfer",
+    metaDescription: "Transfer executivo privativo direto para Canela saindo de Porto Alegre (POA) ou Caxias do Sul (CXJ). Conforto sem conexões em Gramado, receptivo VIP e 24h.",
+    icon: "Plane",
+    tag: "Destino Serra"
+  },
+  {
+    id: "transporte-executivo-gramado",
+    slug: "transporte-executivo-gramado",
+    title: "Transporte Executivo em Gramado & Serra Gaúcha",
+    subtitle: "Chauffeur Particular VIP, Alta Gastronomia & Eventos",
+    description: "Carro executivo de alto padrão com motorista exclusivo à sua disposição em Gramado e Canela. Pontualidade e discrição para jantares, fondues, compras e eventos no Serra Park.",
+    fullDescription: "Gramado é a capital do charme e sofisticação no Sul do Brasil, mas suas noites frias, relevo acidentado e escassez de carros de aplicativo na alta temporada podem gerar frustrações. O Transporte Executivo em Gramado da AG Transfer coloca um chauffeur experiente e um carro impecável à sua disposição. Seja para ir a uma sequência de fondue na Rua Coberta, um jantar intimista em Canela, deslocamentos para o Serra Park e Expogramado, ou casamentos de luxo, você viaja com requinte, segurança e hora marcada.",
+    features: [
+      "Motorista particular em traje executivo com postura discreta e cortês",
+      "Veículos Sedan Premium, SUV e Vans de luxo com climatização e isolamento acústico",
+      "Espera dedicada na porta de restaurantes de fondue, espetáculos do Natal Luz e eventos",
+      "Eliminação total do estresse de procurar vagas concorridas no Centro de Gramado",
+      "Atendimento para casamentos, noivas, produções audiovisuais e feiras de negócios"
+    ],
+    includedAmenities: [
+      "Veículo mantido aquecido no inverno e refrescado nas tardes quentes",
+      "Guarda-chuvas executivos grandes para embarque e desembarque em dias chuvosos",
+      "Wi-Fi corporativo a bordo e pontos de recarga para celulares",
+      "Água mineral lacrada e higienização estrita antes de cada atendimento"
+    ],
+    targetAudience: [
+      "Casais e famílias exigentes que desejam curtir a noite de Gramado sem preocupações",
+      "Noivos, cerimonialistas e convidados de casamentos e celebrações de luxo",
+      "Executivos, investidores e participantes do Festival de Cinema e Festuris",
+      "Turistas que não desejam dirigir em noites com neblina, frio e garoa na serra"
+    ],
+    commonRoutes: [
+      {
+        route: "Hotéis de Gramado ⇄ Restaurantes, Sequências de Fondue e Rua Coberta",
+        time: "10m - 20m com espera",
+        distance: "Circuito Urbano",
+        details: "Transporte noturno pontual com retorno garantido após seu jantar."
+      },
+      {
+        route: "Gramado / Canela ⇄ Serra Park / Expogramado (Feiras e Congressos)",
+        time: "15m - 25m",
+        distance: "8 km - 12 km",
+        details: "Shuttle corporativo pontual para expositores, palestrantes e VIPs."
+      },
+      {
+        route: "Gramado ⇄ Espetáculos do Natal Luz (Nativitaten, Grande Desfile)",
+        time: "Conforme programação",
+        distance: "Circuito Natal Luz",
+        details: "Embarque antecipado e espera no ponto exato sem filas de táxi na chuva."
+      }
+    ],
+    serviceFaq: [
+      {
+        question: "Por que contratar transporte executivo em vez de táxi ou aplicativo em Gramado?",
+        answer: "Em Gramado, especialmente à noite, em dias de chuva ou alta temporada (Natal Luz, inverno e feriados), os aplicativos sofrem com cancelamentos constantes, tarifas dinâmicas astronômicas e falta de carros disponíveis. Com a AG Transfer, seu carro e motorista estão garantidos com agendamento prévio e espera na porta."
+      },
+      {
+        question: "O motorista aguarda enquanto jantamos no restaurante ou fondue?",
+        answer: "Sim! Podemos reservar o transporte no formato de ida e volta com horários combinados ou contratar o serviço com espera dedicada no local, garantindo que o carro esteja pronto assim que você terminar a sobremesa."
+      },
+      {
+        question: "Vocês atendem casamentos e eventos de noivas em Gramado e Canela?",
+        answer: "Sim, somos especialistas no atendimento a casamentos e bodas na serra. Conduzimos a noiva com pontualidade milimétrica, realizamos traslados para padrinhos e convidados e oferecemos vans executivas para grandes grupos."
+      },
+      {
+        question: "É possível contratar por turnos de 4 horas ou período noturno?",
+        answer: "Com certeza. Temos pacotes flexíveis para saídas noturnas (4 a 5 horas), diárias completas ou corridas pontuais agendadas."
+      }
+    ],
+    metaTitle: "Transporte Executivo em Gramado & Serra Gaúcha VIP | AG Transfer",
+    metaDescription: "Transporte executivo com motorista particular em Gramado e Canela. Chauffeur para jantares de fondue, eventos no Serra Park, casamentos e viagens VIP 24h.",
+    icon: "Car",
+    tag: "Padrão Luxo"
+  },
+  {
     id: "transfer-porto-alegre-gramado",
     slug: "transfer-porto-alegre-gramado",
-    title: "Transfer Porto Alegre ⇄ Gramado e Canela VIP",
-    subtitle: "Aeroporto Salgado Filho (POA) ⇄ Hotéis da Serra",
+    title: "Transfer Aeroporto Porto Alegre (POA) ⇄ Serra Gaúcha",
+    subtitle: "Salgado Filho ⇄ Gramado, Canela, Bento e Caxias",
     description: "Receptivo exclusivo no Aeroporto Salgado Filho (POA) com transporte privativo até o seu hotel ou pousada em Gramado e Canela. Conforto total para subir a serra sem atrasos ou filas.",
     fullDescription: "O transfer privativo entre o Aeroporto Internacional Salgado Filho (POA) e as cidades de Gramado e Canela é o serviço mais procurado da Serra Gaúcha. A AG Transfer proporciona uma viagem suave pela rota mais segura, sem a espera exaustiva de transfers compartilhados em ônibus com múltiplas paradas em hotéis de terceiros. Seu chauffeur estará pontualmente no desembarque com identificação formal, auxiliando com malas e conduzindo sua família ou equipe direto ao destino final em veículos climatizados de padrão executivo superior.",
     features: [
@@ -198,12 +408,80 @@ export const SERVICES: ServiceItem[] = [
       {
         question: "Como funciona se o meu voo para POA atrasar?",
         answer: "Nossa central monitora seu voo pelo radar 24 horas. Se houver atraso, o motorista é reposicionado para o novo horário de pouso sem cobrança extra."
+      },
+      {
+        question: "Como é o pagamento do transfer de Porto Alegre para Gramado?",
+        answer: "Aceitamos PIX, cartões de crédito e débito com parcelamento facilitado, além de faturamento corporativo para empresas (PJ) com Nota Fiscal."
       }
     ],
     metaTitle: "Transfer Porto Alegre para Gramado e Canela VIP | AG Transfer",
     metaDescription: "Transfer executivo privativo do Aeroporto de Porto Alegre (POA) para Gramado e Canela. Pontualidade, conforto, monitoramento de voo 24h e seguro total.",
     icon: "Plane",
-    tag: "Mais Buscado"
+    tag: "Aeroporto POA"
+  },
+  {
+    id: "transfer-aeroporto-cxj-caxias",
+    slug: "transfer-aeroporto-cxj-caxias",
+    title: "Transfer Aeroporto de Caxias do Sul (CXJ)",
+    subtitle: "Aeroporto Hugo Cantergiani ⇄ Serra Gaúcha (Gramado a 68 km)",
+    description: "Receptivo ágil no Aeroporto Regional Hugo Cantergiani (CXJ) em Caxias do Sul com ligação rápida para Gramado, Canela, Bento Gonçalves, Farroupilha e Flores da Cunha.",
+    fullDescription: "O Aeroporto Regional Hugo Cantergiani de Caxias do Sul (CXJ) é a porta de entrada aérea mais próxima de Gramado, Canela e Bento Gonçalves. Para quem desembarca em CXJ, a AG Transfer oferece conexão expressa: em apenas 1h15m você chega aos hotéis de Gramado, e em apenas 40 minutos ao Vale dos Vinhedos em Bento Gonçalves. Nossa equipe monitora seu voo em tempo real e aguarda pontualmente no terminal de passageiros com veículo executivo higienizado e climatizado.",
+    features: [
+      "Receptivo pontual no terminal de passageiros do Aeroporto CXJ",
+      "A rota mais rápida para a Serra Gaúcha (Gramado a apenas 68 km de distância)",
+      "Monitoramento contínuo dos voos da Gol, Latam, Azul e aviação executiva privada",
+      "Veículos Sedan, SUV e Van para acomodar viagens individuais ou grupos inteiros"
+    ],
+    includedAmenities: [
+      "Água mineral e carregadores veiculares à disposição",
+      "Wi-Fi corporativo de alta estabilidade",
+      "Assistência completa com bagagens no desembarque e no hotel",
+      "Tolerância para atrasos operacionais da malha aérea"
+    ],
+    targetAudience: [
+      "Passageiros de voos comerciais regulares pousando em Caxias do Sul (CXJ)",
+      "Usuários de aviação executiva, táxi aéreo e jatos particulares",
+      "Empresários visitando o polo metalmecânico de Caxias do Sul",
+      "Turistas buscando a menor distância e menor tempo de estrada até a Serra Gaúcha"
+    ],
+    commonRoutes: [
+      {
+        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Gramado e Canela",
+        time: "1h 10m - 1h 25m",
+        distance: "68 km",
+        details: "Conexão rápida e panorâmica via RS-235 direto ao seu hotel."
+      },
+      {
+        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Bento Gonçalves (Vale dos Vinhedos)",
+        time: "40m - 50m",
+        distance: "42 km",
+        details: "Ligação direta polo vinícola e moveleiro via RS-453."
+      },
+      {
+        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Centro e Indústrias de Caxias do Sul",
+        time: "15m - 25m",
+        distance: "8 km",
+        details: "Transporte expresso para hotéis executivos e parques fabris."
+      }
+    ],
+    serviceFaq: [
+      {
+        question: "Qual a distância do Aeroporto de Caxias (CXJ) até Gramado?",
+        answer: "São aproximadamente 68 km, percorridos em cerca de 1 hora e 15 minutos de viagem tranquila pela RS-235, sendo muito mais rápido do que a subida a partir de Porto Alegre (que tem 118 km)."
+      },
+      {
+        question: "Vocês atendem voos particulares e jatos executivos no Aeroporto CXJ?",
+        answer: "Sim, prestamos atendimento VIP no hangar executivo e na pista geral com total discrição e protocolos de segurança para passageiros da aviação privada."
+      },
+      {
+        question: "Se as condições meteorológicas em CXJ causarem desvio para POA, o que acontece?",
+        answer: "Nossa equipe acompanha o voo pelo radar. Caso o voo alterne para o Aeroporto Salgado Filho em Porto Alegre, nossa central reorganiza a logística para recepcionar você em POA com agilidade."
+      }
+    ],
+    metaTitle: "Transfer Aeroporto Caxias do Sul (CXJ) para Gramado e Bento | AG Transfer",
+    metaDescription: "Transfer executivo do Aeroporto Hugo Cantergiani (CXJ) em Caxias do Sul para Gramado, Canela e Bento Gonçalves. Atendimento 24h pontual e seguro.",
+    icon: "Plane",
+    tag: "Conexão Expressa"
   },
   {
     id: "tour-vale-dos-vinhedos",
@@ -257,6 +535,10 @@ export const SERVICES: ServiceItem[] = [
       {
         question: "O veículo acomoda caixas de vinhos compradas durante o passeio?",
         answer: "Com certeza! Nossos Sedans, SUVs e Vans possuem porta-malas espaçosos para transportar garrafas e caixas com segurança e climatização adequada."
+      },
+      {
+        question: "O tour pode sair do meu hotel em Gramado ou Canela?",
+        answer: "Sim! Fazemos o passeio no formato de bate-e-volta com saída pela manhã do seu hotel em Gramado ou Canela, dia completo de vinícolas em Bento Gonçalves e retorno seguro no fim da tarde."
       }
     ],
     metaTitle: "Tour Vale dos Vinhedos Bento Gonçalves Privativo | AG Transfer",
@@ -316,71 +598,16 @@ export const SERVICES: ServiceItem[] = [
       {
         question: "Como funciona durante os espetáculos do Natal Luz?",
         answer: "Nosso motorista leva você com antecedência até os portões do espetáculo e aguarda o término do show no ponto de encontro combinado, evitando as longas filas de táxi e chuva."
+      },
+      {
+        question: "O ingresso dos parques turísticos está incluso no valor?",
+        answer: "O serviço cobre o transporte privativo executivo, combustível, pedágios e espera dedicada do chauffeur. Os ingressos das atrações são adquiridos separadamente por cada passageiro, permitindo total liberdade de escolha."
       }
     ],
     metaTitle: "Tour Privativo Gramado e Canela VIP | AG Transfer Serra Gaúcha",
     metaDescription: "Passeio privativo em Gramado e Canela com motorista exclusivo. Visite o Lago Negro, Caracol, Skyglass e Natal Luz com conforto e sem aglomerações.",
     icon: "Sparkles",
-    tag: "Experiência Exclusiva"
-  },
-  {
-    id: "transfer-aeroporto-cxj-caxias",
-    slug: "transfer-aeroporto-cxj-caxias",
-    title: "Transfer Aeroporto de Caxias do Sul (CXJ)",
-    subtitle: "Aeroporto Hugo Cantergiani ⇄ Serra Gaúcha",
-    description: "Receptivo ágil no Aeroporto Regional Hugo Cantergiani (CXJ) em Caxias do Sul com ligação rápida para Gramado, Canela, Bento Gonçalves, Farroupilha e Flores da Cunha.",
-    fullDescription: "O Aeroporto Regional Hugo Cantergiani de Caxias do Sul (CXJ) é a porta de entrada aérea mais próxima de Gramado, Canela e Bento Gonçalves. Para quem desembarca em CXJ, a AG Transfer oferece conexão expressa: em apenas 1h15m você chega aos hotéis de Gramado, e em apenas 40 minutos ao Vale dos Vinhedos em Bento Gonçalves. Nossa equipe monitora seu voo em tempo real e aguarda pontualmente no terminal de passageiros com veículo executivo higienizado e climatizado.",
-    features: [
-      "Receptivo pontual no terminal de passageiros do Aeroporto CXJ",
-      "A rota mais rápida para a Serra Gaúcha (Gramado a apenas 68 km de distância)",
-      "Monitoramento contínuo dos voos da Gol, Latam, Azul e aviação executiva privada",
-      "Veículos Sedan, SUV e Van para acomodar viagens individuais ou grupos inteiros"
-    ],
-    includedAmenities: [
-      "Água mineral e carregadores veiculares à disposição",
-      "Wi-Fi corporativo de alta estabilidade",
-      "Assistência completa com bagagens no desembarque e no hotel",
-      "Tolerância para atrasos operacionais da malha aérea"
-    ],
-    targetAudience: [
-      "Passageiros de voos comerciais regulares pousando em Caxias do Sul (CXJ)",
-      "Usuários de aviação executiva, táxi aéreo e jatos particulares",
-      "Empresários visitando o polo metalmecânico de Caxias do Sul"
-    ],
-    commonRoutes: [
-      {
-        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Gramado e Canela",
-        time: "1h 10m - 1h 25m",
-        distance: "68 km",
-        details: "Conexão rápida e panorâmica via RS-235 direto ao seu hotel."
-      },
-      {
-        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Bento Gonçalves (Vale dos Vinhedos)",
-        time: "40m - 50m",
-        distance: "42 km",
-        details: "Ligação direta polo vinícola e moveleiro via RS-453."
-      },
-      {
-        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Centro e Indústrias de Caxias do Sul",
-        time: "15m - 25m",
-        distance: "8 km",
-        details: "Transporte expresso para hotéis executivos e parques fabris."
-      }
-    ],
-    serviceFaq: [
-      {
-        question: "Qual a distância do Aeroporto de Caxias (CXJ) até Gramado?",
-        answer: "São aproximadamente 68 km, percorridos em cerca de 1 hora e 15 minutos de viagem tranquila pela RS-235, sendo muito mais rápido do que a subida a partir de Porto Alegre."
-      },
-      {
-        question: "Vocês atendem voos particulares e jatos executivos no Aeroporto CXJ?",
-        answer: "Sim, prestamos atendimento VIP no hangar executivo e na pista geral com total discrição e protocolos de segurança para passageiros da aviação privada."
-      }
-    ],
-    metaTitle: "Transfer Aeroporto Caxias do Sul (CXJ) para Gramado e Bento | AG Transfer",
-    metaDescription: "Transfer executivo do Aeroporto Hugo Cantergiani (CXJ) em Caxias do Sul para Gramado, Canela e Bento Gonçalves. Atendimento 24h pontual e seguro.",
-    icon: "Plane",
-    tag: "Conexão Direta"
+    tag: "Roteiro Exclusivo"
   },
   {
     id: "viagens-corporativas-serra",
@@ -434,6 +661,10 @@ export const SERVICES: ServiceItem[] = [
       {
         question: "Os motoristas podem cumprir exigências de segurança de fábrica (EPIs)?",
         answer: "Sim, nossos motoristas respeitam rigorosamente as normas de segurança patrimonial e portaria das indústrias, portando calçados adequados e identificação com crachá."
+      },
+      {
+        question: "Vocês atendem translado para eventos corporativos em Gramado e Canela?",
+        answer: "Sim, atendemos convenções no Serra Park, Expogramado e hotéis executivos de toda a região, oferecendo vans executivas VIP e carros sedans para palestrantes."
       }
     ],
     metaTitle: "Transporte Corporativo e Feiras na Serra Gaúcha | AG Transfer B2B",
@@ -493,6 +724,10 @@ export const SERVICES: ServiceItem[] = [
       {
         question: "O motorista pode nos buscar em Gramado e levar até vinícolas em Bento no mesmo dia?",
         answer: "Sim! Essa é uma das utilizações mais populares da nossa diária privativa, permitindo aproveitar com conforto o melhor das duas regiões no mesmo passeio."
+      },
+      {
+        question: "Como funciona a alimentação do motorista durante a diária?",
+        answer: "Em diárias completas de 8h a 10h, o motorista cuida de suas próprias refeições durante os momentos em que você está em almoços ou visitas guiadas, sem qualquer encargo ou constrangimento para o contratante."
       }
     ],
     metaTitle: "Motorista Particular por Diária na Serra Gaúcha | AG Transfer",
