@@ -1,158 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Página Principal / Home -->
   <url>
     <loc>https://ag-transfer.vercel.app/</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- PÁGINAS DEDICADAS DE CIDADES (GEO, LOCAL SEO & SXO) -->
-  <!-- Cidade: Gramado RS -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/gramado</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <priority>0.9</priority>
   </url>
-
-  <!-- Cidade: Canela RS -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/canela</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <priority>0.9</priority>
   </url>
-
-  <!-- Cidade: Bento Gonçalves RS -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/bento-goncalves</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <priority>0.9</priority>
   </url>
-
-  <!-- Cidade: Caxias do Sul RS (Sede Operacional & CXJ) -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/caxias-do-sul</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <priority>0.9</priority>
   </url>
-
-  <!-- Cidade: Porto Alegre RS (Aeroporto Salgado Filho POA) -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/porto-alegre</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Cidade: Garibaldi RS (Capital do Espumante) -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/garibaldi</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Cidade: Nova Petrópolis RS (Rota Romântica) -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/nova-petropolis</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Cidade: Farroupilha RS (Polo Têxtil / Caravaggio) -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/farroupilha</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Cidade: Flores da Cunha RS (Altos Montes) -->
   <url>
     <loc>https://ag-transfer.vercel.app/cidades/flores-da-cunha</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- PÁGINAS DEDICADAS DE SERVIÇOS (LANDING PAGES DE ALTA CONVERSÃO) -->
-  <!-- Transfer Para Gramado Privativo VIP -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transfer-para-gramado</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <priority>0.9</priority>
   </url>
-
-  <!-- Transfer Para Canela Privativo VIP -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transfer-para-canela</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <priority>0.9</priority>
   </url>
-
-  <!-- Transporte Executivo em Gramado & Serra Gaúcha -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transporte-executivo-gramado</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Transfer Aeroporto Porto Alegre (POA) ⇄ Serra Gaúcha -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transfer-porto-alegre-gramado</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Transfer Aeroporto Caxias do Sul (CXJ) ⇄ Serra Gaúcha -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/transfer-aeroporto-cxj-caxias</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Tour Vale dos Vinhedos & Bento Gonçalves -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/tour-vale-dos-vinhedos</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Tour Privativo Gramado & Canela VIP -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/tour-gramado-canela</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Transporte Corporativo & Feiras na Serra Gaúcha -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/viagens-corporativas-serra</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Motorista Particular por Diária (Chauffeur) -->
   <url>
     <loc>https://ag-transfer.vercel.app/servicos/motorista-particular-diaria</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.8</priority>
   </url>
-
 </urlset>

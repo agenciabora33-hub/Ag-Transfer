@@ -24,5 +24,6 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-# Canonical XML Sitemap for Bing, Google and Webmaster Tools
+# Canonical Sitemaps for Bing, Google and Webmaster Tools
 Sitemap: https://ag-transfer.vercel.app/sitemap.xml
+Sitemap: https://ag-transfer.vercel.app/sitemap.txt
