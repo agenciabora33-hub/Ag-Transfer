@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, MessageCircle, Clock, ExternalLink, Code2, Star, ChevronRight, Navigation } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, Clock, ExternalLink, Code2, Star, ChevronRight, Navigation, Zap } from 'lucide-react';
 import { COMPANY_NAP, SERVICES } from '../data/companyData';
 import { CITIES_SERVED } from '../data/cityData';
 
 interface FooterProps {
   onOpenExportModal: () => void;
+  onOpenIndexNowModal?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenExportModal }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNowModal }) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -177,6 +178,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal }) => {
                 >
                   <Code2 className="w-3.5 h-3.5" />
                   <span>Código HTML5 Autônomo</span>
+                </button>
+              </li>
+              <li className="pt-1">
+                <button
+                  onClick={onOpenIndexNowModal}
+                  className="inline-flex items-center gap-1.5 text-[11px] text-amber-400 hover:text-white transition-colors cursor-pointer"
+                  title="Painel e Envio de URLs ao IndexNow (Microsoft Bing)"
+                >
+                  <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                  <span>IndexNow Bing (Instantâneo)</span>
+                  <span className="text-[9px] bg-amber-400/20 text-amber-300 font-bold px-1.5 py-0.5 rounded-full border border-amber-400/40">
+                    Chave Ativa
+                  </span>
                 </button>
               </li>
             </ul>

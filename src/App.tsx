@@ -13,6 +13,7 @@ import { MobileStickyCTA } from './components/MobileStickyCTA';
 import { FloatingWhatsAppCTA } from './components/FloatingWhatsAppCTA';
 import { QuoteModal } from './components/QuoteModal';
 import { SingleFileExportModal } from './components/SingleFileExportModal';
+import { IndexNowModal } from './components/IndexNowModal';
 import { HomePage } from './pages/HomePage';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { CityDetailPage } from './pages/CityDetailPage';
@@ -39,6 +40,7 @@ export default function App() {
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [initialServiceForModal, setInitialServiceForModal] = useState('Transfer Aeroportuário');
   const [exportModalOpen, setExportModalOpen] = useState(false);
+  const [indexNowModalOpen, setIndexNowModalOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -87,7 +89,10 @@ export default function App() {
       </div>
 
       {/* Semantic Footer (Complete NAP + Legal) */}
-      <Footer onOpenExportModal={() => setExportModalOpen(true)} />
+      <Footer
+        onOpenExportModal={() => setExportModalOpen(true)}
+        onOpenIndexNowModal={() => setIndexNowModalOpen(true)}
+      />
 
       {/* Mobile Sticky Thumb-Zone CTA */}
       <MobileStickyCTA onOpenQuoteModal={() => handleOpenQuoteModal()} />
@@ -123,6 +128,12 @@ export default function App() {
       <SingleFileExportModal
         isOpen={exportModalOpen}
         onClose={() => setExportModalOpen(false)}
+      />
+
+      {/* Microsoft Bing IndexNow Instant Submission Modal */}
+      <IndexNowModal
+        isOpen={indexNowModalOpen}
+        onClose={() => setIndexNowModalOpen(false)}
       />
     </div>
   );
