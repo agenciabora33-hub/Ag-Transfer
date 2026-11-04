@@ -6,6 +6,7 @@ import { FleetSection } from '../components/FleetSection';
 import { CoverageSection } from '../components/CoverageSection';
 import { ReviewsSection } from '../components/ReviewsSection';
 import { FAQSection } from '../components/FAQSection';
+import { HomeLibertadoresBanner } from '../components/HomeLibertadoresBanner';
 import { SEOHead } from '../components/SEOHead';
 import { COMPANY_NAP } from '../data/companyData';
 import { CITIES_SERVED } from '../data/cityData';
@@ -82,7 +83,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenQuoteModal }) => {
         schemaGraph={homeSchemaGraph}
       />
 
-      <main className="flex-1">
+      <main className="flex-1 pt-14 sm:pt-16">
+        {/* Campaign Banner: Final Libertadores 2026 */}
+        <HomeLibertadoresBanner />
+
         {/* 1. Hero Section (Official Logo Badge + 3D Tilt Simulator + E-E-A-T) */}
         <Hero onOpenQuoteModal={() => onOpenQuoteModal()} />
 

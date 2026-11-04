@@ -899,6 +899,25 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                 </table>
               </div>
             </div>
+
+            {/* Special International Link to Montevideo */}
+            <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+              <div className="text-center sm:text-left">
+                <span className="text-[10px] font-black uppercase tracking-wider text-amber-400 block mb-0.5">
+                  Rota Internacional Especial &bull; Final Libertadores 2026
+                </span>
+                <p className="text-xs sm:text-sm font-bold text-white">
+                  Vai para a final em Montevidéu? Oferecemos transfer privativo saindo direto do Aeroporto Salgado Filho (POA) até o Estádio Centenário.
+                </p>
+              </div>
+              <Link
+                to="/transfer-porto-alegre-montevideu"
+                className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all"
+              >
+                <span>transfer Porto Alegre Montevidéu</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         </section>
       )}

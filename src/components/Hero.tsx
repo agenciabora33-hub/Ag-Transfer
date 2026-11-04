@@ -62,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
   };
 
   return (
-    <section id="inicio" className="relative min-h-[96vh] flex items-center justify-center pt-28 pb-20 overflow-hidden bg-[#F8FAFC]">
+    <section id="inicio" className="relative min-h-[90vh] flex items-center justify-center pt-10 sm:pt-14 pb-20 overflow-hidden bg-[#F8FAFC]">
       {/* Background Image with Crisp Light Gradient Scrim */}
       <div className="absolute inset-0 z-0">
         <img

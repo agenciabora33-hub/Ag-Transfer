@@ -122,6 +122,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
                   </Link>
                 </li>
               ))}
+              <li className="pt-1">
+                <Link
+                  to="/transfer-porto-alegre-montevideu"
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1 group text-amber-400 font-bold"
+                >
+                  <ChevronRight className="w-3 h-3 text-amber-400 opacity-90 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                  <span className="group-hover:underline truncate">Transfer POA ➔ Montevidéu (Uruguai)</span>
+                </Link>
+              </li>
             </ul>
           </div>
 

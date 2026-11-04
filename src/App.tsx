@@ -17,6 +17,7 @@ import { IndexNowModal } from './components/IndexNowModal';
 import { HomePage } from './pages/HomePage';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { CityDetailPage } from './pages/CityDetailPage';
+import { MontevideoTransferPage } from './pages/MontevideoTransferPage';
 
 // Automatically scroll to top on route navigation
 const ScrollToTopOnRoute: React.FC = () => {
@@ -83,6 +84,10 @@ export default function App() {
           <Route
             path="/cidades/:slug"
             element={<CityDetailPage onOpenQuoteModal={handleOpenQuoteModal} />}
+          />
+          <Route
+            path="/transfer-porto-alegre-montevideu"
+            element={<MontevideoTransferPage onOpenQuoteModal={handleOpenQuoteModal} />}
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

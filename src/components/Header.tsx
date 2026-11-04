@@ -32,6 +32,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
   const navLinks = [
     { label: 'Início', href: '/#inicio' },
     { label: 'Serviços', href: '/#servicos' },
+    {
+      label: 'Transfer Montevidéu',
+      href: '/transfer-porto-alegre-montevideu',
+      isRoute: true,
+      badge: 'Final 2026',
+    },
     { label: 'Cidades Atendidas', href: '/#cobertura' },
     { label: 'Frota', href: '/#frota' },
     { label: 'Diferenciais', href: '/#diferenciais' },
@@ -74,16 +80,34 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
           </Link>
 
           {/* Zone 2: 4-6 clean text navigation links */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="hover:text-[#0284C7] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#0284C7] hover:after:w-full after:transition-all after:duration-300"
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-sm font-semibold text-slate-600">
+            {navLinks.map((link) => {
+              if (link.isRoute) {
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className="hover:text-[#0284C7] transition-colors relative py-1 flex items-center gap-1.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#0284C7] hover:after:w-full after:transition-all after:duration-300"
+                  >
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 text-[10px] font-black uppercase tracking-tight border border-amber-400/40">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="hover:text-[#0284C7] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#0284C7] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Zone 3: 1-2 primary actions */}
@@ -126,16 +150,35 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="sm:hidden border-t border-slate-200 mt-2 pt-3 pb-4 bg-white/98 backdrop-blur-xl rounded-b-2xl px-2 space-y-2 shadow-xl animate-fadeIn">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-[#0284C7] transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              if (link.isRoute) {
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 bg-amber-500/10 hover:bg-amber-500/20 text-[#0284C7] transition-colors"
+                  >
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-black uppercase tracking-tight">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-[#0284C7] transition-colors"
+                >
+                  {link.label}
+                </a>
+              );
+            })}
             <div className="pt-2 border-t border-slate-200 space-y-2">
               <a
                 href={COMPANY_NAP.whatsappBaseUrl}

@@ -34,6 +34,9 @@ export function getAllSiteUrls(): string[] {
     urls.push(`${baseUrl}/cidades/${city.slug}`);
   });
 
+  // Dedicated International Campaign: Transfer Porto Alegre -> Montevidéu
+  urls.push(`${baseUrl}/transfer-porto-alegre-montevideu`);
+
   return urls;
 }
 
