@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
         {/* 5-Column Grid Layout for Complete NAP, Services, Cities, and Institutional */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-slate-800/80">
           
-          {/* Column 1: Brand & NAP Summary (Col 3) */}
+          {/* Column 1: Brand & NAP Summary */}
           <div className="lg:col-span-3 space-y-4">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center overflow-hidden">
@@ -39,35 +39,35 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               </span>
             </div>
 
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-300 leading-relaxed">
               Transporte executivo de alto padrão, transfers privativos para aeroportos e tours na Serra Gaúcha. Pontualidade britânica, conforto absoluto e atendimento de segunda a domingo, das 05h às 23h.
             </p>
 
-            <div className="pt-2 text-xs text-slate-400 flex flex-wrap items-center gap-2">
+            <div className="pt-2 text-xs text-slate-300 flex flex-wrap items-center gap-2">
               <a
                 href={COMPANY_NAP.gbpUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline flex items-center gap-1 font-semibold text-white"
               >
-                <Star className="w-3.5 h-3.5 text-[#F59E0B] fill-[#F59E0B]" />
+                <Star className="w-3.5 h-3.5 text-[#F59E0B] fill-[#F59E0B]" aria-hidden="true" />
                 <span>5.0 Google Business (+200 avaliações)</span>
-                <ExternalLink className="w-2.5 h-2.5 text-[#38BDF8]" />
+                <ExternalLink className="w-2.5 h-2.5 text-[#38BDF8]" aria-hidden="true" />
               </a>
-              <span>·</span>
-              <span className="text-emerald-400 font-semibold">Seg a Dom · 05h às 23h</span>
+              <span aria-hidden="true">·</span>
+              <span className="text-emerald-300 font-semibold">Seg a Dom · 05h às 23h</span>
             </div>
           </div>
 
-          {/* Column 2: Service Coverage Area & Contact (Col 3) */}
+          {/* Column 2: Service Coverage Area & Contact */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white">
               Área de Cobertura & Contato
-            </h4>
+            </h2>
             
-            <div className="space-y-2.5 text-xs text-slate-300">
+            <div className="space-y-2.5 text-xs text-slate-200">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="text-white font-medium block">Área de Cobertura Oficial:</span>
                   <ul className="space-y-0.5 mt-0.5 text-slate-300">
@@ -79,7 +79,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
+                <Phone className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="text-white font-medium block">Telefone / Central:</span>
                   <a href={`tel:${COMPANY_NAP.phoneRaw}`} className="hover:text-white tabular-nums font-semibold">
@@ -89,7 +89,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               </div>
 
               <div className="flex items-start gap-2.5">
-                <MessageCircle className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
+                <MessageCircle className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="text-white font-medium block">WhatsApp Comercial (05h às 23h):</span>
                   <a
@@ -104,28 +104,28 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Clock className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="text-white font-medium block">Funcionamento:</span>
-                  <span className="text-emerald-400 font-semibold">{COMPANY_NAP.operatingHours}</span>
+                  <span className="text-emerald-300 font-semibold">{COMPANY_NAP.operatingHours}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Column 3: Landing Pages & Dedicated Services (Col 2) - SEO */}
+          {/* Column 3: Landing Pages & Dedicated Services */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white">
               Serviços (SEO)
-            </h4>
+            </h2>
             <ul className="space-y-1.5 text-xs">
               {SERVICES.slice(0, 6).map((s) => (
                 <li key={s.id}>
                   <Link
                     to={`/servicos/${s.slug}`}
-                    className="hover:text-[#38BDF8] transition-colors flex items-center gap-1 group text-slate-300"
+                    className="hover:text-[#38BDF8] transition-colors flex items-center gap-1 group text-slate-200"
                   >
-                    <ChevronRight className="w-3 h-3 text-[#38BDF8] opacity-70 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                    <ChevronRight className="w-3 h-3 text-[#38BDF8] opacity-80 group-hover:translate-x-0.5 transition-transform shrink-0" aria-hidden="true" />
                     <span className="group-hover:underline truncate">{s.title.replace(' VIP', '')}</span>
                   </Link>
                 </li>
@@ -133,29 +133,29 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               <li className="pt-1">
                 <Link
                   to="/transfer-porto-alegre-montevideu"
-                  className="hover:text-amber-300 transition-colors flex items-center gap-1 group text-amber-400 font-bold"
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1 group text-amber-300 font-bold"
                 >
-                  <ChevronRight className="w-3 h-3 text-amber-400 opacity-90 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                  <ChevronRight className="w-3 h-3 text-amber-300 opacity-90 group-hover:translate-x-0.5 transition-transform shrink-0" aria-hidden="true" />
                   <span className="group-hover:underline truncate">Transfer POA ➔ Montevidéu (Uruguai)</span>
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Cidades Atendidas (Col 2) - GEO */}
+          {/* Column 4: Cidades Atendidas */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
-              <Navigation className="w-3 h-3 text-[#38BDF8]" />
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
+              <Navigation className="w-3 h-3 text-[#38BDF8]" aria-hidden="true" />
               <span>Cidades (GEO)</span>
-            </h4>
+            </h2>
             <ul className="space-y-1.5 text-xs">
               {CITIES_SERVED.map((c) => (
                 <li key={c.id}>
                   <Link
                     to={`/cidades/${c.slug}`}
-                    className="hover:text-[#38BDF8] transition-colors flex items-center gap-1 group text-slate-300"
+                    className="hover:text-[#38BDF8] transition-colors flex items-center gap-1 group text-slate-200"
                   >
-                    <ChevronRight className="w-3 h-3 text-[#38BDF8] opacity-70 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                    <ChevronRight className="w-3 h-3 text-[#38BDF8] opacity-80 group-hover:translate-x-0.5 transition-transform shrink-0" aria-hidden="true" />
                     <span className="group-hover:underline truncate">{c.name} (RS)</span>
                   </Link>
                 </li>
@@ -163,12 +163,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
             </ul>
           </div>
 
-          {/* Column 5: Institucional & Export (Col 2) */}
+          {/* Column 5: Institucional & Export */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white">
               Navegação
-            </h4>
-            <ul className="space-y-2 text-xs">
+            </h2>
+            <ul className="space-y-2 text-xs text-slate-200">
               <li>
                 <a href="/#inicio" className="hover:text-[#38BDF8] transition-colors">Início</a>
               </li>
@@ -187,25 +187,30 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               <li>
                 <a href="/#avaliacoes" className="hover:text-[#38BDF8] transition-colors">Avaliações GBP (5.0)</a>
               </li>
+              <li>
+                <a href="/sitemap.xml" className="hover:text-[#38BDF8] transition-colors">Sitemap XML</a>
+              </li>
               <li className="pt-2">
                 <button
+                  type="button"
                   onClick={onOpenExportModal}
                   className="inline-flex items-center gap-1.5 text-[11px] text-[#38BDF8] hover:text-white transition-colors cursor-pointer"
                   title="Visualizar ou Baixar Código Single-File HTML5"
                 >
-                  <Code2 className="w-3.5 h-3.5" />
+                  <Code2 className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>Código HTML5 Autônomo</span>
                 </button>
               </li>
               <li className="pt-1">
                 <button
+                  type="button"
                   onClick={onOpenIndexNowModal}
-                  className="inline-flex items-center gap-1.5 text-[11px] text-amber-400 hover:text-white transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-[11px] text-amber-300 hover:text-white transition-colors cursor-pointer"
                   title="Painel e Envio de URLs ao IndexNow (Microsoft Bing)"
                 >
-                  <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                  <Zap className="w-3.5 h-3.5 text-amber-300 fill-amber-300" aria-hidden="true" />
                   <span>IndexNow Bing (Instantâneo)</span>
-                  <span className="text-[9px] bg-amber-400/20 text-amber-300 font-bold px-1.5 py-0.5 rounded-full border border-amber-400/40">
+                  <span className="text-[9px] bg-amber-400/20 text-amber-200 font-bold px-1.5 py-0.5 rounded-full border border-amber-400/40">
                     Chave Ativa
                   </span>
                 </button>
@@ -216,7 +221,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
         </div>
 
         {/* Bottom Bar: Copyright & GEO Statement */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-300">
           <p>
             © {currentYear} AG Transfer & Transporte Executivo LTDA. Todos os direitos reservados.
           </p>
@@ -228,11 +233,23 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               className="hover:text-white flex items-center gap-1 font-medium"
             >
               <span>Google Business Profile (+200 avaliações)</span>
-              <ExternalLink className="w-2.5 h-2.5 text-[#38BDF8]" />
+              <ExternalLink className="w-2.5 h-2.5 text-[#38BDF8]" aria-hidden="true" />
             </a>
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <span>Serra Gaúcha, RS - Brasil</span>
           </div>
+        </div>
+
+        <div className="pt-4 mt-4 border-t border-slate-800/70 text-center text-[11px] text-slate-300">
+          Site desenvolvido pela{' '}
+          <a
+            href="https://bora-digital-strategy.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#38BDF8] hover:text-white underline underline-offset-2 transition-colors"
+          >
+            Agência Bora
+          </a>
         </div>
 
       </div>

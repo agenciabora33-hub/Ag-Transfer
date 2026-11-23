@@ -13,7 +13,25 @@ if (!fs.existsSync(baseHtmlPath)) {
   process.exit(0);
 }
 
-const baseHtml = fs.readFileSync(baseHtmlPath, 'utf8');
+let baseHtml = fs.readFileSync(baseHtmlPath, 'utf8');
+
+// Inline main Vite CSS bundle into <head> to eliminate 100% render-blocking CSS roundtrip
+const cssLinkRegex = /<link rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/i;
+const cssMatch = baseHtml.match(cssLinkRegex);
+if (cssMatch && cssMatch[1]) {
+  const cssRelPath = cssMatch[1].replace(/^\//, '');
+  const cssFullPath = path.join(distDir, cssRelPath);
+  if (fs.existsSync(cssFullPath)) {
+    const cssContent = fs.readFileSync(cssFullPath, 'utf8');
+    if (cssContent.length > 0 && cssContent.length < 120 * 1024) {
+      baseHtml = baseHtml.replace(cssLinkRegex, `<style>${cssContent}</style>`);
+      fs.writeFileSync(baseHtmlPath, baseHtml);
+      console.log(`  ✓ Inlined critical stylesheet (${cssRelPath}, ${(cssContent.length / 1024).toFixed(1)} KiB) into dist/index.html`);
+    }
+  }
+}
+
+const SITE_URL = 'https://www.aagtransfer.com.br';
 
 // Services List
 const services = [
@@ -125,21 +143,12 @@ const cities = [
 function injectMeta(html, { title, description, canonicalUrl }) {
   let result = html;
 
-  // Replace Title
   result = result.replace(/<title>.*?<\/title>/i, `<title>${title}</title>`);
-
-  // Replace Description
   result = result.replace(/<meta name="description" content=".*?" \/>/i, `<meta name="description" content="${description}" />`);
-
-  // Replace Canonical
   result = result.replace(/<link rel="canonical" href=".*?" \/>/i, `<link rel="canonical" href="${canonicalUrl}" />`);
-
-  // Replace OpenGraph
   result = result.replace(/<meta property="og:title" content=".*?" \/>/i, `<meta property="og:title" content="${title}" />`);
   result = result.replace(/<meta property="og:description" content=".*?" \/>/i, `<meta property="og:description" content="${description}" />`);
   result = result.replace(/<meta property="og:url" content=".*?" \/>/i, `<meta property="og:url" content="${canonicalUrl}" />`);
-
-  // Replace Twitter
   result = result.replace(/<meta name="twitter:title" content=".*?" \/>/i, `<meta name="twitter:title" content="${title}" />`);
   result = result.replace(/<meta name="twitter:description" content=".*?" \/>/i, `<meta name="twitter:description" content="${description}" />`);
 
@@ -155,15 +164,11 @@ services.forEach((s) => {
   const html = injectMeta(baseHtml, {
     title: s.title,
     description: s.description,
-    canonicalUrl: `https://ag-transfer.vercel.app/servicos/${s.slug}`
+    canonicalUrl: `${SITE_URL}/servicos/${s.slug}`
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   console.log(`  ✓ Generated /servicos/${s.slug}/index.html`);
 });
-
-// Also create a fallback for /servicos/index.html
-const servicosDir = path.join(distDir, 'servicos');
-fs.writeFileSync(path.join(servicosDir, 'index.html'), baseHtml);
 
 // 2. Cities routes
 cities.forEach((c) => {
@@ -172,15 +177,11 @@ cities.forEach((c) => {
   const html = injectMeta(baseHtml, {
     title: c.title,
     description: c.description,
-    canonicalUrl: `https://ag-transfer.vercel.app/cidades/${c.slug}`
+    canonicalUrl: `${SITE_URL}/cidades/${c.slug}`
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   console.log(`  ✓ Generated /cidades/${c.slug}/index.html`);
 });
-
-// Also create a fallback for /cidades/index.html
-const cidadesDir = path.join(distDir, 'cidades');
-fs.writeFileSync(path.join(cidadesDir, 'index.html'), baseHtml);
 
 // 3. Dedicated Campaign: /transfer-porto-alegre-montevideu
 const mtvDir = path.join(distDir, 'transfer-porto-alegre-montevideu');
@@ -188,7 +189,7 @@ fs.mkdirSync(mtvDir, { recursive: true });
 
 const montevideoTitle = 'Transfer Porto Alegre Montevidéu | Final Libertadores 2026';
 const montevideoDesc = 'Transfer privativo do aeroporto de Porto Alegre a Montevidéu. Van e carro executivo, atendimento das 05h às 23h. Peça sua cotação no WhatsApp.';
-const montevideoCanonical = 'https://ag-transfer.vercel.app/transfer-porto-alegre-montevideu';
+const montevideoCanonical = `${SITE_URL}/transfer-porto-alegre-montevideu`;
 
 const montevideoJsonLd = `
     <script type="application/ld+json">
@@ -197,7 +198,7 @@ const montevideoJsonLd = `
       "@graph": [
         {
           "@type": "Service",
-          "@id": "https://ag-transfer.vercel.app/transfer-porto-alegre-montevideu#service",
+          "@id": "${SITE_URL}/transfer-porto-alegre-montevideu#service",
           "name": "Transfer Porto Alegre para Montevidéu - Final Libertadores 2026",
           "serviceType": "Transfer Executivo Internacional",
           "description": "Transfer privativo e transporte executivo do Aeroporto Internacional Salgado Filho (POA) direto para Montevidéu (Estádio Centenário). Frotas de sedans, SUVs e vans com motorista profissional.",
@@ -205,8 +206,8 @@ const montevideoJsonLd = `
             "@type": "TaxiService",
             "name": "AG Transfer & Transporte Executivo LTDA.",
             "telephone": "+5554991537288",
-            "image": "https://ag-transfer.vercel.app/logo.png",
-            "url": "https://ag-transfer.vercel.app/",
+            "image": "${SITE_URL}/logo-sm.webp",
+            "url": "${SITE_URL}/",
             "areaServed": [
               { "@type": "City", "name": "Gramado" },
               { "@type": "City", "name": "Caxias do Sul" },
@@ -229,7 +230,7 @@ const montevideoJsonLd = `
         },
         {
           "@type": "FAQPage",
-          "@id": "https://ag-transfer.vercel.app/transfer-porto-alegre-montevideu#faq",
+          "@id": "${SITE_URL}/transfer-porto-alegre-montevideu#faq",
           "mainEntity": [
             {
               "@type": "Question",
@@ -307,19 +308,19 @@ const montevideoJsonLd = `
         },
         {
           "@type": "BreadcrumbList",
-          "@id": "https://ag-transfer.vercel.app/transfer-porto-alegre-montevideu#breadcrumb",
+          "@id": "${SITE_URL}/transfer-porto-alegre-montevideu#breadcrumb",
           "itemListElement": [
             {
               "@type": "ListItem",
               "position": 1,
               "name": "Início",
-              "item": "https://ag-transfer.vercel.app/"
+              "item": "${SITE_URL}/"
             },
             {
               "@type": "ListItem",
               "position": 2,
               "name": "Transfer Porto Alegre a Montevidéu",
-              "item": "https://ag-transfer.vercel.app/transfer-porto-alegre-montevideu"
+              "item": "${SITE_URL}/transfer-porto-alegre-montevideu"
             }
           ]
         }
@@ -328,18 +329,17 @@ const montevideoJsonLd = `
     </script>
 `;
 
-// Semantic HTML pre-rendered content directly inside <div id="root">
 const montevideoPreRenderedContent = `
   <main class="min-h-screen bg-[#F8FAFC] text-[#0F172A] font-sans">
     <header class="py-4 border-b border-slate-200 bg-white">
       <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
         <a href="/" class="font-bold text-xl text-[#0D0A27]">AG TRANSFER</a>
-        <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs uppercase">WhatsApp (05h às 23h)</a>
+        <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="px-4 py-2 rounded-xl bg-emerald-700 text-white font-bold text-xs uppercase">WhatsApp (05h às 23h)</a>
       </div>
     </header>
 
     <div class="max-w-7xl mx-auto px-4 py-12">
-      <div class="mb-4 inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider">
+      <div class="mb-4 inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-950 text-xs font-bold uppercase tracking-wider">
         🏆 Final Libertadores 2026 &bull; 28 de Novembro de 2026 às 17h (Estádio Centenário)
       </div>
 
@@ -352,7 +352,7 @@ const montevideoPreRenderedContent = `
       </p>
 
       <div class="flex flex-wrap gap-4 mb-12">
-        <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="px-6 py-4 rounded-xl bg-emerald-600 text-white font-bold text-sm uppercase">Pedir cotação no WhatsApp</a>
+        <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="px-6 py-4 rounded-xl bg-emerald-700 text-white font-bold text-sm uppercase">Pedir cotação no WhatsApp</a>
         <a href="#formulario-cotacao" class="px-6 py-4 rounded-xl bg-slate-900 text-white font-bold text-sm uppercase">Preencher o formulário</a>
       </div>
 
@@ -425,11 +425,12 @@ const montevideoPreRenderedContent = `
       <section id="formulario-cotacao" class="py-10 border-t border-slate-200">
         <h2 class="text-2xl font-bold text-[#0D0A27] mb-4">Solicitar Cotação de Transfer</h2>
         <p class="text-sm text-slate-600 mb-6">Fale diretamente com nossa equipe pelo WhatsApp de segunda a domingo, das 05h às 23h: (54) 99153-7288.</p>
-        <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="inline-block px-6 py-4 rounded-xl bg-emerald-600 text-white font-bold text-sm uppercase">Falar com a AG Transfer no WhatsApp</a>
+        <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="inline-block px-6 py-4 rounded-xl bg-emerald-700 text-white font-bold text-sm uppercase">Falar com a AG Transfer no WhatsApp</a>
       </section>
 
-      <footer class="pt-8 border-t border-slate-200 text-xs text-slate-500">
+      <footer class="pt-8 border-t border-slate-200 text-xs text-slate-600 space-y-2">
         <p>Aviso: A AG Transfer é uma empresa independente de transporte e não tem vínculo com a CONMEBOL, com os clubes ou com a organização do evento. Não vendemos ingressos.</p>
+        <p>Site desenvolvido pela <a href="https://bora-digital-strategy.vercel.app/" target="_blank" rel="noopener noreferrer" class="underline font-semibold text-[#0369A1]">Agência Bora</a>.</p>
       </footer>
     </div>
   </main>
@@ -441,14 +442,10 @@ let mtvHtml = injectMeta(baseHtml, {
   canonicalUrl: montevideoCanonical
 });
 
-// Inject JSON-LD schemas into head
 mtvHtml = mtvHtml.replace('</head>', `${montevideoJsonLd}\n</head>`);
-
-// Inject complete semantic HTML into root for zero-JS crawlers
 mtvHtml = mtvHtml.replace('<div id="root"></div>', `<div id="root">${montevideoPreRenderedContent}</div>`);
 
 fs.writeFileSync(path.join(mtvDir, 'index.html'), mtvHtml);
 console.log('  ✓ Generated /transfer-porto-alegre-montevideu/index.html (with full semantic HTML & JSON-LD schemas)');
 
 console.log('[generate-static-routes] Successfully generated all static route pages!');
-

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { X, Send, MapPin, Calendar, Clock, Users, Briefcase, MessageCircle } from 'lucide-react';
+import { X, MessageCircle } from 'lucide-react';
 import { COMPANY_NAP, SERVICES } from '../data/companyData';
-import { BrandLogo } from './BrandLogo';
+import { trackEvent } from '../utils/analytics';
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -9,259 +9,147 @@ interface QuoteModalProps {
   initialService?: string;
 }
 
-export const QuoteModal: React.FC<QuoteModalProps> = ({
-  isOpen,
-  onClose,
-  initialService = 'Transfer Aeroportuário',
-}) => {
-  const [service, setService] = useState(initialService);
-  const [origin, setOrigin] = useState('Caxias do Sul');
-  const [destination, setDestination] = useState('Aeroporto Salgado Filho (POA)');
+export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, initialService }) => {
+  const [service, setService] = useState(initialService || SERVICES[0].title);
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
   const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [passengers, setPassengers] = useState('1 a 3 passageiros (Sedan Executivo)');
-  const [luggage, setLuggage] = useState('2 malas médias');
-  const [corporate, setCorporate] = useState(false);
-  const [companyName, setCompanyName] = useState('');
-  const [flightNumber, setFlightNumber] = useState('');
-  const [notes, setNotes] = useState('');
+  const [passengers, setPassengers] = useState('2 passageiros');
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    trackEvent('quote_submit', { source: 'quote_modal', service, origin, destination, passengers });
+    const message = [
+      'Olá, equipe AG Transfer! Gostaria de solicitar uma cotação:',
+      `• Serviço: ${service}`,
+      `• Origem: ${origin || 'A confirmar'}`,
+      `• Destino: ${destination || 'A confirmar'}`,
+      `• Data: ${date ? new Date(`${date}T12:00:00`).toLocaleDateString('pt-BR') : 'A definir'}`,
+      `• Passageiros: ${passengers}`,
+    ].join('\n');
 
-    const lines: string[] = [
-      "Olá, gostaria de solicitar um orçamento para transfer executivo com a *AG Transfer*.",
-      "",
-      `*Serviço:* ${service}`,
-      `*Origem:* ${origin}`,
-      `*Destino:* ${destination}`,
-      `*Data:* ${date || 'A combinar'} ${time ? `às ${time}` : ''}`,
-      `*Passageiros:* ${passengers}`,
-      `*Bagagens:* ${luggage}`,
-    ];
-
-    if (flightNumber) {
-      lines.push(`*Número do Voo (para monitoramento):* ${flightNumber}`);
-    }
-
-    if (corporate && companyName) {
-      lines.push(`*Faturamento PJ:* Sim (${companyName})`);
-    }
-
-    if (notes) {
-      lines.push(`*Observações adicionais:* ${notes}`);
-    }
-
-    lines.push("");
-    lines.push("Poderiam me informar a disponibilidade e os valores?");
-
-    const text = lines.join("\n");
-    const url = `https://wa.me/${COMPANY_NAP.phoneRaw}?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
-    onClose();
+    window.location.href = `https://wa.me/${COMPANY_NAP.phoneRaw}?text=${encodeURIComponent(message)}`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-xl bg-white border border-slate-200 rounded-3xl shadow-2xl p-6 sm:p-8 my-8 text-slate-700">
-        
-        {/* Close Button */}
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4 animate-fadeIn"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quote-modal-title"
+    >
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative">
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
-          aria-label="Fechar modal"
+          aria-label="Fechar janela de cotação"
+          className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5" aria-hidden="true" />
         </button>
 
-        {/* Modal Header */}
-        <div className="mb-6 flex items-start gap-4 pr-10">
-          <BrandLogo size="md" />
-          <div className="flex-1">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7] block mb-1">
-              AG Transfer &bull; Seg a Dom · 05h às 23h
-            </span>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-[#0D0A27]">
-              Solicitar Orçamento Executivo
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Preencha os detalhes para receber atendimento imediato da nossa central (das 05h às 23h).
-            </p>
-          </div>
-        </div>
+        <h2 id="quote-modal-title" className="text-xl font-extrabold text-[#0D0A27] pr-8">
+          Cotação Rápida AG Transfer
+        </h2>
+        <p className="text-xs text-slate-600 mt-1 mb-5 font-medium">
+          Atendimento direto com nossa equipe de segunda a domingo, das 05h às 23h.
+        </p>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
-          
-          {/* Service */}
+        <form onSubmit={handleSubmit} className="space-y-3.5">
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1">
-              Modalidade de Transporte
+            <label htmlFor="modal-service" className="block text-xs font-bold text-[#0D0A27] mb-1">
+              Serviço
             </label>
             <select
+              id="modal-service"
               value={service}
               onChange={(e) => setService(e.target.value)}
-              className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-slate-800 focus:border-[#0284C7] focus:outline-none transition-colors"
+              className="w-full min-h-[44px] rounded-xl border border-slate-300 px-3 py-2 text-sm text-[#0F172A]"
             >
               {SERVICES.map((s) => (
-                <option key={s.id} value={s.title}>{s.title} ({s.subtitle})</option>
+                <option key={s.id} value={s.title}>
+                  {s.title}
+                </option>
               ))}
-              <option value="Transfer Personalizado / Outro">Transfer Personalizado / Outro</option>
+              <option value="Transfer Porto Alegre ➔ Montevidéu">
+                Transfer Porto Alegre ➔ Montevidéu
+              </option>
             </select>
           </div>
 
-          {/* Origin & Destination */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-[#0284C7]" />
-                Local de Embarque (Origem)
+              <label htmlFor="modal-origin" className="block text-xs font-bold text-[#0D0A27] mb-1">
+                Origem
               </label>
               <input
+                id="modal-origin"
                 type="text"
+                required
                 value={origin}
                 onChange={(e) => setOrigin(e.target.value)}
-                placeholder="Ex: Caxias do Sul (Hotel/Aeroporto/Empresa)"
-                required
-                className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
+                placeholder="Ex: Aeroporto POA"
+                className="w-full min-h-[44px] rounded-xl border border-slate-300 px-3 py-2 text-sm text-[#0F172A]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-[#0369A1]" />
-                Local de Desembarque (Destino)
+              <label htmlFor="modal-destination" className="block text-xs font-bold text-[#0D0A27] mb-1">
+                Destino
               </label>
               <input
+                id="modal-destination"
                 type="text"
+                required
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                placeholder="Ex: Aeroporto POA / Gramado"
-                required
-                className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
+                placeholder="Ex: Gramado Centro"
+                className="w-full min-h-[44px] rounded-xl border border-slate-300 px-3 py-2 text-sm text-[#0F172A]"
               />
             </div>
           </div>
 
-          {/* Date & Time */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-[#0284C7]" />
-                Data Pretendida
+              <label htmlFor="modal-date" className="block text-xs font-bold text-[#0D0A27] mb-1">
+                Data
               </label>
               <input
-                type="text"
+                id="modal-date"
+                type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                placeholder="Ex: 24/11/2026"
-                className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
+                className="w-full min-h-[44px] rounded-xl border border-slate-300 px-3 py-2 text-sm text-[#0F172A]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-[#0284C7]" />
-                Horário Estimado
-              </label>
-              <input
-                type="text"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                placeholder="Ex: 06:45 da manhã"
-                className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
-              />
-            </div>
-          </div>
-
-          {/* Category & Passengers */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                <Users className="w-3.5 h-3.5 text-[#0284C7]" />
-                Número de Passageiros
+              <label htmlFor="modal-passengers" className="block text-xs font-bold text-[#0D0A27] mb-1">
+                Passageiros
               </label>
               <select
+                id="modal-passengers"
                 value={passengers}
                 onChange={(e) => setPassengers(e.target.value)}
-                className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2 text-base sm:text-sm text-slate-800 focus:border-[#0284C7] focus:outline-none transition-colors"
+                className="w-full min-h-[44px] rounded-xl border border-slate-300 px-3 py-2 text-sm text-[#0F172A]"
               >
-                <option value="1 a 3 passageiros (Sedan Executivo)">1 a 3 passageiros (Sedan)</option>
-                <option value="4 a 6 passageiros (SUV Premium)">4 a 6 passageiros (SUV)</option>
-                <option value="7 a 15 passageiros (Van VIP)">7 a 15 passageiros (Van VIP)</option>
+                <option value="1 a 2 passageiros">1 a 2 passageiros</option>
+                <option value="3 a 4 passageiros">3 a 4 passageiros</option>
+                <option value="5 a 6 passageiros">5 a 6 passageiros</option>
+                <option value="7 a 15 passageiros">7 a 15 passageiros (Van)</option>
               </select>
             </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-                <Briefcase className="w-3.5 h-3.5 text-[#0284C7]" />
-                Volume de Bagagens
-              </label>
-              <input
-                type="text"
-                value={luggage}
-                onChange={(e) => setLuggage(e.target.value)}
-                placeholder="Ex: 3 malas grandes + 2 de mão"
-                className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
-              />
-            </div>
           </div>
 
-          {/* Flight Number if airport transfer */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1">
-              Prefixo do Voo (Opcional para Aeroportos POA / CXJ)
-            </label>
-            <input
-              type="text"
-              value={flightNumber}
-              onChange={(e) => setFlightNumber(e.target.value)}
-              placeholder="Ex: GOL 1234 / LATAM 3456 / AZUL 2890"
-              className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
-            />
-          </div>
-
-          {/* Corporate Toggle */}
-          <div className="pt-2 border-t border-slate-200">
-            <label className="flex items-center gap-2.5 min-h-[40px] cursor-pointer text-xs text-slate-800 font-semibold">
-              <input
-                type="checkbox"
-                checked={corporate}
-                onChange={(e) => setCorporate(e.target.checked)}
-                className="w-5 h-5 rounded text-[#0284C7] accent-[#0284C7] shrink-0"
-              />
-              <span>Solicitar Faturamento Pessoa Jurídica (PJ) com Nota Fiscal</span>
-            </label>
-
-            {corporate && (
-              <div className="mt-3 pl-6">
-                <input
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="Razão Social ou Nome da Empresa"
-                  className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-xl px-3 py-2 text-slate-800 text-base sm:text-sm focus:border-[#0284C7] focus:outline-none"
-                />
-              </div>
-            )}
-          </div>
-
-          {/* Submit */}
-          <div className="pt-4">
-            <button
-              type="submit"
-              className="w-full min-h-[48px] py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer shadow-md"
-            >
-              <MessageCircle className="w-4 h-4 text-[#38BDF8]" />
-              <span>Enviar Cotação para WhatsApp (54) 99153-7288</span>
-            </button>
-            <p className="text-center text-[11px] text-slate-500 mt-2 font-medium">
-              Você será direcionado diretamente ao chat oficial da AG Transfer.
-            </p>
-          </div>
-
+          <button
+            type="submit"
+            className="w-full min-h-[46px] inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs uppercase tracking-wider cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4" aria-hidden="true" />
+            <span>Enviar Cotação no WhatsApp</span>
+          </button>
         </form>
       </div>
     </div>

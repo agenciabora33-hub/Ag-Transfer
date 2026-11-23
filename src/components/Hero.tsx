@@ -1,423 +1,371 @@
-import React, { useState, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { MessageCircle, ChevronRight, Star, Car, MapPin, Calendar, Users, Send, Plane, ShieldCheck, Sparkles } from 'lucide-react';
-import { COMPANY_NAP, ASSET_IMAGES, buildWhatsAppUrl } from '../data/companyData';
-import { BrandLogo } from './BrandLogo';
+import React, { useState, useEffect } from 'react';
+import { MessageCircle, Star, ShieldCheck, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { COMPANY_NAP, SERVICES } from '../data/companyData';
+import { trackEvent } from '../utils/analytics';
 
 interface HeroProps {
-  onOpenQuoteModal: () => void;
+  onOpenQuoteModal?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
-  const [selectedService, setSelectedService] = useState('Transfer Porto Alegre ⇄ Gramado e Canela VIP');
+function buildWhatsAppUrl(
+  svc: string,
+  orig: string,
+  dest: string,
+  dt: string,
+  pax: string
+): string {
+  const formattedDate = dt ? new Date(`${dt}T12:00:00`).toLocaleDateString('pt-BR') : 'A definir';
+  const message = [
+    'Olá, equipe AG Transfer! Gostaria de solicitar uma cotação de transfer executivo:',
+    `• Serviço: ${svc}`,
+    `• Origem: ${orig}`,
+    `• Destino: ${dest}`,
+    `• Data prevista: ${formattedDate}`,
+    `• Passageiros: ${pax}`,
+  ].join('\n');
+
+  return `https://wa.me/${COMPANY_NAP.phoneRaw}?text=${encodeURIComponent(message)}`;
+}
+
+export const Hero: React.FC<HeroProps> = () => {
+  const [selectedService, setSelectedService] = useState('Transfer Aeroporto POA ⇄ Gramado / Canela');
   const [origin, setOrigin] = useState('Aeroporto Salgado Filho (POA)');
-  const [destination, setDestination] = useState('Gramado / Canela (Hotel)');
-  const [date, setDate] = useState('');
-  const [passengers, setPassengers] = useState('1 a 3 passageiros (Sedan Executivo)');
+  const [destination, setDestination] = useState('Gramado / Canela (Hotéis)');
+  const [travelDate, setTravelDate] = useState('');
+  const [passengers, setPassengers] = useState('2 passageiros');
+  const [submittedNote, setSubmittedNote] = useState<string | null>(null);
 
-  // 3D Tilt effect on the simulator card
-  const cardRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const buildWhatsAppLink = () =>
+    buildWhatsAppUrl(selectedService, origin, destination, travelDate, passengers);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [5, -5]), {
-    damping: 20,
-    stiffness: 150,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), {
-    damping: 20,
-    stiffness: 150,
-  });
+  // Register WebMCP imperative tool for Agentic Navigation (Lighthouse 4/4)
+  useEffect(() => {
+    if (typeof navigator === 'undefined' || !navigator.modelContext?.registerTool) return;
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current || typeof window === 'undefined' || !window.matchMedia('(pointer: fine)').matches) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
+    try {
+      navigator.modelContext.registerTool({
+        name: 'cotar_transfer',
+        description:
+          'Prepara e retorna o resumo da cotação de transfer executivo privativo da AG Transfer na Serra Gaúcha e conexões POA/CXJ/Montevidéu.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            servico: { type: 'string', description: 'Tipo de transfer ou tour executivo' },
+            origem: { type: 'string', description: 'Local ou aeroporto de embarque' },
+            destino: { type: 'string', description: 'Cidade, hotel ou evento de destino' },
+            data: { type: 'string', description: 'Data prevista da viagem (YYYY-MM-DD)' },
+            passageiros: { type: 'string', description: 'Quantidade de passageiros' },
+          },
+        },
+        execute: (input) => {
+          const svc =
+            typeof input.servico === 'string' && input.servico
+              ? input.servico
+              : 'Transfer Aeroporto POA ⇄ Gramado / Canela';
+          const orig =
+            typeof input.origem === 'string' && input.origem
+              ? input.origem
+              : 'Aeroporto Salgado Filho (POA)';
+          const dest =
+            typeof input.destino === 'string' && input.destino
+              ? input.destino
+              : 'Gramado / Canela (Hotéis)';
+          const dt = typeof input.data === 'string' ? input.data : '';
+          const pax =
+            typeof input.passageiros === 'string' && input.passageiros
+              ? input.passageiros
+              : '2 passageiros';
 
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
+          setSelectedService(svc);
+          setOrigin(orig);
+          setDestination(dest);
+          if (dt) setTravelDate(dt);
+          setPassengers(pax);
 
-  const handleQuickPreset = (presetOrigin: string, presetDest: string, presetService: string) => {
-    setOrigin(presetOrigin);
-    setDestination(presetDest);
-    setSelectedService(presetService);
-  };
+          const whatsappUrl = buildWhatsAppUrl(svc, orig, dest, dt, pax);
+          setSubmittedNote('Cotação preparada com sucesso. Clique em Enviar no WhatsApp para confirmar com nossa central.');
+          return {
+            status: 'ready',
+            company: COMPANY_NAP.name,
+            hours: COMPANY_NAP.operatingHours,
+            phone: COMPANY_NAP.phone,
+            whatsappUrl,
+          };
+        },
+      });
+    } catch {
+      // Safe fallback when WebMCP already registered or unsupported
+    }
 
-  const handleQuickQuoteSubmit = (e: React.FormEvent) => {
+    return () => {
+      try {
+        navigator.modelContext?.unregisterTool?.('cotar_transfer');
+      } catch {
+        // Ignore cleanup errors
+      }
+    };
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const url = buildWhatsAppUrl({
+    trackEvent('quote_submit', {
+      source: 'hero_simulator',
       service: selectedService,
       origin,
       destination,
-      date: date || 'A definir',
       passengers,
     });
-    window.open(url, '_blank', 'noopener,noreferrer');
+    const url = buildWhatsAppLink();
+    setSubmittedNote('Resumo gerado! Abrindo atendimento WhatsApp...');
+    window.location.href = url;
   };
 
   return (
-    <section id="inicio" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center pt-8 sm:pt-14 pb-16 sm:pb-20 overflow-hidden bg-[#F8FAFC]">
-      {/* Background Image with Crisp Light Gradient Scrim */}
-      <div className="absolute inset-0 z-0">
-        <picture>
-          <source srcSet={ASSET_IMAGES.heroWebp} type="image/webp" />
+    <section
+      id="inicio"
+      className="relative overflow-hidden bg-[#F8FAFC] border-b border-slate-200 py-12 sm:py-16 lg:py-20"
+    >
+      {/* Responsive LCP Background Picture with High-Contrast Light Overlay */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <picture className="block w-full h-full">
+          <source media="(max-width: 639px)" srcSet="/images/hero-480.webp" type="image/webp" />
+          <source media="(max-width: 1023px)" srcSet="/images/hero-640.webp" type="image/webp" />
           <img
-            src={ASSET_IMAGES.hero}
-            alt="Frota executiva e chauffeur da AG Transfer em Caxias do Sul e Serra Gaúcha"
+            src="/images/hero-1200.webp"
+            alt="Veículo executivo da AG Transfer na Serra Gaúcha"
             width={1200}
-            height={670}
-            className="w-full h-full object-cover object-center opacity-25"
-            referrerPolicy="no-referrer"
-            loading="eager"
-            decoding="async"
+            height={675}
             fetchPriority="high"
+            loading="eager"
+            decoding="sync"
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover object-center opacity-20"
           />
         </picture>
-        {/* Soft, crisp light gradient scrims */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/90 to-[#F8FAFC]/75" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/95 to-transparent" />
-        
-        {/* Subtle static ambient brand glow orbs (Desktop only to protect mobile GPU) */}
-        <div className="hidden lg:block absolute top-1/4 left-1/3 -translate-x-1/2 w-[550px] h-[550px] bg-[#0284C7]/12 rounded-full blur-[120px] pointer-events-none" />
-        <div className="hidden lg:block absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-[#38BDF8]/15 rounded-full blur-[110px] pointer-events-none" />
-      </div>
-
-      {/* Floating 3D Geometric Blue Rings (Desktop Ambiance) */}
-      <div className="hidden xl:block absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-        <motion.div
-          animate={{
-            y: [-12, 12, -12],
-            rotate: [0, 360],
-          }}
-          transition={{
-            y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-            rotate: { duration: 40, repeat: Infinity, ease: "linear" },
-          }}
-          className="absolute top-20 right-[8%] w-64 h-64 border border-[#0284C7]/15 rounded-full"
-        />
-        <motion.div
-          animate={{
-            y: [10, -10, 10],
-            rotate: [360, 0],
-          }}
-          transition={{
-            y: { duration: 7, repeat: Infinity, ease: "easeInOut" },
-            rotate: { duration: 45, repeat: Infinity, ease: "linear" },
-          }}
-          className="absolute top-44 right-[12%] w-44 h-44 border border-[#38BDF8]/20 rounded-full border-dashed"
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/90 via-[#F8FAFC]/82 to-[#F8FAFC]"
+          aria-hidden="true"
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
-          
-          {/* Main Content Column — Rendered immediately at opacity: 1 for optimal FCP & LCP */}
-          <div className="lg:col-span-7 space-y-5 sm:space-y-6">
-            
-            {/* Brand Official Logo & Credential Badge */}
-            <div className="flex flex-wrap items-center gap-3">
-              <BrandLogo size="sm" showText={true} subtext="Transporte Executivo Oficial" />
-              <div className="h-6 w-px bg-slate-300 hidden sm:block" />
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50 border border-sky-200 text-xs font-semibold text-[#0284C7]">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                Empresa Regulamentada &bull; CNPJ Ativo
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          {/* Left Column: Value Proposition */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* Clean Unboxed Typographic Trust Line (Zero Pill Discipline) */}
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-semibold text-slate-700">
+              <span className="inline-flex items-center gap-1.5 text-[#0D0A27]">
+                <ShieldCheck className="w-4 h-4 text-[#0369A1]" aria-hidden="true" />
+                <span>Empresa Regularizada · CNPJ Ativo</span>
+              </span>
+              <span aria-hidden="true" className="text-slate-400">
+                /
+              </span>
+              <span className="inline-flex items-center gap-1 text-[#0D0A27]">
+                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" aria-hidden="true" />
+                <span>5.0 no Google ({COMPANY_NAP.reviewCount})</span>
+              </span>
+              <span aria-hidden="true" className="text-slate-400">
+                /
+              </span>
+              <span className="inline-flex items-center gap-1 text-emerald-800">
+                <Clock className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" />
+                <span>{COMPANY_NAP.operatingHoursShort}</span>
               </span>
             </div>
 
-            {/* E-E-A-T Unboxed Trust Signal with Google Business Profile direct link */}
-            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600">
-              <a
-                href={COMPANY_NAP.gbpUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[#0284C7] hover:underline transition-colors"
-                title="Ver perfil oficial verificado no Google Business Profile"
-              >
-                <Star className="w-4 h-4 fill-[#F59E0B] text-[#F59E0B]" />
-                <span className="font-bold text-[#0D0A27] tabular-nums">5.0</span>
-                <span>no Google (GBP)</span>
-                <span className="text-[#0284C7] font-bold">(+200 avaliações)</span>
-              </a>
-              <span aria-hidden="true" className="text-slate-300">·</span>
-              <span className="text-[#0D0A27]">Motoristas Profissionais</span>
-              <span aria-hidden="true" className="text-slate-300">·</span>
-              
-              {/* Real-time operating hours status beacon */}
-              <div className="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-semibold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span>Seg a Dom · 05h às 23h</span>
-              </div>
-            </div>
-
-            {/* Strict Single H1 for SEO/GEO with balanced typography in deep navy and blue */}
-            <h1 className="text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold text-[#0D0A27] tracking-tight leading-[1.15] text-balance">
-              Transporte Executivo e Transfer na{' '}
-              <span className="bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] bg-clip-text text-transparent">
-                Serra Gaúcha · Gramado, Canela e Bento Gonçalves
-              </span>
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-[#0D0A27] tracking-tight leading-[1.12] max-w-2xl">
+              Transporte Executivo e Transfer na Serra Gaúcha —{' '}
+              <span className="text-[#0369A1]">Gramado, Canela e Bento Gonçalves</span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed text-pretty">
-              Transfers privativos para aeroportos (POA / CXJ), passeios VIP em Gramado e Canela, e tours enoturísticos no Vale dos Vinhedos. Pontualidade britânica, discrição e veículos de alto padrão de segunda a domingo, das 05h às 23h.
+            <p className="text-base sm:text-lg text-slate-700 leading-relaxed max-w-2xl font-medium">
+              Transfers privativos para aeroportos (POA / CXJ), passeios VIP em Gramado e Canela, e tours
+              enoturísticos no Vale dos Vinhedos. Pontualidade britânica, discrição e veículos de alto padrão de
+              segunda a domingo, das 05h às 23h.
             </p>
 
-            {/* CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
+            {/* Primary & Secondary Actions */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
               <a
-                href={COMPANY_NAP.whatsappBaseUrl}
+                href={buildWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:brightness-110 hover:shadow-[0_8px_25px_rgba(2,132,199,0.35)] active:scale-[0.98] text-center overflow-hidden shadow-sm min-h-[48px]"
+                onClick={() => trackEvent('whatsapp_click', { source: 'hero_primary_cta' })}
+                className="min-h-[48px] inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0369A1] hover:brightness-110 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition-all active:scale-[0.98]"
               >
-                <div className="hidden sm:block absolute inset-0 bg-white/15 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
-                <MessageCircle className="w-5 h-5 relative z-10 text-[#38BDF8]" />
-                <span className="relative z-10">Solicitar Cotação no WhatsApp</span>
+                <MessageCircle className="w-4 h-4 text-[#38BDF8]" aria-hidden="true" />
+                <span>Solicitar Cotação no WhatsApp</span>
               </a>
 
               <a
                 href="#servicos"
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-slate-300 hover:border-[#0284C7] text-slate-800 hover:text-[#0284C7] font-semibold text-sm transition-all duration-200 hover:bg-white text-center shadow-xs min-h-[48px]"
+                className="min-h-[48px] inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#0D0A27] border border-slate-300 font-bold text-xs sm:text-sm transition-colors"
               >
-                <span>Conhecer Destinos e Serviços</span>
-                <ChevronRight className="w-4 h-4 text-[#0284C7]" />
+                <span>Conhecer Serviços e Rotas</span>
+                <ArrowRight className="w-4 h-4 text-[#0369A1]" aria-hidden="true" />
               </a>
             </div>
 
-            {/* Floating Micro-Card for Airport Receptive (visible on desktop) */}
-            <div className="hidden sm:inline-flex items-center gap-3 p-3 px-4 rounded-xl bg-white/95 border border-slate-200/90 shadow-md text-xs">
-              <div className="w-9 h-9 rounded-lg bg-[#0D0A27] flex items-center justify-center text-[#38BDF8] shadow-xs">
-                <Plane className="w-4 h-4" />
+            {/* Direct Concise Benefits */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 border-t border-slate-200/90 text-xs text-slate-700 font-medium">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#0369A1] shrink-0" aria-hidden="true" />
+                <span>Veículo 100% privativo</span>
               </div>
-              <div>
-                <span className="text-[#0D0A27] font-bold block">Receptivo Aeroportos POA & CXJ</span>
-                <span className="text-slate-500 text-[11px]">Monitoramento contínuo de status de voos comerciais e executivos</span>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#0369A1] shrink-0" aria-hidden="true" />
+                <span>Monitoramento de voos POA/CXJ</span>
               </div>
-            </div>
-
-            {/* Trust Highlights Strip with 4 items */}
-            <div className="pt-4 border-t border-slate-200/80 grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <a
-                href={COMPANY_NAP.gbpUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block hover:opacity-90 transition-opacity"
-              >
-                <span className="block text-lg sm:text-xl font-bold text-[#0284C7] tabular-nums group-hover:underline">
-                  +200 Avaliações
-                </span>
-                <span className="text-xs text-slate-500 font-medium">5.0 Estrelas no GBP</span>
-              </a>
-              <div>
-                <span className="block text-lg sm:text-xl font-bold text-[#0D0A27] tabular-nums">05h às 23h</span>
-                <span className="text-xs text-slate-500 font-medium">Segunda a Domingo</span>
-              </div>
-              <div>
-                <span className="block text-lg sm:text-xl font-bold text-[#0D0A27] tabular-nums">100%</span>
-                <span className="text-xs text-slate-500 font-medium">Seguro APP Passageiros</span>
-              </div>
-              <div>
-                <span className="block text-lg sm:text-xl font-bold text-[#0D0A27]">PJ & NF</span>
-                <span className="text-xs text-slate-500 font-medium">Faturamento Corporativo</span>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#0369A1] shrink-0" aria-hidden="true" />
+                <span>Cadeirinha infantil cortesia</span>
               </div>
             </div>
-
           </div>
 
-          {/* Interactive Console / Fast Quote Simulator Card */}
-          <div className="lg:col-span-5 relative" style={{ perspective: 1000 }}>
-            {/* Floating Badge: Google 5.0 Top Right */}
-            <div className="hidden lg:flex absolute -top-5 -right-3 z-20 items-center gap-2 bg-white border border-slate-200 rounded-xl px-3.5 py-1.5 shadow-[0_8px_20px_rgba(15,23,42,0.1)]">
-              <div className="flex text-[#F59E0B]">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3 h-3 fill-[#F59E0B]" />
-                ))}
+          {/* Right Column: Interactive Quote Simulator (with WebMCP + Full Form Accessibility) */}
+          <div className="lg:col-span-5">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 shadow-[0_12px_36px_rgba(15,23,42,0.08)]">
+              <div className="mb-5">
+                <h2 className="text-lg sm:text-xl font-extrabold text-[#0D0A27] tracking-tight">
+                  Simulador de Transfer Privativo
+                </h2>
+                <p className="text-xs text-slate-600 mt-1 font-medium">
+                  Informe seu trajeto para receber orçamento fechado com nossa equipe das 05h às 23h.
+                </p>
               </div>
-              <span className="text-[11px] font-bold text-[#0D0A27] tabular-nums">+200 no Google</span>
-            </div>
 
-            {/* Floating Badge: Chauffeur Bottom Left */}
-            <div className="hidden lg:flex absolute -bottom-5 -left-3 z-20 items-center gap-2 bg-white border border-emerald-200 rounded-xl px-3.5 py-1.5 shadow-[0_8px_20px_rgba(15,23,42,0.1)]">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="text-[11px] font-semibold text-slate-800">Veículos Inspecionados</span>
-            </div>
-
-            {/* Interactive 3D Tilt Wrapper (tilt active on fine pointer desktops only) */}
-            <motion.div
-              ref={cardRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{
-                rotateX,
-                rotateY,
-                transformStyle: "preserve-3d",
-              }}
-              className="bg-white sm:bg-white/95 sm:backdrop-blur-md border border-slate-200/90 rounded-2xl p-5 sm:p-7 shadow-[0_15px_40px_rgba(15,23,42,0.08)] relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(2,132,199,0.15)]"
-            >
-              
-              {/* Blue accent perimeter line */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0D0A27] via-[#0284C7] to-[#38BDF8]" />
-              
-              <div className="flex items-center justify-between mb-4">
+              <form
+                onSubmit={handleSubmit}
+                toolname="cotar_transfer"
+                tooldescription="Solicitar cotação personalizada de transfer executivo privativo na Serra Gaúcha ou aeroportos POA e CXJ."
+                className="space-y-3.5"
+              >
                 <div>
-                  <div className="flex items-center gap-1.5 text-xs text-[#0284C7] font-semibold uppercase tracking-wider mb-0.5">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Cotação Imediata</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-[#0D0A27]">Simulador de Transfer</h3>
-                </div>
-                <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-200 text-[#0284C7] shadow-xs">
-                  <Car className="w-5 h-5" />
-                </div>
-              </div>
-
-              {/* Fast Presets Selector */}
-              <div className="mb-4">
-                <span className="block text-[11px] text-slate-500 mb-1.5 font-medium">Rotas Mais Procuradas na Serra Gaúcha:</span>
-                <div className="grid grid-cols-3 gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPreset('Aeroporto Salgado Filho (POA)', 'Gramado / Canela', 'Transfer Porto Alegre ⇄ Gramado e Canela VIP')}
-                    className="min-h-[40px] px-1.5 py-2 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-semibold transition-all text-center cursor-pointer"
+                  <label
+                    htmlFor="hero-service"
+                    className="block text-xs font-bold text-[#0D0A27] mb-1"
                   >
-                    POA ⇄ Gramado
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPreset('Aeroporto Caxias do Sul (CXJ)', 'Gramado / Canela', 'Transfer Aeroporto de Caxias do Sul (CXJ)')}
-                    className="min-h-[40px] px-1.5 py-2 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-semibold transition-all text-center cursor-pointer"
-                  >
-                    CXJ ⇄ Gramado
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPreset('Caxias / Gramado', 'Vale dos Vinhedos (Bento Gonçalves)', 'Tour Vale dos Vinhedos & Bento Gonçalves')}
-                    className="min-h-[40px] px-1.5 py-2 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-semibold transition-all text-center cursor-pointer"
-                  >
-                    Vale Vinhedos
-                  </button>
-                </div>
-              </div>
-
-              <form onSubmit={handleQuickQuoteSubmit} className="space-y-3.5">
-                {/* Service Selection */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Tipo de Serviço na Serra Gaúcha
+                    Tipo de Serviço
                   </label>
                   <select
+                    id="hero-service"
+                    name="servico"
                     value={selectedService}
                     onChange={(e) => setSelectedService(e.target.value)}
-                    className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 focus:outline-none transition-colors"
+                    toolparamdescription="Categoria do transfer ou passeio desejado"
+                    className="w-full min-h-[44px] rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0F172A] font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]"
                   >
-                    <option value="Transfer Porto Alegre ⇄ Gramado e Canela VIP">Transfer Porto Alegre ⇄ Gramado e Canela VIP</option>
-                    <option value="Tour Vale dos Vinhedos & Bento Gonçalves">Tour Vale dos Vinhedos & Bento Gonçalves</option>
-                    <option value="Tour Privativo Gramado & Canela VIP">Tour Privativo Gramado & Canela VIP</option>
-                    <option value="Transfer Aeroporto de Caxias do Sul (CXJ)">Transfer Aeroporto de Caxias do Sul (CXJ)</option>
-                    <option value="Transporte Corporativo & Feiras na Serra Gaúcha">Transporte Corporativo & Feiras na Serra Gaúcha</option>
-                    <option value="Motorista Particular por Diária na Serra Gaúcha">Motorista Particular por Diária na Serra Gaúcha</option>
+                    <option value="Transfer Aeroporto POA ⇄ Gramado / Canela">
+                      Transfer Aeroporto POA ⇄ Gramado / Canela
+                    </option>
+                    <option value="Transfer Aeroporto CXJ ⇄ Serra Gaúcha">
+                      Transfer Aeroporto CXJ ⇄ Serra Gaúcha
+                    </option>
+                    <option value="Tour Privativo Vale dos Vinhedos">
+                      Tour Privativo Vale dos Vinhedos
+                    </option>
+                    <option value="Transfer Porto Alegre ➔ Montevidéu (Libertadores 2026)">
+                      Transfer Porto Alegre ➔ Montevidéu (Libertadores 2026)
+                    </option>
+                    {SERVICES.map((svc) => (
+                      <option key={svc.id} value={svc.title}>
+                        {svc.title}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
-                {/* Origin & Destination */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1 flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#0284C7]" />
-                      Origem
+                    <label htmlFor="hero-origin" className="block text-xs font-bold text-[#0D0A27] mb-1">
+                      Origem (Embarque)
                     </label>
                     <input
+                      id="hero-origin"
+                      name="origem"
                       type="text"
+                      required
                       value={origin}
                       onChange={(e) => setOrigin(e.target.value)}
-                      placeholder="Ex: Caxias do Sul"
-                      required
-                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
+                      toolparamdescription="Local, aeroporto ou cidade de embarque"
+                      placeholder="Ex: Aeroporto POA"
+                      className="w-full min-h-[44px] rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0F172A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1 flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#0369A1]" />
+                    <label htmlFor="hero-destination" className="block text-xs font-bold text-[#0D0A27] mb-1">
                       Destino
                     </label>
                     <input
+                      id="hero-destination"
+                      name="destino"
                       type="text"
+                      required
                       value={destination}
                       onChange={(e) => setDestination(e.target.value)}
-                      placeholder="Ex: Aeroporto POA"
-                      required
-                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
+                      toolparamdescription="Cidade, hotel ou ponto turístico de destino"
+                      placeholder="Ex: Gramado / Canela"
+                      className="w-full min-h-[44px] rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0F172A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]"
                     />
                   </div>
                 </div>
 
-                {/* Date & Passengers */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1 flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-[#0284C7]" />
-                      Data / Horário Previsto
+                    <label htmlFor="hero-date" className="block text-xs font-bold text-[#0D0A27] mb-1">
+                      Data Prevista
                     </label>
                     <input
-                      type="text"
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
-                      placeholder="Ex: 15/10 às 08:30"
-                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
+                      id="hero-date"
+                      name="data"
+                      type="date"
+                      value={travelDate}
+                      onChange={(e) => setTravelDate(e.target.value)}
+                      toolparamdescription="Data prevista do embarque no formato AAAA-MM-DD"
+                      className="w-full min-h-[44px] rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0F172A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1 flex items-center gap-1">
-                      <Users className="w-3.5 h-3.5 text-[#0284C7]" />
-                      Passageiros / Categoria
+                    <label htmlFor="hero-passengers" className="block text-xs font-bold text-[#0D0A27] mb-1">
+                      Passageiros
                     </label>
                     <select
+                      id="hero-passengers"
+                      name="passageiros"
                       value={passengers}
                       onChange={(e) => setPassengers(e.target.value)}
-                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 focus:outline-none transition-colors"
+                      toolparamdescription="Quantidade de passageiros para dimensionar o veículo"
+                      className="w-full min-h-[44px] rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm text-[#0F172A] font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1]"
                     >
-                      <option value="1 a 3 passageiros (Sedan Executivo)">1 a 3 passageiros (Sedan)</option>
-                      <option value="4 a 6 passageiros (SUV Premium)">4 a 6 passageiros (SUV)</option>
-                      <option value="7 a 15 passageiros (Van VIP)">7 a 15 passageiros (Van VIP)</option>
+                      <option value="1 passageiro">1 passageiro (Sedan)</option>
+                      <option value="2 passageiros">2 passageiros (Sedan)</option>
+                      <option value="3 a 4 passageiros">3 a 4 passageiros (Sedan / SUV)</option>
+                      <option value="5 a 6 passageiros">5 a 6 passageiros (SUV)</option>
+                      <option value="7 a 15 passageiros">7 a 15 passageiros (Van Executiva)</option>
                     </select>
                   </div>
                 </div>
 
-                {/* Submit to WhatsApp */}
+                {submittedNote && (
+                  <p className="text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2">
+                    {submittedNote}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full min-h-[48px] mt-2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md cursor-pointer active:scale-[0.98]"
+                  className="w-full min-h-[48px] inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-sm cursor-pointer active:scale-[0.98]"
                 >
-                  <Send className="w-4 h-4 text-[#38BDF8]" />
-                  <span>Enviar Cotação pelo WhatsApp</span>
+                  <MessageCircle className="w-4 h-4" aria-hidden="true" />
+                  <span>Cotar Agora no WhatsApp</span>
                 </button>
-
-                <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 font-medium">
-                  <span>Seg a Dom · 05h às 23h</span>
-                  <a
-                    href={COMPANY_NAP.gbpUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#0284C7] hover:underline font-semibold"
-                  >
-                    Ver +200 avaliações no GBP
-                  </a>
-                </div>
               </form>
-            </motion.div>
+            </div>
           </div>
-
         </div>
       </div>
     </section>

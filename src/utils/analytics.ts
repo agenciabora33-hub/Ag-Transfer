@@ -1,43 +1,41 @@
-/**
- * Google Analytics 4 (GA4) & GTM Tracking Utilities
- * Safely dispatches dataLayer and gtag events without throwing errors
- */
+export type AnalyticsEventName =
+  | 'whatsapp_click'
+  | 'phone_click'
+  | 'quote_submit'
+  | 'service_view'
+  | 'city_view'
+  | 'montevideo_cta_click';
 
-declare global {
-  interface Window {
-    dataLayer?: Record<string, unknown>[];
-    gtag?: (command: string, ...args: unknown[]) => void;
-  }
+export interface AnalyticsPayload {
+  source?: string;
+  service?: string;
+  origin?: string;
+  destination?: string;
+  city?: string;
+  passengers?: string;
 }
 
-export function trackEvent(
-  eventName: 'click_whatsapp' | 'click_phone' | 'form_submit' | 'scroll_faq' | string,
-  params: Record<string, unknown> = {}
-) {
+export function trackEvent(eventName: AnalyticsEventName, payload: AnalyticsPayload = {}): void {
+  if (typeof window === 'undefined') return;
+
   try {
-    const payload = {
-      event: eventName,
-      timestamp: new Date().toISOString(),
-      page_path: window.location.pathname,
-      ...params,
+    const win = window as unknown as {
+      dataLayer?: Array<Record<string, unknown>>;
+      gtag?: (...args: unknown[]) => void;
     };
 
-    // 1. Google Tag Manager dataLayer
-    if (typeof window !== 'undefined') {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(payload);
-
-      // 2. Direct gtag() support
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', eventName, params);
-      }
+    if (Array.isArray(win.dataLayer)) {
+      win.dataLayer.push({
+        event: eventName,
+        ...payload,
+        timestamp: new Date().toISOString(),
+      });
     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      console.log(`[GA4 Event] ${eventName}:`, payload);
+    if (typeof win.gtag === 'function') {
+      win.gtag('event', eventName, payload);
     }
-  } catch (error) {
-    // Fail silently in tracking
-    console.debug('Analytics tracking skipped:', error);
+  } catch {
+    // Non-blocking analytics guard
   }
 }

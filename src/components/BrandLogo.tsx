@@ -43,13 +43,14 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   return (
     <div className={`inline-flex items-center gap-2.5 ${className}`}>
       <div
-        className={`${sizeMap[size]} rounded-xl bg-white border border-slate-200/90 p-1 flex items-center justify-center shadow-xs overflow-hidden shrink-0 transition-all duration-200 hover:border-[#0284C7]/40`}
+        className={`${sizeMap[size]} rounded-xl bg-white border border-slate-200/90 p-1 flex items-center justify-center shadow-xs overflow-hidden shrink-0 transition-all duration-200 hover:border-[#0369A1]/40`}
       >
         <img
           src={COMPANY_NAP.logoSmUrl}
           alt="Logo Oficial AG Transfer & Transporte Executivo"
           width={64}
           height={64}
+          referrerPolicy="no-referrer"
           className={`${imgSizeMap[size]} object-contain`}
           loading="eager"
           decoding="async"
@@ -62,7 +63,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
             AG TRANSFER
           </span>
           {subtext && (
-            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-600">
               {subtext}
             </span>
           )}

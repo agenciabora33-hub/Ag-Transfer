@@ -1,38 +1,27 @@
-import heroImg from '../assets/images/hero_executive_transfer_1790736208088.jpg';
-import heroImgWebp from '../assets/images/hero_executive_transfer_1790736208088.webp';
-import suvImg from '../assets/images/fleet_executive_suv_1790736224372.jpg';
-import suvImgWebp from '../assets/images/fleet_executive_suv_1790736224372.webp';
-import vanImg from '../assets/images/fleet_executive_van_1790736238214.jpg';
-import vanImgWebp from '../assets/images/fleet_executive_van_1790736238214.webp';
-
-export interface ServiceRoute {
-  route: string;
-  time: string;
-  distance: string;
-  details: string;
-}
-
-export interface ServiceFaq {
-  question: string;
-  answer: string;
+export interface CoverageArea {
+  slug: string;
+  label: string;
+  city: string;
+  postalCode?: string;
 }
 
 export interface ServiceItem {
   id: string;
   slug: string;
   title: string;
-  subtitle: string;
+  shortTitle: string;
+  category: 'Aeroportos' | 'Transfers Privativos' | 'Tours Enoturísticos' | 'Corporativo';
+  routeSummary: string;
+  duration: string;
+  capacity: string;
   description: string;
-  fullDescription: string;
-  features: string[];
-  includedAmenities: string[];
-  targetAudience: string[];
-  commonRoutes: ServiceRoute[];
-  serviceFaq: ServiceFaq[];
-  metaTitle: string;
-  metaDescription: string;
-  icon: string;
-  tag: string;
+  longDescription: string;
+  highlights: string[];
+  includedItems: string[];
+  faq: { question: string; answer: string }[];
+  seoTitle: string;
+  seoDescription: string;
+  whatsappMessage: string;
 }
 
 export interface FleetVehicle {
@@ -41,950 +30,598 @@ export interface FleetVehicle {
   category: string;
   passengers: string;
   luggage: string;
-  image: string;
-  imageWebp?: string;
   description: string;
   features: string[];
+  imageUrl: string;
+  imageSrcSet: string;
+  imageAlt: string;
 }
 
-export interface RouteItem {
+export interface TrustPillar {
+  title: string;
+  metric: string;
+  description: string;
+}
+
+export interface PopularRoute {
   origin: string;
   destination: string;
-  estimatedTime: string;
   distance: string;
-  highlight: string;
+  estimatedTime: string;
+  serviceSlug: string;
 }
 
-export interface ReviewItem {
-  id: string;
+export interface ClientReview {
   name: string;
-  role: string;
-  company: string;
-  rating: number;
+  origin: string;
+  service: string;
   date: string;
+  rating: number;
   comment: string;
-  verified: boolean;
 }
 
-export interface CoverageAreaItem {
-  label: string;
-  city: string;
-  state: string;
-  postalCode?: string;
-  slug: string;
+export interface FAQItem {
+  question: string;
+  answer: string;
 }
-
-export const COVERAGE_AREAS: CoverageAreaItem[] = [
-  {
-    label: "Gramado, RS, Brasil",
-    city: "Gramado",
-    state: "RS",
-    slug: "gramado",
-  },
-  {
-    label: "Caxias do Sul, RS, Brasil",
-    city: "Caxias do Sul",
-    state: "RS",
-    slug: "caxias-do-sul",
-  },
-  {
-    label: "Canela, RS, 95680-000, Brasil",
-    city: "Canela",
-    state: "RS",
-    postalCode: "95680-000",
-    slug: "canela",
-  },
-  {
-    label: "Flores da Cunha, RS, 95270-000, Brasil",
-    city: "Flores da Cunha",
-    state: "RS",
-    postalCode: "95270-000",
-    slug: "flores-da-cunha",
-  },
-  {
-    label: "Bento Gonçalves, RS, 95700-000, Brasil",
-    city: "Bento Gonçalves",
-    state: "RS",
-    postalCode: "95700-000",
-    slug: "bento-goncalves",
-  },
-];
 
 export const COMPANY_NAP = {
-  name: "AG Transfer & Transporte Executivo LTDA.",
-  shortName: "AG Transfer Executivo",
-  serviceAreaLabel: "Gramado, Caxias do Sul, Canela, Flores da Cunha, Bento Gonçalves e Serra Gaúcha",
-  regionLabel: "Serra Gaúcha, RS - Brasil",
-  phone: "(54) 99153-7288",
-  phoneRaw: "5554991537288",
-  phoneDisplay: "(54) 99153-7288",
-  operatingHours: "Segunda a Domingo, das 05h às 23h",
-  shortHours: "05h às 23h",
-  googlePlaceId: "ChIJLxRoT8GjHpURkRBdWM5i_g0",
-  googleRating: 5.0,
-  reviewCount: 200,
-  logoUrl: "/logo.png",
-  logoSmUrl: "/logo-sm.webp",
-  gbpUrl: "https://share.google/Zr42iNP6P3vhu2am0",
-  googleMapsUrl: "https://share.google/Zr42iNP6P3vhu2am0",
-  whatsappBaseUrl: "https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20transfer%20executivo.",
-  canonicalUrl: "https://ag-transfer.vercel.app/",
-  geoCoordinates: {
-    lat: -29.1833,
-    lng: -51.1833,
-  }
+  name: 'AG Transfer & Transporte Executivo LTDA',
+  shortName: 'AG Transfer',
+  phone: '(54) 99153-7288',
+  phoneRaw: '5554991537288',
+  whatsappBaseUrl:
+    'https://wa.me/5554991537288?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20executivo%20com%20a%20AG%20Transfer.',
+  operatingHours: 'Segunda a domingo, das 05h às 23h',
+  operatingHoursShort: 'Seg a Dom · 05h às 23h',
+  gbpUrl: 'https://www.google.com/maps/place/?q=place_id:ChIJLxRoT8GjHpURkRBdWM5i_g0',
+  siteUrl: 'https://www.aagtransfer.com.br',
+  logoUrl: 'https://www.aagtransfer.com.br/logo-sm.webp',
+  logoSmUrl: 'https://www.aagtransfer.com.br/logo-sm.webp',
+  heroImageUrl: '/images/hero.webp',
+  heroImage480: '/images/hero-480.webp',
+  heroImage640: '/images/hero-640.webp',
+  heroImage1200: '/images/hero-1200.webp',
+  ratingValue: '5.0',
+  reviewCount: '+200 avaliações',
 };
 
-export const ASSET_IMAGES = {
-  hero: heroImg,
-  heroWebp: heroImgWebp,
-  suv: suvImg,
-  suvWebp: suvImgWebp,
-  van: vanImg,
-  vanWebp: vanImgWebp,
-};
-
-export const FLEET_VEHICLES: FleetVehicle[] = [
-  {
-    id: "sedan-executivo",
-    name: "Sedan Executivo Premium",
-    category: "Padrão Corporativo Individual",
-    passengers: "Até 3 passageiros",
-    luggage: "2 malas grandes + 2 malas de mão",
-    image: heroImg,
-    imageWebp: heroImgWebp,
-    description: "Veículo executivo com isolamento acústico superior, bancos em couro legítimo e climatização digital para viagens rápidas e conexões de aeroporto com máximo silêncio a bordo.",
-    features: [
-      "Bancos anatômicos em couro",
-      "Climatização digital dual-zone",
-      "Carregadores USB/Tipo C para smartphones e notebooks",
-      "Água mineral lacrada e higienização garantida",
-      "Vidros escurecidos para privacidade total"
-    ]
-  },
-  {
-    id: "suv-executivo",
-    name: "SUV Executivo & Serra",
-    category: "Espaço Amplo & Sofisticação",
-    passengers: "Até 4 a 6 passageiros",
-    luggage: "4 malas grandes + bolsas",
-    image: suvImg,
-    imageWebp: suvImgWebp,
-    description: "Combinação ideal de altura, segurança em curvas de serra e amplo espaço interno. Perfeito para delegações de diretores e famílias em viagens turísticas de lazer em Gramado e Canela.",
-    features: [
-      "Tração reforçada para topografia da Serra Gaúcha",
-      "Porta-malas espaçoso para compras e vinhos",
-      "Conectividade Wi-Fi e tomadas 110V/USB",
-      "Suspensão suave com conforto dinâmico",
-      "Seguro total de passageiros (APP)"
-    ]
-  },
-  {
-    id: "van-vip",
-    name: "Van Executiva VIP",
-    category: "Grupos, Delegações & Feiras",
-    passengers: "Até 15 passageiros",
-    luggage: "Bagageiro amplo para grandes volumes",
-    image: vanImg,
-    imageWebp: vanImgWebp,
-    description: "Capacidade estendida com padrão de primeira classe. Poltronas reclináveis individuais soft, iluminação suave e espaço para equipes inteiras em convenções ou receptivos em aeroportos.",
-    features: [
-      "Poltronas individuais reclináveis em veludo/couro",
-      "Ar-condicionado central dutado de alta vazão",
-      "Bagageiro traseiro profundo para instrumentos e bagagens",
-      "Sistema de áudio e microfone para guias e coordenadores",
-      "Ideal para Feira Mercopar, Festuris e Vindima"
-    ]
-  }
+export const COVERAGE_AREAS: CoverageArea[] = [
+  { slug: 'gramado', label: 'Gramado, RS, Brasil', city: 'Gramado' },
+  { slug: 'caxias-do-sul', label: 'Caxias do Sul, RS, Brasil', city: 'Caxias do Sul' },
+  { slug: 'canela', label: 'Canela, RS, 95680-000, Brasil', city: 'Canela', postalCode: '95680-000' },
+  { slug: 'flores-da-cunha', label: 'Flores da Cunha, RS, 95270-000, Brasil', city: 'Flores da Cunha', postalCode: '95270-000' },
+  { slug: 'bento-goncalves', label: 'Bento Gonçalves, RS, 95700-000, Brasil', city: 'Bento Gonçalves', postalCode: '95700-000' },
 ];
 
 export const SERVICES: ServiceItem[] = [
   {
-    id: "transfer-para-gramado",
-    slug: "transfer-para-gramado",
-    title: "Transfer Para Gramado Privativo VIP",
-    subtitle: "Aeroportos POA (118 km) e CXJ (68 km) ⇄ Hotéis de Gramado",
-    description: "Receptivo exclusivo nos aeroportos Salgado Filho (POA) ou Caxias do Sul (CXJ) com transporte 100% privativo até seu hotel ou pousada em Gramado. Conforto e zero paradas em hotéis de terceiros.",
-    fullDescription: "O serviço de Transfer Para Gramado Privativo da AG Transfer é a forma mais rápida, segura e sofisticada de chegar ao principal destino turístico da Serra Gaúcha. Ao desembarcar no Aeroporto Salgado Filho (POA) ou no Aeroporto Regional Hugo Cantergiani (CXJ), seu chauffeur particular estará pontualmente no portão com identificação formal, cuidará de todas as suas malas e conduzirá sua família ou equipe direto ao hotel em Gramado. Diferente dos transfers de ônibus com dezenas de paradas exaustivas, nossa viagem é direta, com rota planejada e ar climatizado para você já começar suas férias relaxando.",
-    features: [
-      "Receptivo no portão de desembarque de POA ou CXJ com placa personalizada",
-      "Viagem 100% privativa e direta até a porta do seu hotel em Gramado (sem paradas alheias)",
-      "Monitoramento de voo em tempo real via satélite (tolerância ilimitada a atrasos da malha aérea)",
-      "Opção de parada fotográfica ou café colonial em Nova Petrópolis sob solicitação",
-      "Veículos Sedan Executivo, SUV Premium e Vans VIP com seguro APP de passageiros"
+    id: 'transfer-para-gramado',
+    slug: 'transfer-para-gramado',
+    title: 'Transfer Para Gramado VIP',
+    shortTitle: 'Transfer Para Gramado',
+    category: 'Transfers Privativos',
+    routeSummary: 'Aeroportos POA / CXJ ⇄ Hotéis em Gramado',
+    duration: '1h15 a 2h00',
+    capacity: '1 a 15 passageiros',
+    description:
+      'Transfer privativo porta a porta direto para seu hotel, pousada ou apartamento em Gramado com acompanhamento em tempo real do seu voo.',
+    longDescription:
+      'Viaje com conforto e tranquilidade desde o desembarque até o seu destino em Gramado. Nossa equipe monitora o horário do seu voo em tempo real e recebe você no saguão do aeroporto sem filas, esperas ou compartilhamento com desconhecidos.',
+    highlights: [
+      'Veículo 100% exclusivo para sua família ou grupo',
+      'Recepção nominal no desembarque dos aeroportos POA e CXJ',
+      'Cadeirinha infantil e assento de elevação gratuitos sob solicitação',
+      'Monitoramento ativo de atrasos ou antecipações de voos',
     ],
-    includedAmenities: [
-      "Água mineral fresca e climatização ajustada para o clima serrano",
-      "Cadeirinhas de bebê, bebê conforto e assentos de elevação higienizados (sem custo extra)",
-      "Conexão Wi-Fi veloz e carregadores USB / Tipo C para smartphones",
-      "Porta-malas espaçoso para casacos volumosos, malas grandes e compras de vinhos e chocolates"
+    includedItems: [
+      'Combustível e pedágios incluídos no orçamento fechado',
+      'Assistência integral com bagagens no aeroporto e no hotel',
+      'Água mineral cortesia e climatização individual',
+      'Motorista experiente conhecedor das rotas da Serra Gaúcha',
     ],
-    targetAudience: [
-      "Casais e famílias visitando Gramado, Natal Luz, Festival de Cinema e Snowland",
-      "Turistas que valorizam pontualidade, privacidade e conforto sem filas de ônibus",
-      "Passageiros com bebês, crianças pequenas ou idosos que precisam de ritmo próprio",
-      "Congressistas e palestrantes participando de convenções no Serra Park e Expogramado"
+    faq: [
+      {
+        question: 'O transfer para Gramado é compartilhado ou privativo?',
+        answer:
+          'Todos os transfers da AG Transfer são 100% privativos. Você e seus acompanhantes têm o veículo inteiro à disposição, seguindo direto para o hotel sem paradas em outros endereços.',
+      },
+      {
+        question: 'O que acontece se meu voo atrasar no Aeroporto Salgado Filho (POA)?',
+        answer:
+          'Monitoramos o código do seu voo em tempo real junto à companhia aérea. Caso ocorra atraso ou antecipação, ajustamos o horário do motorista automaticamente sem custos adicionais dentro da janela operacional.',
+      },
     ],
-    commonRoutes: [
-      {
-        route: "Aeroporto Porto Alegre (POA) ⇄ Gramado (Centro / Bavária / Planalto)",
-        time: "1h 45m - 2h 00m",
-        distance: "118 km",
-        details: "Subida panorâmica via BR-116/Nova Petrópolis ou RS-020/RS-115 com pedágios e seguro inclusos."
-      },
-      {
-        route: "Aeroporto Caxias do Sul (CXJ) ⇄ Gramado",
-        time: "1h 10m - 1h 20m",
-        distance: "68 km",
-        details: "A conexão aérea mais rápida para Gramado via RS-235 em pista segura."
-      },
-      {
-        route: "Gramado (Hotel) ⇄ Aeroporto Salgado Filho (POA) - Retorno",
-        time: "1h 45m - 2h 00m",
-        distance: "118 km",
-        details: "Agendamento programado com antecedência ideal para check-in tranquilo no aeroporto."
-      }
-    ],
-    serviceFaq: [
-      {
-        question: "Quanto tempo dura a viagem de transfer do aeroporto até Gramado?",
-        answer: "Saindo do Aeroporto Salgado Filho em Porto Alegre (POA), a viagem até Gramado dura em média entre 1h45 e 2h00 (aproximadamente 118 km). Já saindo do Aeroporto de Caxias do Sul (CXJ), o tempo é de apenas 1h10 a 1h20 (68 km). Por ser um transfer 100% privativo, não há perda de tempo em hotéis de outros turistas."
-      },
-      {
-        question: "Como o motorista me recepciona no aeroporto?",
-        answer: "Nosso motorista executivo aguarda você no saguão de desembarque imediatamente após a esteira de bagagens, segurando uma placa personalizada com o seu nome ou da sua família. Ele assume suas malas e acompanha até o veículo no estacionamento coberto."
-      },
-      {
-        question: "O transfer inclui cadeirinha para crianças ou bebê conforto?",
-        answer: "Sim! Disponibilizamos bebê conforto (0 a 1 ano), cadeirinha infantil (1 a 4 anos) ou assento de elevação (4 a 7 anos) higienizados e certificados pelo Inmetro, sem cobrança de nenhuma taxa extra. Basta sinalizar a necessidade ao reservar."
-      },
-      {
-        question: "E se o meu voo para Porto Alegre ou Caxias do Sul atrasar?",
-        answer: "Fique totalmente tranquilo: nossa central de operações monitora o prefixo do seu voo em tempo real durante todo o período de atendimento (05h às 23h). Se a companhia aérea atrasar o pouso ou adiantar, seu motorista estará no desembarque no novo horário exato, sem cobrança de hora de espera."
-      },
-      {
-        question: "Qual a diferença entre o transfer privativo e o coletivo de ônibus para Gramado?",
-        answer: "No transfer coletivo você precisa esperar todos os voos do grupo chegarem (geralmente até 2 horas de espera no aeroporto) e, ao chegar em Gramado, o ônibus passa em 10 a 15 hotéis diferentes antes de chegar ao seu. No transfer privativo da AG Transfer, você desembarca, entra no carro exclusivo e sobe a serra direto para a sua acomodação."
-      }
-    ],
-    metaTitle: "Transfer Para Gramado Privativo VIP | Aeroporto POA e CXJ | AG Transfer",
-    metaDescription: "Transfer executivo privativo para Gramado saindo dos aeroportos de Porto Alegre (POA) ou Caxias do Sul (CXJ). Receptivo VIP, seguro total, cadeirinha infantil e atendimento das 05h às 23h.",
-    icon: "Plane",
-    tag: "Mais Procurado"
+    seoTitle: 'Transfer Para Gramado Privativo VIP | AG Transfer',
+    seoDescription:
+      'Transfer executivo privativo para Gramado saindo dos aeroportos de Porto Alegre (POA) ou Caxias do Sul (CXJ). Veículos novos, motoristas pontuais e atendimento das 05h às 23h.',
+    whatsappMessage: 'Olá! Gostaria de cotar um Transfer Privativo VIP para Gramado.',
   },
   {
-    id: "transfer-para-canela",
-    slug: "transfer-para-canela",
-    title: "Transfer Para Canela Privativo VIP",
-    subtitle: "Conexão Direta Aeroportos POA / CXJ ⇄ Pousadas de Canela",
-    description: "Transporte executivo direto para seu hotel ou pousada em Canela sem conexões ou paradas intermediárias em Gramado. Conforto total para desfrutar da charmosa cidade serrana.",
-    fullDescription: "Quem escolhe se hospedar em Canela busca a tranquilidade de suas pousadas charmosas, o ecoturismo na Cascata do Caracol, Skyglass e a imponente Catedral de Pedra. A AG Transfer oferece o serviço exclusivo de Transfer Para Canela: seu motorista busca você no Aeroporto de Porto Alegre (POA) ou de Caxias do Sul (CXJ) e conduz você diretamente até Canela. Com isso, você não perde até 1 hora desembarcando passageiros em hotéis de Gramado, garantindo uma chegada relaxante com assistência de bagagens até a recepção da sua pousada.",
-    features: [
-      "Transporte 100% direto para Canela sem paradas nos hotéis de Gramado",
-      "Atendimento em todas as pousadas da serra, condomínios fechados e hotéis de Canela",
-      "Receptivo VIP nos aeroportos com placa identificadora e monitoramento contínuo de voo",
-      "Possibilidade de parada estratégica na Catedral de Pedra ou mirantes de Canela",
-      "Frota premium com Sedans, SUVs e Vans para famílias e grupos grandes"
+    id: 'transfer-para-canela',
+    slug: 'transfer-para-canela',
+    title: 'Transfer Para Canela VIP',
+    shortTitle: 'Transfer Para Canela',
+    category: 'Transfers Privativos',
+    routeSummary: 'Aeroportos POA / CXJ ⇄ Canela RS',
+    duration: '1h20 a 2h10',
+    capacity: '1 a 15 passageiros',
+    description:
+      'Transporte executivo privativo direto para Canela (CEP 95680-000), hotéis centrais, condomínios, Catedral de Pedra e Parque do Caracol.',
+    longDescription:
+      'Chegue a Canela com máxima segurança e conforto em veículos executivos revisados. Atendemos pousadas românticas, hotéis boutique e casas de temporada em toda a área de cobertura de Canela, oferecendo embarque ágil nos aeroportos POA e CXJ.',
+    highlights: [
+      'Cobertura completa em hotéis, chalés e condomínios de Canela',
+      'Rota otimizada pela Rota Romântica (BR-116) ou RS-115',
+      'Porta-malas amplo para malas grandes e carrinhos de bebê',
+      'Atendimento diário de segunda a domingo, das 05h às 23h',
     ],
-    includedAmenities: [
-      "Climatização dual-zone eficiente para o frio ou calor serrano",
-      "Água mineral lacrada e higienização garantida antes de cada embarque",
-      "Cadeirinhas infantis e bebê conforto inclusos mediante reserva",
-      "Tomadas e cabos carregadores para dispositivos móveis"
+    includedItems: [
+      'Preço fechado combinado antecipadamente via WhatsApp',
+      'Pedágios da rota já incluídos na cotação',
+      'Veículos higienizados a cada viagem',
+      'Recibo executivo ou Nota Fiscal mediante solicitação',
     ],
-    targetAudience: [
-      "Hóspedes de pousadas de charme, resorts e chalés privativos em Canela",
-      "Famílias explorando o Parque do Caracol, Alpen Park, Terra Mágica Florybal e Skyglass",
-      "Casais em lua de mel buscando discrição e atendimento de primeira classe"
-    ],
-    commonRoutes: [
+    faq: [
       {
-        route: "Aeroporto Salgado Filho (POA) ⇄ Canela (Centro / Catedral / Caracol)",
-        time: "1h 55m - 2h 10m",
-        distance: "126 km",
-        details: "Conexão expressa direta até a sua pousada em Canela sem desvios."
+        question: 'Vocês entregam diretamente em casas de temporada ou chalés em Canela?',
+        answer:
+          'Sim. Além dos hotéis da região central, atendemos condomínios fechados, pousadas rurais e apartamentos por temporada em toda Canela.',
       },
       {
-        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Canela",
-        time: "1h 20m - 1h 30m",
-        distance: "75 km",
-        details: "Trajeto cênico e rápido via RS-235 passando por Gramado até Canela."
+        question: 'Qual o tempo médio de viagem do Aeroporto POA até Canela?',
+        answer:
+          'O trajeto leva em torno de 2h a 2h15, dependendo do fluxo de trânsito e da rota escolhida.',
       },
-      {
-        route: "Canela ⇄ Aeroporto Salgado Filho (POA) - Retorno",
-        time: "1h 55m - 2h 10m",
-        distance: "126 km",
-        details: "Agendamento pontual calculado com folga para check-in aéreo em POA."
-      }
     ],
-    serviceFaq: [
-      {
-        question: "O transfer para Canela faz paradas em Gramado?",
-        answer: "Não! No nosso transfer privativo, o veículo é de uso exclusivo seu. Seguimos diretamente de Porto Alegre ou Caxias do Sul até a porta da sua pousada ou hotel em Canela, poupando até 1 hora de viagem se comparado a transfers coletivos."
-      },
-      {
-        question: "Vocês atendem pousadas afastadas na Rota do Caracol e Ferradura?",
-        answer: "Sim, atendemos todas as pousadas e refúgios ecológicos de Canela, incluindo a Estrada do Caracol, Parque da Ferradura, Vale da Ferradura e condomínios fechados da região."
-      },
-      {
-        question: "Quanto tempo dura o transfer do Aeroporto de POA até Canela?",
-        answer: "A viagem dura aproximadamente 2 horas (cerca de 126 km). A condução de nossos motoristas é suave e defensiva, garantindo conforto nas curvas da serra."
-      },
-      {
-        question: "Podemos fazer uma parada para fotos na Catedral de Pedra na chegada?",
-        answer: "Sim, a flexibilidade é um dos maiores diferenciais do nosso transfer. Caso deseje uma rápida pausa fotográfica na espetacular Catedral de Pedra de Canela, basta alinhar com o motorista."
-      }
-    ],
-    metaTitle: "Transfer Para Canela Privativo VIP | Aeroporto POA e CXJ | AG Transfer",
-    metaDescription: "Transfer executivo privativo direto para Canela saindo de Porto Alegre (POA) ou Caxias do Sul (CXJ). Conforto sem conexões em Gramado, receptivo VIP das 05h às 23h.",
-    icon: "Plane",
-    tag: "Destino Serra"
+    seoTitle: 'Transfer Para Canela Privativo VIP | AG Transfer',
+    seoDescription:
+      'Transfer privativo para Canela RS saindo dos aeroportos de Porto Alegre (POA) e Caxias do Sul (CXJ). Transporte executivo com conforto, segurança e pontualidade britânica.',
+    whatsappMessage: 'Olá! Gostaria de cotar um Transfer Privativo VIP para Canela.',
   },
   {
-    id: "transporte-executivo-gramado",
-    slug: "transporte-executivo-gramado",
-    title: "Transporte Executivo em Gramado & Serra Gaúcha",
-    subtitle: "Chauffeur Particular VIP, Alta Gastronomia & Eventos",
-    description: "Carro executivo de alto padrão com motorista exclusivo à sua disposição em Gramado e Canela. Pontualidade e discrição para jantares, fondues, compras e eventos no Serra Park.",
-    fullDescription: "Gramado é a capital do charme e sofisticação no Sul do Brasil, mas suas noites frias, relevo acidentado e escassez de carros de aplicativo na alta temporada podem gerar frustrações. O Transporte Executivo em Gramado da AG Transfer coloca um chauffeur experiente e um carro impecável à sua disposição. Seja para ir a uma sequência de fondue na Rua Coberta, um jantar intimista em Canela, deslocamentos para o Serra Park e Expogramado, ou casamentos de luxo, você viaja com requinte, segurança e hora marcada.",
-    features: [
-      "Motorista particular em traje executivo com postura discreta e cortês",
-      "Veículos Sedan Premium, SUV e Vans de luxo com climatização e isolamento acústico",
-      "Espera dedicada na porta de restaurantes de fondue, espetáculos do Natal Luz e eventos",
-      "Eliminação total do estresse de procurar vagas concorridas no Centro de Gramado",
-      "Atendimento para casamentos, noivas, produções audiovisuais e feiras de negócios"
+    id: 'transporte-executivo-gramado',
+    slug: 'transporte-executivo-gramado',
+    title: 'Transporte Executivo Gramado',
+    shortTitle: 'Transporte Executivo',
+    category: 'Corporativo',
+    routeSummary: 'Serra Gaúcha · Eventos, Restaurantes e Negócios',
+    duration: 'Por trecho ou período',
+    capacity: '1 a 15 passageiros',
+    description:
+      'Locomoção executiva discreta para jantares, eventos, reuniões empresariais e deslocamentos exclusivos em Gramado e região.',
+    longDescription:
+      'Para quem exige discrição, pontualidade absoluta e atendimento sob medida em Gramado e Canela. Nossa frota executiva atende diretores, artistas, palestrantes e famílias que preferem não dirigir à noite ou enfrentar trânsito em alta temporada.',
+    highlights: [
+      'Motoristas trajados com padrão executivo e discrição total',
+      'Veículos sem adesivagem turística ostentosa',
+      'Embarque programado para jantares, cafés coloniais e espetáculos',
+      'Suporte direto via WhatsApp das 05h às 23h',
     ],
-    includedAmenities: [
-      "Veículo mantido aquecido no inverno e refrescado nas tardes quentes",
-      "Guarda-chuvas executivos grandes para embarque e desembarque em dias chuvosos",
-      "Wi-Fi corporativo a bordo e pontos de recarga para celulares",
-      "Água mineral lacrada e higienização estrita antes de cada atendimento"
+    includedItems: [
+      'Espera combinada conforme a programação do cliente',
+      'Frota renovada com ar-condicionado dual-zone e Wi-Fi',
+      'Faturamento empresarial disponível para clientes recorrentes',
+      'Pontualidade garantida em horários de pico',
     ],
-    targetAudience: [
-      "Casais e famílias exigentes que desejam curtir a noite de Gramado sem preocupações",
-      "Noivos, cerimonialistas e convidados de casamentos e celebrações de luxo",
-      "Executivos, investidores e participantes do Festival de Cinema e Festuris",
-      "Turistas que não desejam dirigir em noites com neblina, frio e garoa na serra"
+    faq: [
+      {
+        question: 'Posso agendar apenas idas e voltas para restaurantes em Gramado e Canela?',
+        answer:
+          'Sim! Realizamos traslados pontuais entre seu hotel e restaurantes ou eventos noturnos com horário de retorno programado.',
+      },
     ],
-    commonRoutes: [
-      {
-        route: "Hotéis de Gramado ⇄ Restaurantes, Sequências de Fondue e Rua Coberta",
-        time: "10m - 20m com espera",
-        distance: "Circuito Urbano",
-        details: "Transporte noturno pontual com retorno garantido após seu jantar."
-      },
-      {
-        route: "Gramado / Canela ⇄ Serra Park / Expogramado (Feiras e Congressos)",
-        time: "15m - 25m",
-        distance: "8 km - 12 km",
-        details: "Shuttle corporativo pontual para expositores, palestrantes e VIPs."
-      },
-      {
-        route: "Gramado ⇄ Espetáculos do Natal Luz (Nativitaten, Grande Desfile)",
-        time: "Conforme programação",
-        distance: "Circuito Natal Luz",
-        details: "Embarque antecipado e espera no ponto exato sem filas de táxi na chuva."
-      }
-    ],
-    serviceFaq: [
-      {
-        question: "Por que contratar transporte executivo em vez de táxi ou aplicativo em Gramado?",
-        answer: "Em Gramado, especialmente à noite, em dias de chuva ou alta temporada (Natal Luz, inverno e feriados), os aplicativos sofrem com cancelamentos constantes, tarifas dinâmicas astronômicas e falta de carros disponíveis. Com a AG Transfer, seu carro e motorista estão garantidos com agendamento prévio e espera na porta."
-      },
-      {
-        question: "O motorista aguarda enquanto jantamos no restaurante ou fondue?",
-        answer: "Sim! Podemos reservar o transporte no formato de ida e volta com horários combinados ou contratar o serviço com espera dedicada no local, garantindo que o carro esteja pronto assim que você terminar a sobremesa."
-      },
-      {
-        question: "Vocês atendem casamentos e eventos de noivas em Gramado e Canela?",
-        answer: "Sim, somos especialistas no atendimento a casamentos e bodas na serra. Conduzimos a noiva com pontualidade milimétrica, realizamos traslados para padrinhos e convidados e oferecemos vans executivas para grandes grupos."
-      },
-      {
-        question: "É possível contratar por turnos de 4 horas ou período noturno?",
-        answer: "Com certeza. Temos pacotes flexíveis para saídas noturnas (4 a 5 horas), diárias completas ou corridas pontuais agendadas."
-      }
-    ],
-    metaTitle: "Transporte Executivo em Gramado & Serra Gaúcha VIP | AG Transfer",
-    metaDescription: "Transporte executivo com motorista particular em Gramado e Canela. Chauffeur para jantares de fondue, eventos no Serra Park, casamentos e viagens VIP das 05h às 23h.",
-    icon: "Car",
-    tag: "Padrão Luxo"
+    seoTitle: 'Transporte Executivo em Gramado & Serra Gaúcha | AG Transfer',
+    seoDescription:
+      'Serviço de transporte executivo em Gramado, Canela e Serra Gaúcha. Frotas de alto padrão com sedans, SUVs e vans executivas para famílias e executivos exigentes.',
+    whatsappMessage: 'Olá! Preciso de Transporte Executivo em Gramado e Serra Gaúcha.',
   },
   {
-    id: "transfer-porto-alegre-gramado",
-    slug: "transfer-porto-alegre-gramado",
-    title: "Transfer Aeroporto Porto Alegre (POA) ⇄ Serra Gaúcha",
-    subtitle: "Salgado Filho ⇄ Gramado, Canela, Bento e Caxias",
-    description: "Receptivo exclusivo no Aeroporto Salgado Filho (POA) com transporte privativo até o seu hotel ou pousada em Gramado e Canela. Conforto total para subir a serra sem atrasos ou filas.",
-    fullDescription: "O transfer privativo entre o Aeroporto Internacional Salgado Filho (POA) e as cidades de Gramado e Canela é o serviço mais procurado da Serra Gaúcha. A AG Transfer proporciona uma viagem suave pela rota mais segura, sem a espera exaustiva de transfers compartilhados em ônibus com múltiplas paradas em hotéis de terceiros. Seu chauffeur estará pontualmente no desembarque com identificação formal, auxiliando com malas e conduzindo sua família ou equipe direto ao destino final em veículos climatizados de padrão executivo superior.",
-    features: [
-      "Receptivo no portão de desembarque com placa executiva",
-      "Monitoramento do voo em tempo real (tolerância a atrasos)",
-      "Trajeto 100% privativo direto até a porta do seu hotel em Gramado ou Canela",
-      "Veículos com isolamento acústico e amplo espaço para malas de compras e roupas de inverno"
+    id: 'transfer-porto-alegre-gramado',
+    slug: 'transfer-porto-alegre-gramado',
+    title: 'Transfer Aeroporto POA ⇄ Serra',
+    shortTitle: 'Aeroporto POA ⇄ Serra',
+    category: 'Aeroportos',
+    routeSummary: 'Aeroporto Salgado Filho (POA) ⇄ Gramado / Canela / Bento',
+    duration: '1h50 a 2h15',
+    capacity: '1 a 15 passageiros',
+    description:
+      'Conexão executiva direta do Aeroporto Internacional Salgado Filho (POA) e hotéis de Porto Alegre para toda a Serra Gaúcha.',
+    longDescription:
+      'Evite alugar carro ou lidar com estradas desconhecidas após o voo. Nosso motorista aguarda no desembarque do Aeroporto Salgado Filho (POA) e conduz você diretamente pela Rota Romântica ou Freeway/Taquara com máximo conforto e segurança.',
+    highlights: [
+      'Encontro rápido na porta de desembarque do Terminal POA',
+      'Acompanhamento automático de horários de chegada e atrasos',
+      'Parada cortesia rápida para café ou conveniência, se desejar',
+      'Ideal para casais, famílias com crianças e grupos em vans',
     ],
-    includedAmenities: [
-      "Água mineral fresca e climatização ajustada para o clima serrano",
-      "Carregadores para smartphones e notebooks (USB / Tipo C)",
-      "Conexão Wi-Fi veloz a bordo para planejar sua estadia",
-      "Cadeirinhas e assentos de elevação infantis sob solicitação prévia"
+    includedItems: [
+      'Valor fechado antes do embarque sem surpresas de taxímetro',
+      'Todos os pedágios e combustível inclusos',
+      'Amplo compartimento de bagagens',
+      'Atendimento de retorno programado direto do hotel ao aeroporto',
     ],
-    targetAudience: [
-      "Casais e famílias visitando Gramado, Canela e o Natal Luz",
-      "Viajantes a negócios e palestrantes do Festuris e eventos no Serra Park",
-      "Turistas exigentes que valorizam pontualidade e zero estresse de trânsito"
-    ],
-    commonRoutes: [
+    faq: [
       {
-        route: "Aeroporto Salgado Filho (POA) ⇄ Gramado (Centro / Hotéis)",
-        time: "1h 45m - 2h 00m",
-        distance: "118 km",
-        details: "Subida via BR-116/Nova Petrópolis ou Taquara com pedágios e seguro inclusos."
+        question: 'Onde o motorista aguarda no Aeroporto Salgado Filho (POA)?',
+        answer:
+          'Antes do pouso você recebe o contato direto do motorista e ele aguarda com placa de identificação discreta na área de desembarque, conduzindo até o veículo no estacionamento coberto.',
       },
-      {
-        route: "Aeroporto Salgado Filho (POA) ⇄ Canela (Catedral de Pedra / Hotéis)",
-        time: "1h 55m - 2h 10m",
-        distance: "126 km",
-        details: "Conexão direta com assistência total de bagagens até a recepção."
-      },
-      {
-        route: "Gramado / Canela ⇄ Aeroporto Salgado Filho (POA) - Retorno",
-        time: "1h 45m - 2h 00m",
-        distance: "118 km",
-        details: "Agendamento programado com folga de segurança para check-in no voo."
-      }
     ],
-    serviceFaq: [
-      {
-        question: "Qual a vantagem do transfer privativo em relação ao transfer coletivo de ônibus?",
-        answer: "No transfer privativo da AG Transfer você não perde horas esperando outros voos chegarem e nem passa por 10 hotéis diferentes antes de chegar ao seu. O embarque é imediato no seu voo e o trajeto é direto para o seu endereço em Gramado ou Canela."
-      },
-      {
-        question: "Como funciona se o meu voo para POA atrasar?",
-        answer: "Nossa central monitora seu voo pelo radar em tempo real das 05h às 23h. Se houver atraso, o motorista é reposicionado para o novo horário de pouso sem cobrança extra."
-      },
-      {
-        question: "Como é o pagamento do transfer de Porto Alegre para Gramado?",
-        answer: "Aceitamos PIX, cartões de crédito e débito com parcelamento facilitado, além de faturamento corporativo para empresas (PJ) com Nota Fiscal."
-      }
-    ],
-    metaTitle: "Transfer Porto Alegre para Gramado e Canela VIP | AG Transfer",
-    metaDescription: "Transfer executivo privativo do Aeroporto de Porto Alegre (POA) para Gramado e Canela. Pontualidade, conforto, monitoramento de voo e atendimento de segunda a domingo das 05h às 23h.",
-    icon: "Plane",
-    tag: "Aeroporto POA"
+    seoTitle: 'Transfer Aeroporto Porto Alegre (POA) ⇄ Serra Gaúcha | AG Transfer',
+    seoDescription:
+      'Transfer privativo conectando o Aeroporto Internacional Salgado Filho (POA) a Gramado e Canela. Recepção no desembarque e rastreamento de voos em tempo real.',
+    whatsappMessage: 'Olá! Gostaria de cotar um transfer do Aeroporto de Porto Alegre (POA) para a Serra Gaúcha.',
   },
   {
-    id: "transfer-aeroporto-cxj-caxias",
-    slug: "transfer-aeroporto-cxj-caxias",
-    title: "Transfer Aeroporto de Caxias do Sul (CXJ)",
-    subtitle: "Aeroporto Hugo Cantergiani ⇄ Serra Gaúcha (Gramado a 68 km)",
-    description: "Receptivo ágil no Aeroporto Regional Hugo Cantergiani (CXJ) em Caxias do Sul com ligação rápida para Gramado, Canela, Bento Gonçalves, Farroupilha e Flores da Cunha.",
-    fullDescription: "O Aeroporto Regional Hugo Cantergiani de Caxias do Sul (CXJ) é a porta de entrada aérea mais próxima de Gramado, Canela e Bento Gonçalves. Para quem desembarca em CXJ, a AG Transfer oferece conexão expressa: em apenas 1h15m você chega aos hotéis de Gramado, e em apenas 40 minutos ao Vale dos Vinhedos em Bento Gonçalves. Nossa equipe monitora seu voo em tempo real e aguarda pontualmente no terminal de passageiros com veículo executivo higienizado e climatizado.",
-    features: [
-      "Receptivo pontual no terminal de passageiros do Aeroporto CXJ",
-      "A rota mais rápida para a Serra Gaúcha (Gramado a apenas 68 km de distância)",
-      "Monitoramento contínuo dos voos da Gol, Latam, Azul e aviação executiva privada",
-      "Veículos Sedan, SUV e Van para acomodar viagens individuais ou grupos inteiros"
+    id: 'transfer-aeroporto-cxj-caxias',
+    slug: 'transfer-aeroporto-cxj-caxias',
+    title: 'Transfer Aeroporto CXJ (Caxias)',
+    shortTitle: 'Aeroporto CXJ (Caxias)',
+    category: 'Aeroportos',
+    routeSummary: 'Aeroporto Hugo Cantergiani (CXJ) ⇄ Serra Gaúcha',
+    duration: '40 min a 1h10',
+    capacity: '1 a 15 passageiros',
+    description:
+      'Transfer ágil saindo do Aeroporto Hugo Cantergiani (CXJ) em Caxias do Sul para Gramado, Canela, Bento Gonçalves e Flores da Cunha.',
+    longDescription:
+      'Desembarcar em Caxias do Sul (CXJ) garante o acesso mais rápido ao Vale dos Vinhedos, Flores da Cunha, Farroupilha e Região das Hortênsias. Oferecemos recepção pontual no terminal e deslocamento imediato ao seu hotel ou compromisso.',
+    highlights: [
+      'Acesso em apenas 40–50 minutos até Bento Gonçalves e Garibaldi',
+      'Trajeto panorâmico rápido pela RS-452 ou BR-116 para Gramado',
+      'Cobertura ativa em toda Caxias do Sul e Flores da Cunha',
+      'Embarque imediato sem espera de grupos terceiros',
     ],
-    includedAmenities: [
-      "Água mineral e carregadores veiculares à disposição",
-      "Wi-Fi corporativo de alta estabilidade",
-      "Assistência completa com bagagens no desembarque e no hotel",
-      "Tolerância para atrasos operacionais da malha aérea"
+    includedItems: [
+      'Recepção personalizada no desembarque do aeroporto CXJ',
+      'Bagageiro compatível com compras e caixas de vinhos no retorno',
+      'Frota executiva com sedans, SUVs e vans',
+      'Confirmação formal por escrito via WhatsApp',
     ],
-    targetAudience: [
-      "Passageiros de voos comerciais regulares pousando em Caxias do Sul (CXJ)",
-      "Usuários de aviação executiva, táxi aéreo e jatos particulares",
-      "Empresários visitando o polo metalmecânico de Caxias do Sul",
-      "Turistas buscando a menor distância e menor tempo de estrada até a Serra Gaúcha"
-    ],
-    commonRoutes: [
+    faq: [
       {
-        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Gramado e Canela",
-        time: "1h 10m - 1h 25m",
-        distance: "68 km",
-        details: "Conexão rápida e panorâmica via RS-235 direto ao seu hotel."
+        question: 'Quanto tempo leva do Aeroporto de Caxias do Sul (CXJ) até Gramado?',
+        answer:
+          'O trajeto entre o Aeroporto Hugo Cantergiani (CXJ) e Gramado leva aproximadamente 1h05 a 1h15, sendo uma excelente alternativa rápida na Serra Gaúcha.',
       },
-      {
-        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Bento Gonçalves (Vale dos Vinhedos)",
-        time: "40m - 50m",
-        distance: "42 km",
-        details: "Ligação direta polo vinícola e moveleiro via RS-453."
-      },
-      {
-        route: "Aeroporto Hugo Cantergiani (CXJ) ⇄ Centro e Indústrias de Caxias do Sul",
-        time: "15m - 25m",
-        distance: "8 km",
-        details: "Transporte expresso para hotéis executivos e parques fabris."
-      }
     ],
-    serviceFaq: [
-      {
-        question: "Qual a distância do Aeroporto de Caxias (CXJ) até Gramado?",
-        answer: "São aproximadamente 68 km, percorridos em cerca de 1 hora e 15 minutos de viagem tranquila pela RS-235, sendo muito mais rápido do que a subida a partir de Porto Alegre (que tem 118 km)."
-      },
-      {
-        question: "Vocês atendem voos particulares e jatos executivos no Aeroporto CXJ?",
-        answer: "Sim, prestamos atendimento VIP no hangar executivo e na pista geral com total discrição e protocolos de segurança para passageiros da aviação privada."
-      },
-      {
-        question: "Se as condições meteorológicas em CXJ causarem desvio para POA, o que acontece?",
-        answer: "Nossa equipe acompanha o voo pelo radar. Caso o voo alterne para o Aeroporto Salgado Filho em Porto Alegre, nossa central reorganiza a logística para recepcionar você em POA com agilidade."
-      }
-    ],
-    metaTitle: "Transfer Aeroporto Caxias do Sul (CXJ) para Gramado e Bento | AG Transfer",
-    metaDescription: "Transfer executivo do Aeroporto Hugo Cantergiani (CXJ) em Caxias do Sul para Gramado, Canela e Bento Gonçalves. Atendimento pontual das 05h às 23h.",
-    icon: "Plane",
-    tag: "Conexão Expressa"
+    seoTitle: 'Transfer Aeroporto de Caxias do Sul (CXJ) | AG Transfer',
+    seoDescription:
+      'Transfer do Aeroporto Hugo Cantergiani (CXJ) em Caxias do Sul para Gramado, Canela e Bento Gonçalves. Rota mais curta e rápida para a Serra Gaúcha.',
+    whatsappMessage: 'Olá! Gostaria de cotar um transfer saindo ou chegando ao Aeroporto de Caxias do Sul (CXJ).',
   },
   {
-    id: "tour-vale-dos-vinhedos",
-    slug: "tour-vale-dos-vinhedos",
-    title: "Tour Vale dos Vinhedos & Bento Gonçalves",
-    subtitle: "Enoturismo Privativo Sem Risco na Lei Seca",
-    description: "Visite as vinícolas mais prestigiadas do Brasil (Miolo, Casa Valduga, Almaúnica, Garibaldi) com motorista dedicado. Deguste com segurança e flexibilidade total de itinerário.",
-    fullDescription: "O Vale dos Vinhedos em Bento Gonçalves, Garibaldi e Monte Belo do Sul abriga o coração da produção vinícola e gastronômica da Serra Gaúcha. Para aproveitar verdadeiramente as degustações harmonizadas de vinhos e espumantes premiados, contar com um motorista executivo privativo é essencial: você não corre nenhum risco com a Lei Seca, não se preocupa com caminhos vicinais ou curvas serranas, e viaja com um profissional que conhece os melhores mirantes, vinícolas familiares e restaurantes típicos italianos.",
-    features: [
-      "Deguste com segurança: motorista dedicado e zero preocupação com o volante",
-      "Roteiro sob medida: escolha as vinícolas que deseja conhecer ou siga nossas recomendações",
-      "Porta-malas espaçoso e climatizado para acomodar com segurança suas caixas de vinho",
-      "Duração flexível por turnos de 6h, 8h ou diária completa sem correria de grupos"
+    id: 'tour-vale-dos-vinhedos',
+    slug: 'tour-vale-dos-vinhedos',
+    title: 'Tour Vale dos Vinhedos VIP',
+    shortTitle: 'Tour Vale dos Vinhedos',
+    category: 'Tours Enoturísticos',
+    routeSummary: 'Bento Gonçalves · Garibaldi · Pinto Bandeira',
+    duration: 'Diária (6h a 8h)',
+    capacity: '1 a 15 passageiros',
+    description:
+      'Roteiro enoturístico privativo pelas principais vinícolas e cantinas de Bento Gonçalves e Garibaldi, com motorista exclusivo o dia inteiro.',
+    longDescription:
+      'Deguste os melhores vinhos e espumantes do Brasil sem nenhuma preocupação com a Lei Seca ou estacionamento. Com a AG Transfer, você define as vinícolas e restaurantes que deseja visitar no Vale dos Vinhedos, Caminhos de Pedra ou Pinto Bandeira no seu próprio ritmo.',
+    highlights: [
+      'Liberdade total para degustar vinhos e espumantes com segurança',
+      'Itinerário flexível entre vinícolas boutique e grandes propriedades',
+      'Saída diretamente do seu hotel em Gramado, Canela ou Bento Gonçalves',
+      'Armazenamento cuidadoso para suas compras de vinhos e queijos',
     ],
-    includedAmenities: [
-      "Espaço seguro com acomodação para caixas de vinho e souvenires",
-      "Água mineral à vontade para hidratação entre as degustações",
-      "Veículos novos com suspensão confortável para as estradas do Vale",
-      "Dicas locais de restaurantes tradicionais, queijarias e cantinas históricas"
+    includedItems: [
+      'Veículo privativo com motorista à disposição durante todo o roteiro',
+      'Orientação de horários entre degustações e almoço',
+      'Combustível e deslocamento entre Bento, Garibaldi e região',
+      'Paradas estratégicas em mirantes e queijarias artesanais',
     ],
-    targetAudience: [
-      "Apreciadores de vinhos, enófilos e confrarias gastronômicas",
-      "Casais em lua de mel ou viagens românticas pela serra",
-      "Famílias e grupos de amigos buscando exclusividade e conforto"
-    ],
-    commonRoutes: [
+    faq: [
       {
-        route: "Circuito Vale dos Vinhedos (Bento Gonçalves ⇄ Vinícolas Miolo, Valduga)",
-        time: "Diária de 6h a 8h",
-        distance: "Flexível",
-        details: "Roteiro personalizado pelas melhores vinícolas da D.O. Vale dos Vinhedos."
+        question: 'Os ingressos e degustações nas vinícolas estão incluídos?',
+        answer:
+          'O serviço inclui o transporte privativo executivo e motorista exclusivo durante o roteiro. As taxas de degustação e refeições são contratadas diretamente nas vinícolas de sua preferência, permitindo total personalização do passeio.',
       },
-      {
-        route: "Gramado / Canela ⇄ Tour Bento Gonçalves & Vale dos Vinhedos",
-        time: "1h 20m (deslocamento) + Tour",
-        distance: "110 km",
-        details: "Bate e volta privativo com saída e retorno no seu hotel em Gramado."
-      },
-      {
-        route: "Caxias do Sul ⇄ Rota dos Espumantes em Garibaldi & Bento",
-        time: "40m (deslocamento) + Tour",
-        distance: "45 km",
-        details: "Conexão rápida para visitar vinícolas especializadas em espumantes finos."
-      }
     ],
-    serviceFaq: [
-      {
-        question: "Preciso agendar as vinícolas com antecedência?",
-        answer: "Sim, recomendamos agendar previamente as visitas guiadas e degustações nas vinícolas desejadas. Nosso motorista organiza a sequência geográfica ideal para otimizar seu tempo entre uma visita e outra."
-      },
-      {
-        question: "O veículo acomoda caixas de vinhos compradas durante o passeio?",
-        answer: "Com certeza! Nossos Sedans, SUVs e Vans possuem porta-malas espaçosos para transportar garrafas e caixas com segurança e climatização adequada."
-      },
-      {
-        question: "O tour pode sair do meu hotel em Gramado ou Canela?",
-        answer: "Sim! Fazemos o passeio no formato de bate-e-volta com saída pela manhã do seu hotel em Gramado ou Canela, dia completo de vinícolas em Bento Gonçalves e retorno seguro no fim da tarde."
-      }
-    ],
-    metaTitle: "Tour Vale dos Vinhedos Bento Gonçalves Privativo | AG Transfer",
-    metaDescription: "Tour privativo no Vale dos Vinhedos e Bento Gonçalves com motorista executivo. Deguste vinhos com segurança, conforto e flexibilidade total.",
-    icon: "Compass",
-    tag: "Enoturismo VIP"
+    seoTitle: 'Tour Vale dos Vinhedos & Bento Gonçalves Privativo | AG Transfer',
+    seoDescription:
+      'Tour privativo exclusivo pelas melhores vinícolas de Bento Gonçalves, Garibaldi e Monte Belo do Sul. Roteiro personalizado com motorista à disposição o dia todo.',
+    whatsappMessage: 'Olá! Quero montar um Tour Privativo pelo Vale dos Vinhedos.',
   },
   {
-    id: "tour-gramado-canela",
-    slug: "tour-gramado-canela",
-    title: "Tour Privativo Gramado & Canela VIP",
-    subtitle: "Roteiro Exclusivo, Natal Luz & Atrações Serranas",
-    description: "Passeios personalizados pelas atrações mais famosas de Gramado e Canela (Lago Negro, Snowland, Cascata do Caracol, Skyglass) no seu ritmo e sem aglomerações de ônibus.",
-    fullDescription: "Conhecer o charme europeu de Gramado e Canela com a AG Transfer é uma experiência memorável. Criamos roteiros privativos pensados sob medida para o seu perfil — desde os cartões-postais tradicionais como a Catedral de Pedra de Canela, Lago Negro e Mini Mundo, até parques temáticos (Snowland, Acquamotion) e passeios de natureza deslumbrante (Parque do Caracol, Skyglass Canela). Você decide quanto tempo passar em cada atração, com espera dedicada e embarque imediato.",
-    features: [
-      "Roteiro 100% privativo adaptado aos interesses da sua família ou grupo",
-      "Sem filas ou espera de grupos de excursão: o carro é exclusivo seu",
-      "Flexibilidade para paradas fotográficas em mirantes e lojas de chocolate artesanal",
-      "Motorista conhecedor dos melhores horários para evitar trânsito turístico"
+    id: 'tour-gramado-canela',
+    slug: 'tour-gramado-canela',
+    title: 'Tour Gramado & Canela VIP',
+    shortTitle: 'Tour Gramado & Canela',
+    category: 'Tours Enoturísticos',
+    routeSummary: 'Lago Negro · Skyglass · Cascata do Caracol · Snowland',
+    duration: 'Diária (4h a 8h)',
+    capacity: '1 a 15 passageiros',
+    description:
+      'City tour privativo por Gramado e Canela em carro executivo, adaptado aos interesses e ao tempo da sua família, sem pressa ou ônibus lotados.',
+    longDescription:
+      'Conheça os cartões-postais da Região das Hortênsias no ritmo da sua família. Diferente de excursões em massa, você escolhe quanto tempo permanece no Lago Negro, Rua Torta, Catedral de Pedra, Bondinhos Aéreos, Skyglass ou parques temáticos.',
+    highlights: [
+      'Roteiro 100% personalizado conforme perfil de crianças, casais ou idosos',
+      'Desembarque na porta das atrações sem caminhar longas distâncias',
+      'Zero espera por outros grupos turísticos',
+      'Flexibilidade para almoço e paradas para fotos',
     ],
-    includedAmenities: [
-      "Veículo mantido sempre aquecido ou resfriado conforme a estação",
-      "Carregadores de bateria rápidos para registrar todas as fotos",
-      "Água mineral lacrada e higienização garantida a cada parada",
-      "Espaço generoso para compras nas charmosas avenidas de Gramado"
+    includedItems: [
+      'Veículo privativo exclusivo e motorista conhecedor da cidade',
+      'Ar-condicionado e bagageiro para casacos e compras',
+      'Suporte rápido via WhatsApp durante o passeio',
+      'Embarque e desembarque direto no hotel ou pousada',
     ],
-    targetAudience: [
-      "Famílias com crianças e idosos que exigem conforto e ritmo próprio",
-      "Visitantes do Natal Luz de Gramado, Festival de Cinema e Páscoa",
-      "Grupos de amigos que querem conhecer os melhores restaurantes e fondue da serra"
-    ],
-    commonRoutes: [
+    faq: [
       {
-        route: "Tour Clássico Gramado (Lago Negro, Mini Mundo, Rua Torta, Centro)",
-        time: "Turnos de 4h ou 8h",
-        distance: "Flexível",
-        details: "O melhor de Gramado com paradas nos principais pontos turísticos."
+        question: 'Qual a diferença para o passeio de ônibus turístico tradicional?',
+        answer:
+          'No tour privativo você não fica preso a horários rígidos de grupo, não passa por lojas de comissionamento indesejadas e escolhe exatamente quais pontos turísticos visitar.',
       },
-      {
-        route: "Tour Natureza Canela (Catedral de Pedra, Cascata do Caracol, Skyglass)",
-        time: "Turnos de 4h ou 8h",
-        distance: "Flexível",
-        details: "Paisagens cinematográficas e parques ecológicos da serra."
-      },
-      {
-        route: "Circuito Noturno (Restaurantes Temáticos, Noite Suíça, Natal Luz)",
-        time: "Período noturno (4h - 5h)",
-        distance: "Flexível",
-        details: "Transporte seguro para jantares, espetáculos e fondues sem estresse de vaga."
-      }
     ],
-    serviceFaq: [
-      {
-        question: "O motorista pode nos buscar no aeroporto e já iniciar o tour?",
-        answer: "Sim! Podemos realizar o receptivo em Porto Alegre (POA) ou Caxias do Sul (CXJ) e, no caminho ou logo após o check-in no hotel, iniciar o seu itinerário planejado."
-      },
-      {
-        question: "Como funciona durante os espetáculos do Natal Luz?",
-        answer: "Nosso motorista leva você com antecedência até os portões do espetáculo e aguarda o término do show no ponto de encontro combinado, evitando as longas filas de táxi e chuva."
-      },
-      {
-        question: "O ingresso dos parques turísticos está incluso no valor?",
-        answer: "O serviço cobre o transporte privativo executivo, combustível, pedágios e espera dedicada do chauffeur. Os ingressos das atrações são adquiridos separadamente por cada passageiro, permitindo total liberdade de escolha."
-      }
-    ],
-    metaTitle: "Tour Privativo Gramado e Canela VIP | AG Transfer Serra Gaúcha",
-    metaDescription: "Passeio privativo em Gramado e Canela com motorista exclusivo. Visite o Lago Negro, Caracol, Skyglass e Natal Luz com conforto e sem aglomerações.",
-    icon: "Sparkles",
-    tag: "Roteiro Exclusivo"
+    seoTitle: 'Tour Privativo Gramado & Canela VIP | AG Transfer',
+    seoDescription:
+      'Passeio turístico personalizado por Gramado e Canela nos melhores pontos turísticos sem pressa. Conforto e flexibilidade total para sua família.',
+    whatsappMessage: 'Olá! Gostaria de reservar um Tour Privativo em Gramado e Canela.',
   },
   {
-    id: "viagens-corporativas-serra",
-    slug: "viagens-corporativas-serra",
-    title: "Transporte Corporativo & Feiras na Serra Gaúcha",
-    subtitle: "B2B · Mercopar, Fenavinho, Festuris & Polos Industriais",
-    description: "Mobilidade corporativa de alto padrão para executivos, delegações e expositores. Sigilo a bordo para chamadas, pontualidade britânica e faturamento com Nota Fiscal (PJ).",
-    fullDescription: "A Serra Gaúcha concentra um dos ecossistemas industriais mais pujantes do país, além de grandes eventos de negócios como Mercopar (Caxias do Sul), Fenavinho/ExpoBento (Bento Gonçalves) e Festuris (Gramado). A AG Transfer é a fornecedora homologada por corporações líderes para o transporte de diretores, auditores, clientes internacionais e equipes técnicas. Proporcionamos total discrição para reuniões a bordo, veículos novos com conectividade e processo simplificado de faturamento quinzenal ou mensal via NFS-e.",
-    features: [
-      "Total sigilo e discrição para conferências telefônicas e reuniões a bordo",
-      "Faturamento quinzenal ou mensal simplificado para pessoas jurídicas (PJ com NFS-e)",
-      "Veículos com climatização dual-zone, tomadas, Wi-Fi e isolamento acústico",
-      "Motoristas com traje executivo, postura impecável e conhecimento dos polos fabris"
+    id: 'viagens-corporativas-serra',
+    slug: 'viagens-corporativas-serra',
+    title: 'Viagens Corporativas Serra',
+    shortTitle: 'Viagens Corporativas',
+    category: 'Corporativo',
+    routeSummary: 'Caxias do Sul · Bento · Gramado · Feiras e Congressos',
+    duration: 'Sob medida / Contratos',
+    capacity: 'Executivos e Comitivas',
+    description:
+      'Logística executiva para feiras (Mercopar, Festuris, Movelsul, Fiema), congressos, visitas a fábricas e diretores em missão de negócios.',
+    longDescription:
+      'Atendimento especializado para empresas que precisam de pontualidade rigorosa, sigilo, apresentação impecável e facilidade administrativa. Coordenamos transfers de aeroportos, visitas técnicas ao polo metalmecânico e deslocamentos entre eventos corporativos.',
+    highlights: [
+      'Atendimento consolidado para múltiplos voos e diretoria',
+      'Motoristas treinados em etiqueta corporativa e confidencialidade',
+      'Cobertura entre Porto Alegre, Caxias do Sul, Bento e Gramado',
+      'Emissão de Nota Fiscal e pagamento facilitado para empresas',
     ],
-    includedAmenities: [
-      "Wi-Fi corporativo estável e pontos de carregamento multiportas",
-      "Ambiente silencioso projetado para produtividade a bordo",
-      "Gestor de conta B2B exclusivo para reservas e alterações de agenda",
-      "Relatório detalhado mensal com centro de custo por corrida"
+    includedItems: [
+      'Coordenação centralizada por WhatsApp corporativo',
+      'Sedans executivos, SUVs e Vans executivas',
+      'Pontualidade garantida em janelas de feiras e convenções',
+      'Recibo detalhado por centro de custo quando necessário',
     ],
-    targetAudience: [
-      "Indústrias metalmecânicas, automobilísticas, vinícolas e moveleiras",
-      "Expositores, palestrantes e participantes da Mercopar, Festuris e Fenavinho",
-      "Escritórios de advocacia, consultorias e fundos de investimento"
-    ],
-    commonRoutes: [
+    faq: [
       {
-        route: "Polo Industrial de Caxias do Sul ⇄ Pavilhões da Festa da Uva (Mercopar)",
-        time: "15m - 25m",
-        distance: "12 km",
-        details: "Shuttle executivo pontual para delegações e expositores."
+        question: 'Vocês emitem Nota Fiscal para empresas e eventos?',
+        answer:
+          'Sim. A AG Transfer & Transporte Executivo LTDA atua de forma regularizada e emite Nota Fiscal de serviços para reembolso ou faturamento corporativo.',
       },
-      {
-        route: "Caxias do Sul ⇄ Bento Gonçalves / Farroupilha (Circuito Fabril)",
-        time: "35m - 50m",
-        distance: "45 km",
-        details: "Deslocamento intermunicipal contínuo entre plantas fabris e reuniões."
-      },
-      {
-        route: "Serra Gaúcha ⇄ Porto Alegre (Centro Administrativo / Faria Lima do Sul)",
-        time: "1h 45m - 2h 00m",
-        distance: "125 km",
-        details: "Viagens executivas para conselhos de administração e fóruns jurídicos."
-      }
     ],
-    serviceFaq: [
-      {
-        question: "Como funciona o cadastro e faturamento para empresas?",
-        answer: "Aprovamos o cadastro corporativo do seu CNPJ em poucas horas. As corridas são registradas e faturadas quinzenalmente ou mensalmente com envio de Nota Fiscal eletrônica e boleto bancário."
-      },
-      {
-        question: "Os motoristas podem cumprir exigências de segurança de fábrica (EPIs)?",
-        answer: "Sim, nossos motoristas respeitam rigorosamente as normas de segurança patrimonial e portaria das indústrias, portando calçados adequados e identificação com crachá."
-      },
-      {
-        question: "Vocês atendem translado para eventos corporativos em Gramado e Canela?",
-        answer: "Sim, atendemos convenções no Serra Park, Expogramado e hotéis executivos de toda a região, oferecendo vans executivas VIP e carros sedans para palestrantes."
-      }
-    ],
-    metaTitle: "Transporte Corporativo e Feiras na Serra Gaúcha | AG Transfer B2B",
-    metaDescription: "Transporte executivo B2B para indústrias e eventos na Serra Gaúcha (Mercopar, Fenavinho, Festuris). Faturamento PJ com Nota Fiscal e motoristas de alto padrão.",
-    icon: "Briefcase",
-    tag: "B2B Corporativo"
+    seoTitle: 'Transporte Corporativo & Feiras na Serra Gaúcha | AG Transfer',
+    seoDescription:
+      'Transporte executivo para congressos, feiras de negócios (Mercopar, Fenin, Festuris) e viagens corporativas na Serra Gaúcha com nota fiscal e faturamento.',
+    whatsappMessage: 'Olá! Gostaria de informações sobre atendimento e faturamento corporativo da AG Transfer.',
   },
   {
-    id: "motorista-particular-diaria",
-    slug: "motorista-particular-diaria",
-    title: "Motorista Particular por Diária na Serra Gaúcha",
-    subtitle: "Chauffeur Exclusivo das 05h às 23h",
-    description: "Contratação flexível por períodos (4h, 8h ou diária integral) com veículo executivo e motorista 100% dedicados à sua agenda em Gramado, Canela, Bento e Caxias do Sul.",
-    fullDescription: "Para quem tem uma agenda dinâmica, compromissos em várias cidades da serra ou simplesmente deseja total autonomia durante as férias, o serviço de Motorista Particular por Diária (Chauffeur) é a escolha suprema. O veículo e o motorista ficam dedicados exclusivamente ao seu tempo: você pode mudar o roteiro em tempo real, fazer múltiplas paradas para compras, reuniões ou degustações, e encontrar o carro refrigerado sempre pronto à sua espera na porta de cada compromisso.",
-    features: [
-      "Total flexibilidade: altere rotas, horários e destinos em tempo real",
-      "Espera dedicada na porta de restaurantes, vinícolas, feiras e eventos",
-      "Sem estresse com procura de vagas de estacionamento ou trânsito da serra",
-      "Atendimento todos os dias, de segunda a domingo, das 05h às 23h (inclusive feriados)"
+    id: 'motorista-particular-diaria',
+    slug: 'motorista-particular-diaria',
+    title: 'Motorista Particular Diária',
+    shortTitle: 'Motorista por Diária',
+    category: 'Corporativo',
+    routeSummary: 'Disponibilidade por 4h, 6h, 8h ou 10h (05h às 23h)',
+    duration: 'Diária flexível',
+    capacity: '1 a 15 passageiros',
+    description:
+      'Contrate veículo executivo e motorista particular à sua inteira disposição por período ou diária completa na Serra Gaúcha e Região Metropolitana.',
+    longDescription:
+      'Ideal para agendas com múltiplos compromissos, casamentos na serra, produções, roteiros livres sem horário fixo ou viajantes que desejam a tranquilidade de ter um carro e motorista aguardando a cada parada.',
+    highlights: [
+      'Chauffeur exclusivo aguardando em cada destino da agenda',
+      'Alterações de itinerário em tempo real ao longo do dia',
+      'Cobertura desde às 05h até às 23h de segunda a domingo',
+      'Opções em Sedan, SUV Executivo ou Van Executiva',
     ],
-    includedAmenities: [
-      "Veículo mantido em temperatura ideal e pronto para partida imediata",
-      "Água mineral fresca e comodidades repostas continuamente",
-      "Comunicação direta via WhatsApp com o seu chauffeur durante o dia",
-      "Franquia de quilometragem generosa adaptável ao seu itinerário"
+    includedItems: [
+      'Pacote de horas contratado com quilometragem combinada',
+      'Motorista dedicado durante todo o período',
+      'Atendimento direto e sem burocracia de locadoras',
+      'Segurança e conforto porta a porta',
     ],
-    targetAudience: [
-      "CEOs, diretores e famílias que exigem privacidade máxima",
-      "Turistas que desejam combinar Gramado, Bento Gonçalves e cidades vizinhas",
-      "Noivos, eventos sociais e convidados de casamentos na Serra Gaúcha"
-    ],
-    commonRoutes: [
+    faq: [
       {
-        route: "Diária Completa Serra Gaúcha (Gramado, Canela, Nova Petrópolis)",
-        time: "Diárias de 8h a 10h",
-        distance: "Conforme itinerário",
-        details: "Liberdade absoluta entre atrações, almoços e compras na região das hortênsias."
+        question: 'Qual o horário máximo de operação para diárias?',
+        answer:
+          'Nossa janela operacional regular funciona de segunda a domingo, das 05h às 23h. Para demandas especiais programadas com antecedência, consulte disponibilidade com nossa central.',
       },
-      {
-        route: "Diária Enoturística (Bento Gonçalves, Garibaldi, Monte Belo)",
-        time: "Diárias de 8h a 10h",
-        distance: "Conforme itinerário",
-        details: "Degustações livres com retorno seguro ao hotel ao final do dia."
-      },
-      {
-        route: "Agenda Executiva Multi-Cidades (Caxias, Flores da Cunha, Farroupilha)",
-        time: "Turnos de 4h, 8h ou 12h",
-        distance: "Livre dentro da franquia",
-        details: "Otimização de tempo para visitas técnicas e comerciais consecutivas."
-      }
     ],
-    serviceFaq: [
-      {
-        question: "Qual a franquia de horas e quilometragem incluída?",
-        answer: "Oferecemos pacotes a partir de 4 horas, 8 horas ou diárias completas de 10 a 12 horas, com franquia de quilometragem compatível com os deslocamentos turísticos ou corporativos da Serra Gaúcha."
-      },
-      {
-        question: "O motorista pode nos buscar em Gramado e levar até vinícolas em Bento no mesmo dia?",
-        answer: "Sim! Essa é uma das utilizações mais populares da nossa diária privativa, permitindo aproveitar com conforto o melhor das duas regiões no mesmo passeio."
-      },
-      {
-        question: "Como funciona a alimentação do motorista durante a diária?",
-        answer: "Em diárias completas de 8h a 10h, o motorista cuida de suas próprias refeições durante os momentos em que você está em almoços ou visitas guiadas, sem qualquer encargo ou constrangimento para o contratante."
-      }
-    ],
-    metaTitle: "Motorista Particular por Diária na Serra Gaúcha | AG Transfer",
-    metaDescription: "Contratação de chauffeur e carro executivo por hora ou diária em Gramado, Canela e Bento Gonçalves. Liberdade de itinerário de segunda a domingo, das 05h às 23h.",
-    icon: "Clock",
-    tag: "Flexibilidade Total"
-  }
+    seoTitle: 'Motorista Particular por Diária na Serra Gaúcha | AG Transfer',
+    seoDescription:
+      'Contrate motorista executivo bilíngue à disposição por período ou diária para compromissos, roteiros sob medida ou eventos especiais em Gramado e região.',
+    whatsappMessage: 'Olá! Gostaria de cotar a contratação de Motorista Particular por Diária.',
+  },
 ];
 
-export const TRUST_PILLARS = [
+export const FLEET: FleetVehicle[] = [
   {
-    title: "Frota Higienizada e Inspecionada",
-    description: "Sedans executivos, SUVs e Vans de padrão superior, revisados preventivamente com seguro integral de passageiros (APP) e higienização hospitalar antes de cada embarque.",
-    metric: "100% Inspecionados",
-    icon: "ShieldCheck"
+    id: 'sedan-executivo',
+    name: 'Sedan Executivo VIP',
+    category: 'Conforto & Discrição',
+    passengers: 'Até 3–4 passageiros',
+    luggage: 'Até 3 malas médias',
+    description:
+      'Sedans executivos modernos com excelente isolamento acústico, amplo espaço para pernas, bancos confortáveis e porta-malas generoso para transfers de aeroporto e viagens corporativas.',
+    features: ['Ar-condicionado digital', 'Carregadores USB-C', 'Água mineral cortesia', 'Seguro total passageiros'],
+    imageUrl: '/images/hero-1200.webp',
+    imageSrcSet: '/images/hero-480.webp 480w, /images/hero-640.webp 640w, /images/hero-1200.webp 1200w',
+    imageAlt: 'Sedan Executivo VIP preto da AG Transfer circulando pela Serra Gaúcha',
   },
   {
-    title: "Motoristas Qualificados",
-    description: "Profissionais rigorosamente selecionados, com treinamento em direção defensiva, discrição corporativa, etiqueta VIP e conhecimento minucioso da malha rodoviária do RS.",
-    metric: "Padrão Chauffeur",
-    icon: "Award"
+    id: 'suv-executivo',
+    name: 'SUV Executivo VIP',
+    category: 'Espaço & Versatilidade',
+    passengers: 'Até 4–6 passageiros',
+    luggage: 'Até 5 malas médias',
+    description:
+      'SUVs de alto padrão ideais para famílias com crianças, roteiros enoturísticos no Vale dos Vinhedos e deslocamentos confortáveis com bastante bagagem em qualquer clima da serra.',
+    features: ['Posição elevada de conforto', 'Ar-condicionado dual-zone', 'Cadeirinha sob solicitação', 'Porta-malas amplo'],
+    imageUrl: '/images/suv-800.webp',
+    imageSrcSet: '/images/suv-480.webp 480w, /images/suv-800.webp 800w',
+    imageAlt: 'SUV Executivo VIP estacionado em hotel na Serra Gaúcha',
   },
   {
-    title: "Pontualidade Britânica",
-    description: "Planejamento logístico antecipado, estudo de condições climáticas na serra (neblina e tráfego) e posicionamento prévio no local de embarque com antecedência garantida.",
-    metric: "Zero Atrasos",
-    icon: "Clock"
+    id: 'van-executiva',
+    name: 'Van Executiva VIP',
+    category: 'Grupos & Comitivas',
+    passengers: 'Até 15 passageiros',
+    luggage: 'Bagageiro completo para grupo',
+    description:
+      'Vans executivas de teto alto, poltronas individuais reclináveis, iluminação ambiente e compartimento traseiro exclusivo para bagagens de grupos familiares, eventos ou viagens internacionais.',
+    features: ['Poltronas reclináveis soft', 'Tomadas e USB por fileira', 'Ar-condicionado no salão', 'Microfone / áudio ambiente'],
+    imageUrl: '/images/van-800.webp',
+    imageSrcSet: '/images/van-480.webp 480w, /images/van-800.webp 800w',
+    imageAlt: 'Van Executiva VIP da AG Transfer no Vale dos Vinhedos em Bento Gonçalves',
   },
-  {
-    title: "Faturamento Corporativo",
-    description: "Processo simplificado para o setor de compras e viagens da sua empresa. Emissão ágil de Nota Fiscal eletrônica com descrição detalhada de centros de custo.",
-    metric: "NF & Boleto PJ",
-    icon: "FileText"
-  }
 ];
 
-export const POPULAR_ROUTES: RouteItem[] = [
+export const TRUST_PILLARS: TrustPillar[] = [
   {
-    origin: "Aeroporto Porto Alegre (POA)",
-    destination: "Gramado / Canela",
-    estimatedTime: "1h 45min - 2h 00min",
-    distance: "118 km",
-    highlight: "Transfer privativo com receptivo no desembarque de POA e auxílio de malas"
+    title: 'Pontualidade Britânica',
+    metric: 'Rastreamento de Voos',
+    description:
+      'Monitoramos seu voo nos aeroportos POA e CXJ em tempo real. Mesmo em caso de atraso aéreo, nossa recepção estará aguardando você.',
   },
   {
-    origin: "Caxias do Sul (CXJ / Centro)",
-    destination: "Gramado / Canela",
-    estimatedTime: "1h 10min - 1h 25min",
-    distance: "68 km",
-    highlight: "Conexão expressa do Aeroporto CXJ para os hotéis de Gramado"
+    title: 'Empresa Regularizada',
+    metric: 'CNPJ Ativo + Nota Fiscal',
+    description:
+      'Transporte executivo legalizado com seguros abrangentes para passageiros, motoristas habilitados e emissão de NF-e para empresas.',
   },
   {
-    origin: "Caxias do Sul (CXJ / Centro)",
-    destination: "Bento Gonçalves (Vale dos Vinhedos)",
-    estimatedTime: "40min - 50min",
-    distance: "42 km",
-    highlight: "Conexão direta com vinícolas premiadas e polo enogastronômico"
+    title: 'Frota 100% Privativa',
+    metric: 'Zero Compartilhamento',
+    description:
+      'Veículo exclusivo para você, sua família ou sua equipe. Embarque imediato sem esperar lotação de outros passageiros.',
   },
   {
-    origin: "Caxias do Sul (CXJ / Centro)",
-    destination: "Aeroporto Salgado Filho (POA)",
-    estimatedTime: "1h 45min - 2h 00min",
-    distance: "125 km",
-    highlight: "Rota expressa via BR-116 ou RS-122 com monitoramento em tempo real"
+    title: 'Atendimento Humanizado',
+    metric: '05h às 23h · Todos os Dias',
+    description:
+      'Suporte direto pelo WhatsApp com equipe local da Serra Gaúcha de segunda a domingo, das 05h às 23h, sem robôs engessados.',
   },
-  {
-    origin: "Gramado / Canela",
-    destination: "Bento Gonçalves (Vale dos Vinhedos)",
-    estimatedTime: "1h 30min - 1h 45min",
-    distance: "115 km",
-    highlight: "Passeio panorâmico bate-e-volta pelas melhores vinícolas da serra"
-  },
-  {
-    origin: "Caxias do Sul",
-    destination: "Farroupilha / Flores da Cunha",
-    estimatedTime: "20min - 30min",
-    distance: "20 km",
-    highlight: "Deslocamentos industriais, vinícolas de espumantes e compras"
-  }
 ];
 
-export const REVIEWS: ReviewItem[] = [
+export const POPULAR_ROUTES: PopularRoute[] = [
   {
-    id: "rev-1",
-    name: "Dr. Marcelo Castilhos",
-    role: "Diretor de Relações Institucionais",
-    company: "Grupo Metalmecânico Serra",
-    rating: 5,
-    date: "Google Business Profile (GBP) · Verificada",
-    comment: "Utilizamos a AG Transfer para receber executivos internacionais na Mercopar. Pontualidade impecável, motorista extremamente educado e carro impecável. O faturamento corporativo foi simples e ágil. Nota 10.",
-    verified: true
+    origin: 'Aeroporto Porto Alegre (POA)',
+    destination: 'Gramado / Canela (RS)',
+    distance: '115 km',
+    estimatedTime: '2h00',
+    serviceSlug: 'transfer-porto-alegre-gramado',
   },
   {
-    id: "rev-2",
-    name: "Camila Guimarães",
-    role: "Gerente de Eventos & Incentivo",
-    company: "Live Mkt São Paulo",
-    rating: 5,
-    date: "Google Business Profile (GBP) · Verificada",
-    comment: "Contratamos o transfer de Porto Alegre para o hotel em Gramado e passeios no Vale dos Vinhedos. Carro muito espaçoso, motorista conhecia todos os atalhos para evitar o tráfego da serra. Sensacional!",
-    verified: true
+    origin: 'Aeroporto Caxias do Sul (CXJ)',
+    destination: 'Gramado / Canela (RS)',
+    distance: '70 km',
+    estimatedTime: '1h10',
+    serviceSlug: 'transfer-aeroporto-cxj-caxias',
   },
   {
-    id: "rev-3",
-    name: "Eng. Roberto Silveira",
-    role: "Consultor Sênior de Projetos",
-    company: "Automação Industrial RS",
-    rating: 5,
-    date: "Google Business Profile (GBP) · Verificada",
-    comment: "Precisei de um transfer às 5h da manhã para embarcar no primeiro voo em POA após um imprevisto na fábrica. Pontualidade impecável e o motorista chegou antes do prazo combinado. Recomendo de olhos fechados.",
-    verified: true
+    origin: 'Aeroporto Caxias do Sul (CXJ)',
+    destination: 'Bento Gonçalves / Vale dos Vinhedos',
+    distance: '45 km',
+    estimatedTime: '45 min',
+    serviceSlug: 'tour-vale-dos-vinhedos',
   },
   {
-    id: "rev-4",
-    name: "Juliana Bertolucci",
-    role: "Turismo Executivo e Enogastronomia",
-    company: "Caxias do Sul / SP",
-    rating: 5,
-    date: "Google Business Profile (GBP) · Verificada",
-    comment: "A discrição e o cuidado com a nossa família em Gramado e Canela foram diferenciais. Água mineral gelada, ar-condicionado na temperatura perfeita e tranquilidade na serra. Certamente nossa escolha em todas as viagens.",
-    verified: true
+    origin: 'Gramado / Canela (Hotéis)',
+    destination: 'Vale dos Vinhedos (Bento Gonçalves)',
+    distance: '110 km',
+    estimatedTime: '1h50',
+    serviceSlug: 'tour-vale-dos-vinhedos',
   },
   {
-    id: "rev-5",
-    name: "Eduardo Fontes",
-    role: "Diretor Financeiro (CFO)",
-    company: "Indústria Automotiva de Caxias do Sul",
-    rating: 5,
-    date: "Google Business Profile (GBP) · Verificada",
-    comment: "Atendimento corporativo de excelência. Agilidade para emitir Notas Fiscais com centro de custo delimitado e motoristas que representam a imagem da empresa com extrema postura.",
-    verified: true
+    origin: 'Caxias do Sul / Flores da Cunha',
+    destination: 'Aeroporto Salgado Filho (POA)',
+    distance: '125 km',
+    estimatedTime: '1h50',
+    serviceSlug: 'transfer-porto-alegre-gramado',
   },
   {
-    id: "rev-6",
-    name: "Dra. Patrícia Vasconcelos",
-    role: "Palestrante & Pesquisadora",
-    company: "Congresso Médico Bento Gonçalves",
-    rating: 5,
-    date: "Google Business Profile (GBP) · Verificada",
-    comment: "Transfer impecável do Aeroporto até o hotel em Bento Gonçalves. O motorista monitorou a chegada da minha aeronave e estava me aguardando pontualmente no portão.",
-    verified: true
-  }
+    origin: 'Aeroporto Porto Alegre (POA)',
+    destination: 'Montevidéu / Estádio Centenário (UY)',
+    distance: '830 km',
+    estimatedTime: '10h–12h',
+    serviceSlug: 'transfer-porto-alegre-montevideu',
+  },
 ];
 
-export const FAQS = [
+export const REVIEWS: ClientReview[] = [
   {
-    question: "Como funciona a solicitação de orçamento e reserva?",
-    answer: "A solicitação pode ser feita instantaneamente pelo nosso WhatsApp (54) 99153-7288 ou pelo simulador do site. Nossa central atende de segunda a domingo, das 05h às 23h, calculando o itinerário e confirmando sua reserva em minutos sem burocracia."
+    name: 'Mariana Oliveira',
+    origin: 'São Paulo, SP',
+    service: 'Transfer POA ⇄ Gramado',
+    date: 'Avaliação Google 5.0',
+    rating: 5,
+    comment:
+      'Atendimento impecável do começo ao fim! Nosso voo para Porto Alegre atrasou mais de 1 hora e o motorista já estava acompanhando tudo, aguardando com total cordialidade. Carro extremamente limpo e confortável.',
   },
   {
-    question: "Como a AG Transfer lida com atrasos ou alterações de voos?",
-    answer: "Monitoramos em tempo real o número do seu voo nos aeroportos de Porto Alegre (POA), Caxias do Sul (CXJ) ou Florianópolis. Se houver adiantamento ou atraso da companhia aérea, ajustamos o horário de apresentação sem cobrança de taxas abusivas."
+    name: 'Ricardo Mendonça',
+    origin: 'Curitiba, PR',
+    service: 'Tour Vale dos Vinhedos',
+    date: 'Avaliação Google 5.0',
+    rating: 5,
+    comment:
+      'Contratamos o SUV executivo para passarmos o dia nas vinícolas de Bento Gonçalves e Garibaldi saindo de Gramado. Experiência sensacional, zero preocupação com estrada e horários flexíveis.',
   },
   {
-    question: "Vocês realizam transfers diretos de Porto Alegre para Gramado e Canela?",
-    answer: "Sim! É uma das nossas rotas mais solicitadas. Nosso motorista aguarda no desembarque de POA e realiza a viagem privativa direto até a porta do seu hotel ou pousada em Gramado e Canela com máximo conforto e segurança."
+    name: 'Fernanda & Lucas Costa',
+    origin: 'Belo Horizonte, MG',
+    service: 'Transfer POA ⇄ Canela',
+    date: 'Avaliação Google 5.0',
+    rating: 5,
+    comment:
+      'Viajamos com nossa filha de 3 anos e já tinham instalado a cadeirinha perfeitamente higienizada antes do embarque. Motorista muito prudente na serra e comunicação ágil pelo WhatsApp.',
   },
   {
-    question: "Posso fazer degustações de vinho no Vale dos Vinhedos com segurança?",
-    answer: "Com certeza! Essa é a principal vantagem de contratar o Tour Privativo no Vale dos Vinhedos da AG Transfer: você degusta vinhos e espumantes premiados sem se preocupar com volante, trânsito ou fiscalização da Lei Seca."
+    name: 'Eduardo Vasconcelos',
+    origin: 'Porto Alegre, RS',
+    service: 'Transporte Corporativo',
+    date: 'Avaliação Google 5.0',
+    rating: 5,
+    comment:
+      'Utilizamos a AG Transfer frequentemente para diretores que visitam Caxias do Sul e Bento Gonçalves. Pontualidade absoluta, carros discretos e facilidade na emissão da nota fiscal.',
   },
-  {
-    question: "Minha empresa pode pagar via faturamento quinzenal ou mensal?",
-    answer: "Sim! Trabalhamos com faturamento corporativo para pessoas jurídicas mediante rápido cadastro, com emissão de Nota Fiscal de Serviços eletrônica (NFS-e) e boleto bancário, facilitando a conciliação do seu setor financeiro."
-  },
-  {
-    question: "Qual é o horário de atendimento e funcionamento da AG Transfer?",
-    answer: "Atendemos de segunda a domingo, das 05h às 23h, inclusive em feriados. Atendemos desde embarques bem cedo para os primeiros voos da manhã (a partir das 05h) até retornos noturnos de jantares e espetáculos até as 23h."
-  },
-  {
-    question: "Quais são as áreas de cobertura principais na Serra Gaúcha?",
-    answer: "Nossa área de cobertura oficial abrange Gramado, Caxias do Sul, Canela (CEP 95680-000), Flores da Cunha (CEP 95270-000) e Bento Gonçalves (CEP 95700-000), além de Garibaldi, Nova Petrópolis, Farroupilha, Porto Alegre (Aeroporto POA) e conexões para todo o Brasil."
-  },
-  {
-    question: "Os veículos possuem seguro para os passageiros?",
-    answer: "Sim, 100% da nossa frota possui seguro contra Acidentes Pessoais de Passageiros (APP) e apólices de cobertura total, proporcionando tranquilidade absoluta durante todo o percurso."
-  }
 ];
 
-export function buildWhatsAppUrl(details?: {
-  service?: string;
-  origin?: string;
-  destination?: string;
-  date?: string;
-  passengers?: string;
-}): string {
-  if (!details || (!details.service && !details.origin && !details.destination)) {
-    return COMPANY_NAP.whatsappBaseUrl;
-  }
-
-  const parts: string[] = [
-    "Olá, gostaria de solicitar um orçamento de transfer executivo com a AG Transfer.",
-    ""
-  ];
-
-  if (details.service) parts.push(`*Serviço:* ${details.service}`);
-  if (details.origin) parts.push(`*Origem:* ${details.origin}`);
-  if (details.destination) parts.push(`*Destino:* ${details.destination}`);
-  if (details.date) parts.push(`*Data/Horário previsto:* ${details.date}`);
-  if (details.passengers) parts.push(`*Passageiros:* ${details.passengers}`);
-
-  parts.push("");
-  parts.push("Poderiam me informar a disponibilidade e o valor?");
-
-  const text = parts.join("\n");
-  return `https://wa.me/${COMPANY_NAP.phoneRaw}?text=${encodeURIComponent(text)}`;
-}
+export const FAQS: FAQItem[] = [
+  {
+    question: 'Qual o horário de funcionamento da AG Transfer?',
+    answer:
+      'Atendemos e realizamos operações todos os dias da semana, de segunda a domingo, das 05h às 23h. Recomendamos reservar com antecedência para garantir a melhor janela para seu voo ou passeio.',
+  },
+  {
+    question: 'O transporte é privativo ou dividido com outros turistas?',
+    answer:
+      'Todos os nossos serviços de transfer e tours são 100% privativos. Você reserva o veículo completo apenas para os seus acompanhantes, sem esperas por outros voos e sem paradas em hotéis terceiros.',
+  },
+  {
+    question: 'Vocês fornecem cadeirinha para crianças ou bebês?',
+    answer:
+      'Sim! Disponibilizamos bebê conforto, cadeirinha infantil e assento de elevação gratuitamente. Basta informar a idade das crianças no momento da cotação pelo WhatsApp.',
+  },
+  {
+    question: 'Como funciona a recepção nos aeroportos de Porto Alegre (POA) e Caxias (CXJ)?',
+    answer:
+      'Monitoramos seu voo em tempo real pelo código informado na reserva. No desembarque, nosso motorista estará aguardando no saguão para auxiliar com as malas e encaminhar diretamente ao veículo privativo.',
+  },
+  {
+    question: 'Quais as formas de pagamento e emissão de nota fiscal?',
+    answer:
+      'Aceitamos PIX, cartões de crédito/débito e faturamento corporativo mediante cadastro. Emitimos recibo detalhado e Nota Fiscal para pessoas físicas e empresas.',
+  },
+  {
+    question: 'Onde fica a área de cobertura oficial da AG Transfer?',
+    answer:
+      'Nossa área de cobertura oficial abrange Gramado, Canela (CEP 95680-000), Caxias do Sul, Flores da Cunha (CEP 95270-000), Bento Gonçalves (CEP 95700-000), Garibaldi, Nova Petrópolis, Farroupilha e conexões diretas com Porto Alegre e viagens especiais.',
+  },
+];

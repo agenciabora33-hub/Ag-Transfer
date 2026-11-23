@@ -1,226 +1,171 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
-import { Plane, Briefcase, Compass, Clock, Check, ArrowRight, MessageCircle, Sparkles, Car, Filter, MapPin } from 'lucide-react';
-import { SERVICES, buildWhatsAppUrl } from '../data/companyData';
+import { ArrowRight, Clock, Users, ChevronRight } from 'lucide-react';
+import { SERVICES, POPULAR_ROUTES, ServiceItem } from '../data/companyData';
 
-interface ServicesSectionProps {
-  onSelectServiceForQuote: (serviceTitle: string) => void;
-}
+export const ServicesSection: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState<'Todos' | ServiceItem['category']>('Todos');
 
-type ServiceCategory = 'todos' | 'aeroportos' | 'gramado-canela' | 'tours' | 'corporativo';
-
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServiceForQuote }) => {
-  const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>('todos');
-
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Plane':
-        return <Plane className="w-6 h-6 text-[#0284C7]" />;
-      case 'Briefcase':
-        return <Briefcase className="w-6 h-6 text-[#0284C7]" />;
-      case 'Compass':
-        return <Compass className="w-6 h-6 text-[#0284C7]" />;
-      case 'Clock':
-        return <Clock className="w-6 h-6 text-[#0284C7]" />;
-      case 'Sparkles':
-        return <Sparkles className="w-6 h-6 text-[#0284C7]" />;
-      default:
-        return <Car className="w-6 h-6 text-[#0284C7]" />;
-    }
-  };
-
-  const categories: { id: ServiceCategory; label: string; count: number }[] = [
-    { id: 'todos', label: 'Todos os Serviços', count: SERVICES.length },
-    {
-      id: 'aeroportos',
-      label: 'Transfers Aeroportos (POA / CXJ)',
-      count: SERVICES.filter((s) => s.slug.includes('transfer-') || s.slug.includes('aeroporto')).length,
-    },
-    {
-      id: 'gramado-canela',
-      label: 'Gramado & Canela',
-      count: SERVICES.filter((s) => s.slug.includes('gramado') || s.slug.includes('canela')).length,
-    },
-    {
-      id: 'tours',
-      label: 'Tours & Enoturismo',
-      count: SERVICES.filter((s) => s.slug.includes('tour-') || s.slug.includes('vinhedos')).length,
-    },
-    {
-      id: 'corporativo',
-      label: 'Corporativo & Chauffeur',
-      count: SERVICES.filter((s) => s.slug.includes('corporativ') || s.slug.includes('motorista') || s.slug.includes('executivo')).length,
-    },
+  const categories: Array<'Todos' | ServiceItem['category']> = [
+    'Todos',
+    'Aeroportos',
+    'Transfers Privativos',
+    'Tours Enoturísticos',
+    'Corporativo',
   ];
 
-  const filteredServices = SERVICES.filter((service) => {
-    if (selectedCategory === 'todos') return true;
-    if (selectedCategory === 'aeroportos') {
-      return service.slug.includes('transfer-') || service.slug.includes('aeroporto');
-    }
-    if (selectedCategory === 'gramado-canela') {
-      return service.slug.includes('gramado') || service.slug.includes('canela');
-    }
-    if (selectedCategory === 'tours') {
-      return service.slug.includes('tour-') || service.slug.includes('vinhedos');
-    }
-    if (selectedCategory === 'corporativo') {
-      return (
-        service.slug.includes('corporativ') ||
-        service.slug.includes('motorista') ||
-        service.slug.includes('executivo')
-      );
-    }
-    return true;
-  });
+  const filteredServices =
+    activeCategory === 'Todos'
+      ? SERVICES
+      : SERVICES.filter((service) => service.category === activeCategory);
 
   return (
-    <section id="servicos" className="py-24 bg-white border-t border-slate-200 relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="hidden md:block absolute top-1/2 left-0 w-96 h-96 bg-[#0284C7]/5 rounded-full blur-[160px] pointer-events-none" />
+    <section id="servicos" className="py-16 sm:py-20 bg-white border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+          <div className="max-w-2xl">
+            <span className="text-xs font-bold tracking-widest text-[#0369A1] uppercase block mb-2">
+              Soluções em Mobilidade Privativa
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0D0A27] tracking-tight">
+              Serviços de Transfer Executivo e Passeios VIP
+            </h2>
+            <p className="mt-2 text-sm text-slate-700 font-medium leading-relaxed">
+              Operação porta a porta com preços fechados antes do embarque e atendimento diário das 05h às 23h.
+            </p>
+          </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Header with dynamic scroll reveal */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-3xl mb-10"
-        >
-          <span className="text-xs font-bold tracking-widest text-[#0284C7] uppercase block mb-2">
-            Landing Pages Dedicadas por Destino & Modalidade
-          </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0D0A27] tracking-tight text-balance">
-            Transfers e Passeios Privativos em Gramado, Canela e Serra Gaúcha
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-600 text-pretty">
-            Cada serviço conta com uma página exclusiva, tirando todas as dúvidas sobre tempos de trajeto, franquias, tolerância para atrasos de voo e reserva direta via WhatsApp.
-          </p>
-        </motion.div>
+          {/* Interactive Filter Controls */}
+          <div
+            className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200 self-start lg:self-auto"
+            role="tablist"
+            aria-label="Filtrar serviços por categoria"
+          >
+            {categories.map((cat) => {
+              const isSelected = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`min-h-[38px] px-3 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                    isSelected
+                      ? 'bg-[#0D0A27] text-white shadow-xs'
+                      : 'text-slate-700 hover:text-[#0D0A27] hover:bg-white/70'
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-        {/* SXO Category Filters */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
-          <Filter className="w-4 h-4 text-slate-400 shrink-0 hidden sm:block ml-1 mr-2" />
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`shrink-0 min-h-[42px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
-                selectedCategory === cat.id
-                  ? 'bg-[#0D0A27] text-white shadow-md'
-                  : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700'
-              }`}
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredServices.map((service, idx) => (
+            <article
+              key={service.id}
+              className="group bg-[#F8FAFC] hover:bg-white border border-slate-200 hover:border-[#0369A1]/50 rounded-2xl p-6 flex flex-col justify-between transition-all duration-200 hover:shadow-md"
             >
-              <span>{cat.label}</span>
-              <span
-                className={`text-[11px] px-1.5 py-0.5 rounded-full font-mono ${
-                  selectedCategory === cat.id
-                    ? 'bg-[#0284C7] text-white'
-                    : 'bg-slate-200 text-slate-600'
-                }`}
-              >
-                {cat.count}
-              </span>
-            </button>
+              <div>
+                <div className="flex items-center justify-between gap-2 text-xs text-slate-600 font-semibold mb-3">
+                  <span>{service.category}</span>
+                  <span className="tabular-nums text-[#0369A1] font-bold">
+                    0{idx + 1}
+                  </span>
+                </div>
+
+                <h3 className="text-lg font-extrabold text-[#0D0A27] tracking-tight mb-2">
+                  <Link
+                    to={`/servicos/${service.slug}`}
+                    className="hover:text-[#0369A1] transition-colors"
+                  >
+                    {service.title}
+                  </Link>
+                </h3>
+
+                <p className="text-xs font-semibold text-[#0369A1] mb-2.5">
+                  {service.routeSummary}
+                </p>
+
+                <p className="text-sm text-slate-700 leading-relaxed mb-5">
+                  {service.description}
+                </p>
+              </div>
+
+              <div className="pt-4 border-t border-slate-200/80 space-y-3">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-700 font-medium tabular-nums">
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-[#0369A1]" aria-hidden="true" />
+                    {service.duration}
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <Users className="w-3.5 h-3.5 text-[#0369A1]" aria-hidden="true" />
+                    {service.capacity}
+                  </span>
+                </div>
+
+                <Link
+                  to={`/servicos/${service.slug}`}
+                  className="min-h-[40px] inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0369A1] hover:text-[#0D0A27] transition-colors"
+                >
+                  <span>Ver Detalhes do Serviço</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
+                </Link>
+              </div>
+            </article>
           ))}
         </div>
 
-        {/* Asymmetric Bento / Service Cards Grid with Staggered Entrance */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence>
-            {filteredServices.map((service, index) => {
-              const indexNumber = `0${index + 1}`;
+        {/* Popular Routes Quick Table */}
+        <div className="mt-14 bg-[#F8FAFC] border border-slate-200 rounded-2xl p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+            <div>
+              <h3 className="text-lg sm:text-xl font-extrabold text-[#0D0A27]">
+                Principais Rotas e Tempos Médios
+              </h3>
+              <p className="text-xs text-slate-700 font-medium mt-0.5">
+                Valores fechados por veículo sob consulta direta no WhatsApp.
+              </p>
+            </div>
+            <Link
+              to="/transfer-porto-alegre-montevideu"
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#0369A1] hover:underline whitespace-nowrap"
+            >
+              <span>Ver rota especial Montevidéu (Uruguai)</span>
+              <ChevronRight className="w-3.5 h-3.5" aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {POPULAR_ROUTES.map((route) => {
+              const targetPath =
+                route.serviceSlug === 'transfer-porto-alegre-montevideu'
+                  ? '/transfer-porto-alegre-montevideu'
+                  : `/servicos/${route.serviceSlug}`;
+
               return (
-                <motion.article
-                  key={service.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  whileHover={{ y: -4 }}
-                  className="group relative bg-[#F8FAFC] hover:bg-white border border-slate-200/90 hover:border-[#0284C7]/50 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between shadow-[0_4px_20px_rgba(15,23,42,0.04)] hover:shadow-[0_15px_35px_rgba(2,132,199,0.12)]"
+                <Link
+                  key={`${route.origin}-${route.destination}`}
+                  to={targetPath}
+                  className="bg-white border border-slate-200 hover:border-[#0369A1]/50 rounded-xl p-4 flex flex-col justify-between gap-2 transition-colors"
                 >
-                  <div>
-                    {/* Top card metadata: clean unboxed typographic separator */}
-                    <div className="flex items-center justify-between text-xs text-slate-500 mb-4">
-                      <span className="font-mono text-[#0284C7] font-bold text-sm tracking-wider">
-                        {indexNumber}
-                      </span>
-                      <span className="text-[#0284C7] font-bold bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-100 text-[11px]">
-                        {service.tag}
-                      </span>
-                    </div>
-
-                    {/* Icon & Title */}
-                    <div className="flex items-start gap-3.5 mb-3.5">
-                      <div className="w-11 h-11 rounded-xl bg-white border border-slate-200 flex items-center justify-center shrink-0 group-hover:border-[#0284C7]/60 group-hover:bg-sky-50 transition-colors shadow-xs">
-                        {getIcon(service.icon)}
-                      </div>
-                      <div>
-                        <Link to={`/servicos/${service.slug}`}>
-                          <h3 className="text-base sm:text-lg font-bold text-[#0D0A27] hover:text-[#0284C7] transition-colors leading-snug">
-                            {service.title}
-                          </h3>
-                        </Link>
-                        <p className="text-[11px] text-slate-500 mt-0.5 font-medium flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#0284C7]" />
-                          {service.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4 line-clamp-3">
-                      {service.description}
-                    </p>
-
-                    {/* Key Search Answers Preview */}
-                    <div className="bg-white/90 rounded-xl p-3 border border-slate-200/80 mb-5 space-y-1.5 text-[11px] text-slate-700">
-                      <div className="flex items-center justify-between">
-                        <span className="font-semibold text-slate-500">Tempo / Rota:</span>
-                        <span className="font-bold text-[#0D0A27]">{service.commonRoutes[0]?.time || 'Sob medida'}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="font-semibold text-slate-500">Distância:</span>
-                        <span className="font-bold text-[#0284C7]">{service.commonRoutes[0]?.distance || 'Flexível'}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="font-semibold text-slate-500">Atraso de Voo:</span>
-                        <span className="font-bold text-emerald-600">Tolerância Sem Custo</span>
-                      </div>
-                    </div>
+                  <div className="text-sm font-bold text-[#0D0A27] leading-snug">
+                    {route.origin} <span className="text-[#0369A1]">→</span> {route.destination}
                   </div>
-
-                  {/* Card Footer Actions */}
-                  <div className="pt-3 border-t border-slate-200/80 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-                    <Link
-                      to={`/servicos/${service.slug}`}
-                      className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#0284C7] hover:text-[#0369A1] transition-colors py-1.5"
-                    >
-                      <span>Acessar Landing Page</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                    </Link>
-
-                    <a
-                      href={buildWhatsAppUrl({ service: service.title })}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#0D0A27] hover:bg-[#0284C7] text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-xs"
-                    >
-                      <MessageCircle className="w-3.5 h-3.5 text-[#38BDF8]" />
-                      <span>WhatsApp</span>
-                    </a>
+                  <div className="flex items-center justify-between text-xs text-slate-700 font-medium tabular-nums">
+                    <span>Distância: {route.distance}</span>
+                    <span className="font-bold text-[#0369A1]">{route.estimatedTime}</span>
                   </div>
-                </motion.article>
+                </Link>
               );
             })}
-          </AnimatePresence>
-        </motion.div>
-
+          </div>
+        </div>
       </div>
     </section>
   );

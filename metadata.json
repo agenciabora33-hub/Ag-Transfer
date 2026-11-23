@@ -1,8 +1,5 @@
 {
-  "name": "AG Transfer & Transporte Executivo",
-  "description": "Transporte executivo e transfer premium na Serra Gaúcha (Gramado, Canela, Bento Gonçalves e Caxias do Sul). Aeroportos POA e CXJ 24h.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "name": "AG Transfer | Transporte Executivo & Transfer Serra Gaúcha",
+  "description": "Transfer executivo privativo para aeroportos POA e CXJ, passeios em Gramado, Canela, Vale dos Vinhedos e viagens especiais. Atendimento das 05h às 23h.",
+  "requestFramePermissions": []
 }

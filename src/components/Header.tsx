@@ -1,208 +1,177 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'motion/react';
-import { Phone, MessageCircle, Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { COMPANY_NAP } from '../data/companyData';
-import { Link } from 'react-router-dom';
-import { BrandLogo } from './BrandLogo';
 
 interface HeaderProps {
-  onOpenQuoteModal: () => void;
+  onOpenQuoteModal?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
+export const Header: React.FC<HeaderProps> = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Dynamic Scroll Progress Bar with Logo Blue Gradient
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    setMobileMenuOpen(false);
+  }, [location.pathname, location.hash]);
+
+  // Passive compositor-only scroll progress indicator (zero forced reflow)
+  useEffect(() => {
+    let rafId = 0;
+
+    const updateProgress = () => {
+      rafId = 0;
+      const el = progressBarRef.current;
+      if (!el) return;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+      el.style.transform = `scaleX(${ratio})`;
     };
+
+    const handleScroll = () => {
+      if (rafId === 0) {
+        rafId = window.requestAnimationFrame(updateProgress);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId !== 0) window.cancelAnimationFrame(rafId);
+    };
   }, []);
 
-  const navLinks = [
-    { label: 'Início', href: '/#inicio' },
+  const navItems = [
     { label: 'Serviços', href: '/#servicos' },
-    {
-      label: 'Transfer Montevidéu',
-      href: '/transfer-porto-alegre-montevideu',
-      isRoute: true,
-      badge: 'Final 2026',
-    },
-    { label: 'Cidades Atendidas', href: '/#cobertura' },
     { label: 'Frota', href: '/#frota' },
-    { label: 'Diferenciais', href: '/#diferenciais' },
+    { label: 'Cidades', href: '/#cobertura' },
+    { label: 'Montevidéu', href: '/transfer-porto-alegre-montevideu', isRoute: true },
     { label: 'Avaliações', href: '/#avaliacoes' },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/90 py-2.5 shadow-[0_4px_25px_rgba(15,23,42,0.06)]'
-          : 'bg-white/80 backdrop-blur-sm border-b border-slate-200/60 py-3.5'
-      }`}
-    >
-      {/* Dynamic Logo Blue Scroll Progress Bar */}
-      <motion.div
-        className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#0D0A27] via-[#0284C7] to-[#38BDF8] origin-left z-50"
-        style={{ scaleX }}
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90">
+      <div
+        ref={progressBarRef}
+        className="h-0.5 bg-[#0369A1] origin-left will-change-transform"
+        style={{ transform: 'scaleX(0)' }}
+        aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-13">
-          {/* Zone 1: Brand Wordmark with Official Logo Image */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4 lg:gap-8">
+        {/* Zone 1: Brand Wordmark + Focus Mode Requested Sizing */}
+        <div className="flex items-center shrink-0">
           <Link
             to="/"
-            className="flex items-center gap-2.5 group transition-opacity"
-            aria-label="AG Transfer Página Inicial"
+            className="inline-flex items-center gap-2.5 whitespace-nowrap shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0369A1] rounded-lg"
+            aria-label="AG Transfer - Ir para o início"
           >
-            <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/80 p-1 flex items-center justify-center shadow-xs overflow-hidden group-hover:border-[#0284C7]/50 transition-colors">
+            <div className="w-[70px] h-[50px] rounded-xl bg-white border border-slate-200 flex items-center justify-center overflow-hidden shrink-0">
               <img
                 src={COMPANY_NAP.logoSmUrl}
-                alt="Logo AG Transfer & Transporte Executivo"
-                width={40}
-                height={40}
-                className="w-full h-full object-contain"
+                alt="Logotipo AG Transfer"
+                width={70}
+                height={70}
                 referrerPolicy="no-referrer"
+                className="w-[70px] h-[70px] object-contain"
+                loading="eager"
                 decoding="async"
               />
             </div>
-            <span className="font-['Cinzel',serif] text-xl sm:text-2xl font-bold tracking-wider text-[#0D0A27] transition-colors group-hover:text-[#0284C7]">
+            <span className="font-['Cinzel',serif] font-bold tracking-wider text-[#0D0A27] text-[13px] whitespace-nowrap shrink-0">
               AG TRANSFER
             </span>
           </Link>
-
-          {/* Zone 2: 4-6 clean text navigation links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-sm font-semibold text-slate-600">
-            {navLinks.map((link) => {
-              if (link.isRoute) {
-                return (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    className="hover:text-[#0284C7] transition-colors relative py-1 flex items-center gap-1.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#0284C7] hover:after:w-full after:transition-all after:duration-300"
-                  >
-                    <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 text-[10px] font-black uppercase tracking-tight border border-amber-400/40">
-                        {link.badge}
-                      </span>
-                    )}
-                  </Link>
-                );
-              }
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="hover:text-[#0284C7] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#0284C7] hover:after:w-full after:transition-all after:duration-300"
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-          </nav>
-
-          {/* Zone 3: 1-2 primary actions */}
-          <div className="hidden sm:flex items-center gap-3">
-            <a
-              href={`tel:${COMPANY_NAP.phoneRaw}`}
-              className="hidden xl:inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-[#0284C7] px-3 py-2 transition-colors"
-              title="Ligar para Atendimento (05h às 23h)"
-            >
-              <Phone className="w-3.5 h-3.5 text-[#0284C7]" />
-              <span className="tabular-nums">{COMPANY_NAP.phoneDisplay}</span>
-            </a>
-            <button
-              onClick={onOpenQuoteModal}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] text-white font-semibold text-xs tracking-wide uppercase transition-all duration-200 hover:brightness-110 hover:shadow-[0_4px_16px_rgba(2,132,199,0.35)] active:scale-[0.98] cursor-pointer whitespace-nowrap shadow-sm"
-            >
-              <MessageCircle className="w-4 h-4 text-[#38BDF8]" />
-              <span>Solicitar Orçamento</span>
-            </button>
-          </div>
-
-          {/* Mobile menu hamburger */}
-          <div className="flex sm:hidden items-center gap-2">
-            <button
-              onClick={onOpenQuoteModal}
-              className="min-h-[44px] px-3.5 py-2 rounded-lg bg-[#0284C7] text-white text-xs font-bold uppercase transition-transform active:scale-95 shadow-xs"
-            >
-              Cotação
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-slate-700 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0284C7]"
-              aria-label="Abrir Menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
         </div>
 
-        {/* Mobile Dropdown */}
-        {mobileMenuOpen && (
-          <div className="sm:hidden border-t border-slate-200 mt-2 pt-3 pb-4 bg-white/98 backdrop-blur-xl rounded-b-2xl px-2 space-y-2 shadow-xl animate-fadeIn">
-            {navLinks.map((link) => {
-              if (link.isRoute) {
-                return (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 bg-amber-500/10 hover:bg-amber-500/20 text-[#0284C7] transition-colors"
-                  >
-                    <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-black uppercase tracking-tight">
-                        {link.badge}
-                      </span>
-                    )}
-                  </Link>
-                );
-              }
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-[#0284C7] transition-colors"
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-            <div className="pt-2 border-t border-slate-200 space-y-2">
-              <a
-                href={COMPANY_NAP.whatsappBaseUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs tracking-wider uppercase transition-colors shadow-sm"
+        {/* Zone 2: Clean Desktop Navigation Links (No Pill Enclosures) */}
+        <nav className="hidden md:flex items-center gap-6 lg:gap-7" aria-label="Navegação Principal">
+          {navItems.map((item) =>
+            item.isRoute ? (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="text-sm font-semibold text-slate-700 hover:text-[#0369A1] hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
               >
-                <MessageCircle className="w-4 h-4" />
-                WhatsApp (54) 99153-7288
-              </a>
+                {item.label}
+              </Link>
+            ) : (
               <a
-                href={`tel:${COMPANY_NAP.phoneRaw}`}
-                className="flex items-center justify-center gap-2 w-full min-h-[44px] py-2.5 rounded-xl bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold"
+                key={item.href}
+                href={item.href}
+                className="text-sm font-semibold text-slate-700 hover:text-[#0369A1] hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
               >
-                <Phone className="w-3.5 h-3.5 text-[#0284C7]" />
-                Ligar Agora (05h às 23h)
+                {item.label}
               </a>
-            </div>
-          </div>
-        )}
+            )
+          )}
+        </nav>
+
+        {/* Zone 3: Single Primary Action + Mobile Drawer Toggle */}
+        <div className="flex items-center gap-2 shrink-0">
+          <a
+            href={COMPANY_NAP.whatsappBaseUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center justify-center gap-2 min-h-[42px] px-4 py-2 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0369A1] hover:brightness-110 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm whitespace-nowrap shrink-0"
+          >
+            <MessageCircle className="w-4 h-4 text-[#38BDF8]" aria-hidden="true" />
+            <span>Cotar WhatsApp</span>
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl border border-slate-200 text-[#0D0A27] hover:bg-slate-100 transition-colors cursor-pointer"
+            aria-label={mobileMenuOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Navigation Drawer */}
+      {mobileMenuOpen && (
+        <nav
+          className="md:hidden bg-white border-t border-slate-200 px-4 py-4 space-y-2 shadow-lg animate-fadeIn"
+          aria-label="Menu Mobile"
+        >
+          {navItems.map((item) =>
+            item.isRoute ? (
+              <Link
+                key={item.href}
+                to={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-semibold text-[#0D0A27] hover:bg-slate-50"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center min-h-[44px] px-3 rounded-xl text-sm font-semibold text-[#0D0A27] hover:bg-slate-50"
+              >
+                {item.label}
+              </a>
+            )
+          )}
+          <div className="pt-2 border-t border-slate-100">
+            <a
+              href={COMPANY_NAP.whatsappBaseUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full min-h-[44px] inline-flex items-center justify-center gap-2 rounded-xl bg-[#0369A1] text-white text-xs font-bold uppercase tracking-wider"
+            >
+              <MessageCircle className="w-4 h-4" aria-hidden="true" />
+              <span>Solicitar Cotação (05h às 23h)</span>
+            </a>
+          </div>
+        </nav>
+      )}
     </header>
   );
 };

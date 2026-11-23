@@ -1,140 +1,71 @@
-/**
- * IndexNow Service for Bing & Search Engines
- * Key: 1b99b176c74d424baee3488442bd4737
- * Domain: ag-transfer.vercel.app
- */
+export const INDEXNOW_KEY = '1b99b176c74d424baee3488442bd4737';
+export const INDEXNOW_HOST = 'www.aagtransfer.com.br';
+export const INDEXNOW_KEY_LOCATION = `https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`;
 
-import { SERVICES } from '../data/companyData';
-import { CITIES_SERVED } from '../data/cityData';
-
-export const INDEXNOW_CONFIG = {
-  key: '1b99b176c74d424baee3488442bd4737',
-  host: 'ag-transfer.vercel.app',
-  keyLocation: 'https://ag-transfer.vercel.app/1b99b176c74d424baee3488442bd4737.txt',
-  endpoints: {
-    indexNow: 'https://api.indexnow.org/indexnow',
-    bing: 'https://www.bing.com/indexnow',
-  },
-} as const;
-
-/**
- * Returns all canonical URLs registered in the site (Home, 9 Services, 9 Cities)
- */
-export function getAllSiteUrls(): string[] {
-  const baseUrl = `https://${INDEXNOW_CONFIG.host}`;
-  const urls: string[] = [`${baseUrl}/`];
-
-  // 9 Dedicated Service pages
-  SERVICES.forEach((service) => {
-    urls.push(`${baseUrl}/servicos/${service.slug}`);
-  });
-
-  // 9 Dedicated City pages
-  CITIES_SERVED.forEach((city) => {
-    urls.push(`${baseUrl}/cidades/${city.slug}`);
-  });
-
-  // Dedicated International Campaign: Transfer Porto Alegre -> Montevidéu
-  urls.push(`${baseUrl}/transfer-porto-alegre-montevideu`);
-
-  return urls;
-}
-
-export interface IndexNowPayload {
-  host: string;
-  key: string;
-  keyLocation: string;
-  urlList: string[];
-}
-
-export function getIndexNowPayload(customUrls?: string[]): IndexNowPayload {
-  return {
-    host: INDEXNOW_CONFIG.host,
-    key: INDEXNOW_CONFIG.key,
-    keyLocation: INDEXNOW_CONFIG.keyLocation,
-    urlList: customUrls && customUrls.length > 0 ? customUrls : getAllSiteUrls(),
-  };
-}
+export const ALL_CANONICAL_URLS: string[] = [
+  'https://www.aagtransfer.com.br/',
+  'https://www.aagtransfer.com.br/transfer-porto-alegre-montevideu',
+  'https://www.aagtransfer.com.br/servicos/transfer-para-gramado',
+  'https://www.aagtransfer.com.br/servicos/transfer-para-canela',
+  'https://www.aagtransfer.com.br/servicos/transporte-executivo-gramado',
+  'https://www.aagtransfer.com.br/servicos/transfer-porto-alegre-gramado',
+  'https://www.aagtransfer.com.br/servicos/transfer-aeroporto-cxj-caxias',
+  'https://www.aagtransfer.com.br/servicos/tour-vale-dos-vinhedos',
+  'https://www.aagtransfer.com.br/servicos/tour-gramado-canela',
+  'https://www.aagtransfer.com.br/servicos/viagens-corporativas-serra',
+  'https://www.aagtransfer.com.br/servicos/motorista-particular-diaria',
+  'https://www.aagtransfer.com.br/cidades/gramado',
+  'https://www.aagtransfer.com.br/cidades/canela',
+  'https://www.aagtransfer.com.br/cidades/bento-goncalves',
+  'https://www.aagtransfer.com.br/cidades/caxias-do-sul',
+  'https://www.aagtransfer.com.br/cidades/porto-alegre',
+  'https://www.aagtransfer.com.br/cidades/garibaldi',
+  'https://www.aagtransfer.com.br/cidades/nova-petropolis',
+  'https://www.aagtransfer.com.br/cidades/farroupilha',
+  'https://www.aagtransfer.com.br/cidades/flores-da-cunha',
+];
 
 export interface IndexNowSubmitResult {
-  success: boolean;
-  statusCode?: number;
+  ok: boolean;
+  status: number;
   message: string;
-  timestamp: string;
-  urlsCount: number;
+  endpoint: string;
 }
 
-/**
- * Submits the URL list to IndexNow (Bing & participating search engines)
- */
-export async function submitToIndexNow(customUrls?: string[]): Promise<IndexNowSubmitResult> {
-  const payload = getIndexNowPayload(customUrls);
-  const timestamp = new Date().toISOString();
+export async function submitUrlsToIndexNow(urls: string[]): Promise<IndexNowSubmitResult> {
+  const endpoint = 'https://api.indexnow.org/indexnow';
+  const payload = {
+    host: INDEXNOW_HOST,
+    key: INDEXNOW_KEY,
+    keyLocation: INDEXNOW_KEY_LOCATION,
+    urlList: urls,
+  };
 
   try {
-    // Attempt standard IndexNow POST submission
-    const response = await fetch(INDEXNOW_CONFIG.endpoints.indexNow, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },
       body: JSON.stringify(payload),
-      mode: 'cors',
-    }).catch(() => null);
+    });
 
-    if (response) {
-      const isSuccess = response.status === 200 || response.status === 202;
-      const result: IndexNowSubmitResult = {
-        success: isSuccess,
-        statusCode: response.status,
-        message: isSuccess
-          ? 'URLs enviadas com sucesso ao IndexNow (Bing). Indexação instantânea iniciada!'
-          : `IndexNow retornou status HTTP ${response.status}`,
-        timestamp,
-        urlsCount: payload.urlList.length,
-      };
-
-      try {
-        localStorage.setItem('indexnow_last_submission', JSON.stringify(result));
-      } catch {
-        // ignore localStorage errors
-      }
-
-      return result;
-    }
-
-    // If browser CORS prevented direct POST fetch in client mode, fallback to GET ping
-    const fallbackGetUrl = `${INDEXNOW_CONFIG.endpoints.bing}?url=${encodeURIComponent(payload.urlList[0])}&key=${INDEXNOW_CONFIG.key}&keyLocation=${encodeURIComponent(INDEXNOW_CONFIG.keyLocation)}`;
-    
-    // Attempt GET ping via no-cors or image beacon
-    try {
-      fetch(fallbackGetUrl, { mode: 'no-cors' }).catch(() => {});
-    } catch {
-      // fallback
-    }
-
-    const fallbackResult: IndexNowSubmitResult = {
-      success: true,
-      statusCode: 200,
-      message: 'Notificação IndexNow Bing enviada com sucesso (via ping protocol).',
-      timestamp,
-      urlsCount: payload.urlList.length,
+    return {
+      ok: response.ok || response.status === 202,
+      status: response.status,
+      message:
+        response.ok || response.status === 202
+          ? `Solicitação enviada com sucesso para ${urls.length} URL(s) (HTTP ${response.status}).`
+          : `Resposta do servidor IndexNow: HTTP ${response.status}.`,
+      endpoint,
     };
-
-    try {
-      localStorage.setItem('indexnow_last_submission', JSON.stringify(fallbackResult));
-    } catch {
-      // ignore
-    }
-
-    return fallbackResult;
-  } catch (error) {
-    const errorResult: IndexNowSubmitResult = {
-      success: false,
-      message: error instanceof Error ? error.message : 'Falha na submissão IndexNow',
-      timestamp,
-      urlsCount: payload.urlList.length,
+  } catch {
+    return {
+      ok: false,
+      status: 0,
+      message:
+        'Envio direto pelo navegador bloqueado por CORS ou rede. Utilize o comando cURL gerado ou envie diretamente pelo painel Microsoft Bing Webmaster Tools.',
+      endpoint,
     };
-    return errorResult;
   }
 }
