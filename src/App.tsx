@@ -1,5 +1,5 @@
 import React, { useState, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { FloatingWhatsAppCTA } from './components/FloatingWhatsAppCTA';
@@ -54,6 +54,8 @@ export function App() {
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<HomePage onOpenQuoteModal={() => openQuoteModal()} />} />
+              <Route path="/servicos" element={<Navigate to="/#servicos" replace />} />
+              <Route path="/cidades" element={<Navigate to="/#cobertura" replace />} />
               <Route
                 path="/servicos/:slug"
                 element={<ServiceDetailPage onOpenQuoteModal={openQuoteModal} />}

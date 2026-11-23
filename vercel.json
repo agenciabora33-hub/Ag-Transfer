@@ -13,7 +13,24 @@
       ],
       "destination": "https://www.aagtransfer.com.br/$1",
       "permanent": true
-    }
+    },
+    { "source": "/city-tour-privativo", "destination": "https://www.aagtransfer.com.br/servicos/tour-gramado-canela", "permanent": true },
+    { "source": "/city-tour-privativo-gramado-canela-exclusivo", "destination": "https://www.aagtransfer.com.br/servicos/tour-gramado-canela", "permanent": true },
+    { "source": "/como-ir-porto-alegre-gramado-transfer-executivo", "destination": "https://www.aagtransfer.com.br/servicos/transfer-porto-alegre-gramado", "permanent": true },
+    { "source": "/roteiro-vale-dos-vinhedos-maria-fumaca-privativo", "destination": "https://www.aagtransfer.com.br/servicos/tour-vale-dos-vinhedos", "permanent": true },
+    { "source": "/receptivo-aeroportos", "destination": "https://www.aagtransfer.com.br/servicos/transfer-porto-alegre-gramado", "permanent": true },
+    { "source": "/transporte-executivo", "destination": "https://www.aagtransfer.com.br/servicos/transporte-executivo-gramado", "permanent": true },
+    { "source": "/transporte-executivo-corporativo-caxias-do-sul", "destination": "https://www.aagtransfer.com.br/cidades/caxias-do-sul", "permanent": true },
+    { "source": "/transfer-gramado-summit-motorista-particular", "destination": "https://www.aagtransfer.com.br/servicos/motorista-particular-diaria", "permanent": true },
+    { "source": "/transporte-gramado-summit-eventos-corporativos", "destination": "https://www.aagtransfer.com.br/servicos/viagens-corporativas-serra", "permanent": true },
+    { "source": "/contato", "destination": "https://www.aagtransfer.com.br/", "permanent": true },
+    { "source": "/perguntas-frequentes", "destination": "https://www.aagtransfer.com.br/#faq", "permanent": true },
+    { "source": "/sobre-nos", "destination": "https://www.aagtransfer.com.br/#diferenciais", "permanent": true },
+    { "source": "/blog-list", "destination": "https://www.aagtransfer.com.br/", "permanent": true },
+    { "source": "/privacy-policy", "destination": "https://www.aagtransfer.com.br/", "permanent": true },
+    { "source": "/terms-and-conditions", "destination": "https://www.aagtransfer.com.br/", "permanent": true },
+    { "source": "/servicos", "destination": "https://www.aagtransfer.com.br/#servicos", "permanent": true },
+    { "source": "/cidades", "destination": "https://www.aagtransfer.com.br/#cobertura", "permanent": true }
   ],
   "headers": [
     {
