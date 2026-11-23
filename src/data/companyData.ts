@@ -62,14 +62,55 @@ export interface ReviewItem {
   verified: boolean;
 }
 
+export interface CoverageAreaItem {
+  label: string;
+  city: string;
+  state: string;
+  postalCode?: string;
+  slug: string;
+}
+
+export const COVERAGE_AREAS: CoverageAreaItem[] = [
+  {
+    label: "Gramado, RS, Brasil",
+    city: "Gramado",
+    state: "RS",
+    slug: "gramado",
+  },
+  {
+    label: "Caxias do Sul, RS, Brasil",
+    city: "Caxias do Sul",
+    state: "RS",
+    slug: "caxias-do-sul",
+  },
+  {
+    label: "Canela, RS, 95680-000, Brasil",
+    city: "Canela",
+    state: "RS",
+    postalCode: "95680-000",
+    slug: "canela",
+  },
+  {
+    label: "Flores da Cunha, RS, 95270-000, Brasil",
+    city: "Flores da Cunha",
+    state: "RS",
+    postalCode: "95270-000",
+    slug: "flores-da-cunha",
+  },
+  {
+    label: "Bento Gonçalves, RS, 95700-000, Brasil",
+    city: "Bento Gonçalves",
+    state: "RS",
+    postalCode: "95700-000",
+    slug: "bento-goncalves",
+  },
+];
+
 export const COMPANY_NAP = {
   name: "AG Transfer & Transporte Executivo LTDA.",
   shortName: "AG Transfer Executivo",
-  address: "Av. Salgado Filho, 3451 - Bairro Salgado Filho",
-  city: "Caxias do Sul",
-  state: "RS",
-  zip: "95098-420",
-  fullAddress: "Av. Salgado Filho, 3451 - Bairro Salgado Filho, Caxias do Sul - RS, CEP 95098-420",
+  serviceAreaLabel: "Gramado, Caxias do Sul, Canela, Flores da Cunha, Bento Gonçalves e Serra Gaúcha",
+  regionLabel: "Serra Gaúcha, RS - Brasil",
   phone: "(54) 99153-7288",
   phoneRaw: "5554991537288",
   phoneDisplay: "(54) 99153-7288",
@@ -898,8 +939,8 @@ export const FAQS = [
     answer: "Sim. Operamos em regime 24 Horas / 7 Dias por Semana. Viagens com partidas nas primeiras horas da manhã ou chegadas noturnas contam com motoristas descansados e escalas rigorosamente planejadas."
   },
   {
-    question: "Quais são as áreas de atendimento principais na Serra Gaúcha?",
-    answer: "Nossa base operacional fica em Caxias do Sul (Av. Salgado Filho, 3451), cobrindo com agilidade Gramado, Canela, Bento Gonçalves (Vale dos Vinhedos), Farroupilha, Flores da Cunha, Nova Petrópolis, Garibaldi, Porto Alegre e conexões para todo o Brasil."
+    question: "Quais são as áreas de cobertura principais na Serra Gaúcha?",
+    answer: "Nossa área de cobertura oficial abrange Gramado, Caxias do Sul, Canela (CEP 95680-000), Flores da Cunha (CEP 95270-000) e Bento Gonçalves (CEP 95700-000), além de Garibaldi, Nova Petrópolis, Farroupilha, Porto Alegre (Aeroporto POA) e conexões para todo o Brasil."
   },
   {
     question: "Os veículos possuem seguro para os passageiros?",

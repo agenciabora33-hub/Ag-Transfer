@@ -72,7 +72,7 @@ export const SingleFileExportModal: React.FC<SingleFileExportModalProps> = ({
             <code className="text-[#0D0A27] font-mono font-bold">ag-transfer-single-page.html</code>
           </div>
           <div className="flex items-center justify-between text-slate-600 border-b border-slate-200 pb-2">
-            <span className="font-medium">Dados NAP & Place ID:</span>
+            <span className="font-medium">Área de Cobertura & Place ID:</span>
             <span className="text-emerald-700 font-bold">Integrados no HTML & JSON-LD (+200 avaliações)</span>
           </div>
           <div className="flex items-center justify-between text-slate-600">

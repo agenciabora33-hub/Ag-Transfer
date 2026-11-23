@@ -88,7 +88,7 @@ const cities = [
     slug: 'caxias-do-sul',
     name: 'Caxias do Sul',
     title: 'Transfer Caxias do Sul RS | Transporte Aeroporto CXJ e Corporativo',
-    description: 'Base operacional da AG Transfer em Caxias do Sul RS. Transporte executivo para Aeroporto CXJ, polo metalmecânico e viagens intermunicipais 24 horas.'
+    description: 'Área de cobertura oficial da AG Transfer em Caxias do Sul RS. Transporte executivo para Aeroporto CXJ, polo metalmecânico e viagens intermunicipais 24 horas.'
   },
   {
     slug: 'porto-alegre',
@@ -202,19 +202,19 @@ const montevideoJsonLd = `
           "serviceType": "Transfer Executivo Internacional",
           "description": "Transfer privativo e transporte executivo do Aeroporto Internacional Salgado Filho (POA) direto para Montevidéu (Estádio Centenário). Frotas de sedans, SUVs e vans com motorista profissional.",
           "provider": {
-            "@type": "LocalBusiness",
+            "@type": "TaxiService",
             "name": "AG Transfer & Transporte Executivo LTDA.",
             "telephone": "+5554991537288",
             "image": "https://ag-transfer.vercel.app/logo.png",
             "url": "https://ag-transfer.vercel.app/",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Av. Salgado Filho, 3451",
-              "addressLocality": "Caxias do Sul",
-              "addressRegion": "RS",
-              "postalCode": "95098-420",
-              "addressCountry": "BR"
-            }
+            "areaServed": [
+              { "@type": "City", "name": "Gramado" },
+              { "@type": "City", "name": "Caxias do Sul" },
+              { "@type": "City", "name": "Canela" },
+              { "@type": "City", "name": "Flores da Cunha" },
+              { "@type": "City", "name": "Bento Gonçalves" },
+              { "@type": "City", "name": "Porto Alegre" }
+            ]
           },
           "areaServed": [
             { "@type": "City", "name": "Porto Alegre" },

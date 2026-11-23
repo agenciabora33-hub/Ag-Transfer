@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, MessageCircle, Clock, ExternalLink, Code2, Star, ChevronRight, Navigation, Zap } from 'lucide-react';
-import { COMPANY_NAP, SERVICES } from '../data/companyData';
+import { COMPANY_NAP, COVERAGE_AREAS, SERVICES } from '../data/companyData';
 import { CITIES_SERVED } from '../data/cityData';
 
 interface FooterProps {
@@ -55,18 +55,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
             </div>
           </div>
 
-          {/* Column 2: Physical NAP Information (Col 3) */}
+          {/* Column 2: Service Coverage Area & Contact (Col 3) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              Sede Operacional (NAP)
+              Área de Cobertura & Contato
             </h4>
             
             <div className="space-y-2.5 text-xs text-slate-300">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-white font-medium block">Endereço Físico:</span>
-                  <span>{COMPANY_NAP.fullAddress}</span>
+                  <span className="text-white font-medium block">Área de Cobertura Oficial:</span>
+                  <ul className="space-y-0.5 mt-0.5 text-slate-300">
+                    {COVERAGE_AREAS.map((area) => (
+                      <li key={area.slug}>{area.label}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
 
@@ -223,7 +227,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               <ExternalLink className="w-2.5 h-2.5 text-[#38BDF8]" />
             </a>
             <span>·</span>
-            <span>Caxias do Sul - RS</span>
+            <span>Serra Gaúcha, RS - Brasil</span>
           </div>
         </div>
 

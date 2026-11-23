@@ -302,7 +302,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
               
               {/* Official Brand Logo & Accreditation */}
               <div className="flex flex-wrap items-center gap-3">
-                <BrandLogo size="sm" showText={true} subtext={`Base Operacional Serra Gaúcha &bull; ${city.name}`} />
+                <BrandLogo size="sm" showText={true} subtext={`Área de Cobertura Serra Gaúcha &bull; ${city.name}`} />
                 <div className="h-5 w-px bg-slate-200 hidden sm:block" />
                 <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#0284C7]" />
@@ -344,8 +344,8 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
                   <span className="font-bold text-[#0284C7]">{city.distanceFromCxj}</span>
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-slate-400 font-medium block">Sede Operacional:</span>
-                  <span className="font-bold text-slate-700">{city.distanceFromSede}</span>
+                  <span className="text-slate-400 font-medium block">Área de Cobertura:</span>
+                  <span className="font-bold text-slate-700">{city.serviceCoverage}</span>
                 </div>
               </div>
 
@@ -958,7 +958,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
               Outras Cidades Atendidas na Serra Gaúcha:
             </h3>
             <span className="text-xs text-slate-500">
-              Conexões privativas diárias com saída da nossa sede em Caxias do Sul
+              Conexões privativas diárias atendendo toda a área de cobertura na Serra Gaúcha
             </span>
           </div>
 

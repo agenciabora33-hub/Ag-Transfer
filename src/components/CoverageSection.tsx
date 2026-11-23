@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { MapPin, Navigation, ArrowRight, ExternalLink, Star, ChevronRight, Zap, Building2, Mountain } from 'lucide-react';
-import { COMPANY_NAP, POPULAR_ROUTES, buildWhatsAppUrl } from '../data/companyData';
+import { MapPin, ArrowRight, ExternalLink, Star, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { COMPANY_NAP, COVERAGE_AREAS, POPULAR_ROUTES, buildWhatsAppUrl } from '../data/companyData';
 import { CITIES_SERVED } from '../data/cityData';
 import { BrandLogo } from './BrandLogo';
 
@@ -20,21 +20,21 @@ export const CoverageSection: React.FC = () => {
           className="max-w-3xl mb-14"
         >
           <span className="text-xs font-bold tracking-widest text-[#0284C7] uppercase block mb-2">
-            Localização & Abrangência Geográfica (GEO)
+            Área de Cobertura & Abrangência Regional
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0D0A27] tracking-tight text-balance">
-            Atendimento em Caxias do Sul, Serra Gaúcha e Conexões
+            Atendimento Executivo na Serra Gaúcha e Conexões
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed text-pretty">
-            Localizada estrategicamente na{' '}
+            Com atendimento porta a porta e operação móvel 24 horas, a AG Transfer atende como{' '}
             <strong className="text-[#0D0A27] font-semibold">
-              Av. Salgado Filho, 3451 (Bairro Salgado Filho, Caxias do Sul - RS, CEP 95098-420)
-            </strong>
-            , a AG Transfer atende com agilidade Caxias do Sul, Bento Gonçalves, Farroupilha, Flores da Cunha, Gramado, Canela, Nova Petrópolis, Garibaldi, Porto Alegre e toda a Região Sul.
+              área de cobertura oficial
+            </strong>{' '}
+            as cidades de Gramado, Caxias do Sul, Canela, Flores da Cunha e Bento Gonçalves, além de Garibaldi, Nova Petrópolis, Farroupilha, Porto Alegre (Aeroporto POA) e toda a Região Sul.
           </p>
         </motion.div>
 
-        {/* Two-Column Grid: Popular Routes Table + Physical Location NAP Card */}
+        {/* Two-Column Grid: Popular Routes Table + Coverage Area Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
           
           {/* Routes Table */}
@@ -109,7 +109,7 @@ export const CoverageSection: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Physical NAP & Google Maps Card */}
+          {/* Service Coverage Area & Google Business Profile Card */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -121,18 +121,29 @@ export const CoverageSection: React.FC = () => {
               <div className="flex items-center gap-3 mb-4">
                 <BrandLogo size="md" />
                 <div>
-                  <h4 className="text-base font-bold text-[#0D0A27]">Sede Operacional</h4>
+                  <h4 className="text-base font-bold text-[#0D0A27]">Área de Cobertura</h4>
                   <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="text-xs text-[#0284C7] font-semibold">Caxias do Sul / RS</span>
+                    <span className="text-xs text-[#0284C7] font-semibold">Serra Gaúcha · RS</span>
                     <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">24 Horas</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-3 text-xs sm:text-sm text-slate-600 mb-6">
+              <div className="space-y-3.5 text-xs sm:text-sm text-slate-600 mb-6">
                 <div>
-                  <span className="block text-[#0D0A27] font-semibold">Endereço Físico (NAP):</span>
-                  <span>{COMPANY_NAP.fullAddress}</span>
+                  <span className="block text-[#0D0A27] font-semibold mb-1.5">
+                    Área de cobertura principal (Atendimento Porta a Porta):
+                  </span>
+                  <ul className="space-y-1.5">
+                    {COVERAGE_AREAS.map((area) => (
+                      <li key={area.slug} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <Link to={`/cidades/${area.slug}`} className="hover:text-[#0284C7] hover:underline">
+                          {area.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 <div>
                   <span className="block text-[#0D0A27] font-semibold">Reputação Google Business Profile:</span>
@@ -163,8 +174,8 @@ export const CoverageSection: React.FC = () => {
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold transition-colors shadow-xs"
                 >
-                  <Navigation className="w-3.5 h-3.5 text-[#0284C7]" />
-                  <span>Traçar Rota no Google Maps</span>
+                  <MapPin className="w-3.5 h-3.5 text-[#0284C7]" />
+                  <span>Ver Perfil no Google Business</span>
                   <ExternalLink className="w-3 h-3 text-slate-400" />
                 </a>
 

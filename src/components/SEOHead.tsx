@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { COMPANY_NAP } from '../data/companyData';
+import { COMPANY_NAP, COVERAGE_AREAS } from '../data/companyData';
 
 export interface SEOHeadProps {
   title: string;
@@ -22,7 +22,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   canonicalUrl,
   keywords = [],
   ogType = 'website',
-  geoPlaceName = 'Caxias do Sul',
+  geoPlaceName = 'Serra Gaúcha, RS',
   geoPosition = COMPANY_NAP.geoCoordinates,
   schemaGraph = [],
 }) => {
@@ -114,19 +114,17 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       image: absoluteLogoUrl,
       telephone: COMPANY_NAP.phoneRaw,
       priceRange: '$$$',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: COMPANY_NAP.address,
-        addressLocality: COMPANY_NAP.city,
-        addressRegion: COMPANY_NAP.state,
-        postalCode: COMPANY_NAP.zip,
-        addressCountry: 'BR',
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: COMPANY_NAP.geoCoordinates.lat,
-        longitude: COMPANY_NAP.geoCoordinates.lng,
-      },
+      areaServed: COVERAGE_AREAS.map((area) => ({
+        '@type': 'City',
+        name: area.city,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: area.city,
+          addressRegion: area.state,
+          ...(area.postalCode ? { postalCode: area.postalCode } : {}),
+          addressCountry: 'BR',
+        },
+      })),
       openingHoursSpecification: [
         {
           '@type': 'OpeningHoursSpecification',

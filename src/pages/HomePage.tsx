@@ -78,7 +78,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenQuoteModal }) => {
           'transfer canela',
           'ag transfer',
         ]}
-        geoPlaceName="Caxias do Sul"
+        geoPlaceName="Serra Gaúcha, RS"
         geoPosition={COMPANY_NAP.geoCoordinates}
         schemaGraph={homeSchemaGraph}
       />

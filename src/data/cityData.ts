@@ -26,7 +26,7 @@ export interface CityItem {
   };
   distanceFromPoa: string;
   distanceFromCxj: string;
-  distanceFromSede: string;
+  serviceCoverage: string;
   altitude: string;
   climateContext: string;
   description: string;
@@ -73,7 +73,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "118 km (aprox. 1h 50min via RS-235 / BR-116 ou Taquara)",
     distanceFromCxj: "68 km (aprox. 1h 15min via RS-453 e RS-235)",
-    distanceFromSede: "68 km da nossa sede operacional em Caxias do Sul",
+    serviceCoverage: "Área de cobertura prioritária em Gramado e Região das Hortênsias (24h)",
     altitude: "830 m de altitude",
     climateContext: "Trecho serrano sujeito a forte cerração/neblina matinal e noturna na RS-235 e RS-115, além de frio intenso e geadas no inverno. Nossos motoristas executivos possuem vasta experiência de serra para máxima segurança e pontualidade.",
     description: "Serviço de transfer privativo e transporte executivo de alto padrão para Gramado. Atendimento exclusivo no desembarque dos Aeroportos de Porto Alegre (POA) e Caxias do Sul (CXJ) direto para o seu hotel ou resort com conforto, pontualidade e discrição.",
@@ -196,7 +196,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "125 km (aprox. 2h 00min via RS-235)",
     distanceFromCxj: "75 km (aprox. 1h 25min via RS-453 e RS-235)",
-    distanceFromSede: "75 km da nossa base operacional em Caxias do Sul",
+    serviceCoverage: "Área de cobertura oficial em Canela (CEP 95680-000) com atendimento 24h",
     altitude: "837 m de altitude",
     climateContext: "Clima temperado serrano com umidade expressiva, nevoeiros em vales e temperaturas próximas de zero grau nos invernos. A rota de acesso conta com declives e curvas sinuosas que demandam condução perita.",
     description: "Transporte executivo e transfer privativo para Canela. Atendimento porta a porta desde os aeroportos de Porto Alegre (POA) e Caxias do Sul (CXJ) para os melhores hotéis, pousadas de charme e atrativos turísticos da cidade.",
@@ -319,7 +319,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "120 km (aprox. 1h 45min via BR-116 e RS-470/RS-446)",
     distanceFromCxj: "42 km (aprox. 45min via RS-453)",
-    distanceFromSede: "42 km da nossa matriz em Caxias do Sul (atendimento ágil)",
+    serviceCoverage: "Área de cobertura oficial em Bento Gonçalves (CEP 95700-000) · Vale dos Vinhedos",
     altitude: "690 m de altitude",
     climateContext: "Topografia ondulada característica de vinhedos em encostas, com microclimas propícios para vitivinicultura. As rotas internas rurais (Caminhos de Pedra e Vale dos Vinhedos) exigem motoristas que conheçam o relevo com precisão.",
     description: "Transporte executivo de alto padrão e transfers privativos para Bento Gonçalves e Vale dos Vinhedos. Ideal para turismo enogastronômico sem risco com a Lei Seca, além de transporte corporativo para o polo moveleiro e Fundaparque.",
@@ -432,22 +432,22 @@ export const CITIES_SERVED: CityItem[] = [
     id: "caxias-do-sul",
     slug: "caxias-do-sul",
     name: "Caxias do Sul",
-    badge: "Sede Operacional AG Transfer",
+    badge: "Área de Cobertura · Polo Serra Gaúcha",
     tagline: "Transporte Executivo & Transfer Aeroporto CXJ em Caxias do Sul",
-    region: "Polo Metalmecânico & Sede · Serra Gaúcha",
+    region: "Polo Metalmecânico & Enogastronômico · Serra Gaúcha",
     state: "RS",
-    cep: "95098-420",
+    cep: "95000-000",
     geoCoordinates: {
       lat: -29.1833,
       lng: -51.1833,
     },
     distanceFromPoa: "125 km (aprox. 1h 45min via BR-116 ou RS-122)",
-    distanceFromCxj: "Localizado no próprio município (Aeroporto Regional Hugo Cantergiani CXJ)",
-    distanceFromSede: "Nossa matriz: Av. Salgado Filho, 3451 - Bairro Salgado Filho (ao lado do aeroporto CXJ)",
+    distanceFromCxj: "Aeroporto Regional Hugo Cantergiani (CXJ) no município",
+    serviceCoverage: "Área de cobertura oficial em Caxias do Sul e Aeroporto CXJ (24h)",
     altitude: "817 m de altitude",
-    climateContext: "Importante polo industrial do estado com relevo acidentado e frequentes variações climáticas. A proximidade da nossa base ao aeroporto garante tempo de resposta recorde para qualquer chamada executiva emergencial.",
-    description: "Sede da AG Transfer. Transporte executivo de excelência e transfers privativos no Aeroporto Regional Hugo Cantergiani (CXJ), indústrias do polo metalmecânico, Pavilhões da Festa da Uva e Feira Mercopar.",
-    fullBio: "Caxias do Sul é a segunda maior cidade do Rio Grande do Sul em população e o segundo maior polo metalmecânico do Brasil, abrigando gigantes mundiais como Marcopolo, Randoncorp, Agrale e centenas de fornecedores automotivos. A cidade conta com o Aeroporto Regional Hugo Cantergiani (CXJ), principal terminal aéreo que atende a Serra Gaúcha com voos regulares das companhias Azul, Gol e Latam. A sede física da AG Transfer está localizada exatamente em Caxias do Sul (Av. Salgado Filho, 3451), o que nos permite oferecer pronto atendimento 24 horas para o aeroporto, visitas técnicas fabris e receptivos de executivos nacionais e internacionais com faturamento simplificado.",
+    climateContext: "Importante polo industrial do estado com relevo acidentado e frequentes variações climáticas. Nossa operação regional dedicada ao Aeroporto CXJ garante tempo de resposta ágil para qualquer chamada executiva.",
+    description: "Área de cobertura oficial AG Transfer em Caxias do Sul. Transporte executivo de excelência e transfers privativos no Aeroporto Regional Hugo Cantergiani (CXJ), indústrias do polo metalmecânico, Pavilhões da Festa da Uva e Feira Mercopar.",
+    fullBio: "Caxias do Sul é a segunda maior cidade do Rio Grande do Sul em população e o segundo maior polo metalmecânico do Brasil, abrigando gigantes mundiais como Marcopolo, Randoncorp, Agrale e centenas de fornecedores automotivos. A cidade conta com o Aeroporto Regional Hugo Cantergiani (CXJ), principal terminal aéreo que atende a Serra Gaúcha com voos regulares das companhias Azul, Gol e Latam. Com ampla área de cobertura em Caxias do Sul e toda a Serra Gaúcha, a AG Transfer oferece pronto atendimento 24 horas para o aeroporto, visitas técnicas fabris e receptivos de executivos nacionais e internacionais com faturamento simplificado.",
     keyLandmarks: [
       "Aeroporto Regional Hugo Cantergiani (CXJ)",
       "Pavilhões da Festa da Uva (Centro de Eventos e Feiras)",
@@ -457,7 +457,7 @@ export const CITIES_SERVED: CityItem[] = [
       "Hotéis Executivos (Intercity Caxias, Blue Tree Towers, Swan Caxias)"
     ],
     popularNeighborhoods: [
-      "Salgado Filho (Nossa Base)",
+      "Região do Aeroporto CXJ",
       "Centro",
       "Pioneiro",
       "Lourdes",
@@ -465,14 +465,14 @@ export const CITIES_SERVED: CityItem[] = [
       "Nossa Senhora de Fátima",
       "Ana Rech",
       "Forqueta",
-      "B地区 Industrial"
+      "Distrito Industrial"
     ],
     accessHighways: ["BR-116", "RS-122", "RS-453 (Rota do Sol)"],
     recommendedServices: [
       {
         title: "Transfer Aeroporto CXJ Caxias",
         slug: "transfer-aeroporto-cxj-caxias",
-        badge: "Base ao Lado do CXJ",
+        badge: "Atendimento Imediato CXJ",
         description: "Receptivo imediato com placa no Aeroporto de Caxias do Sul para conexão com toda a serra."
       },
       {
@@ -513,8 +513,8 @@ export const CITIES_SERVED: CityItem[] = [
     ],
     comparisonPoints: [
       {
-        agTransfer: "Sede física na própria Av. Salgado Filho em Caxias do Sul, a poucos minutos da pista do Aeroporto CXJ.",
-        competitor: "Empresas sediadas em Porto Alegre que cobram custos astronômicos de deslocamento para atender Caxias."
+        agTransfer: "Cobertura dedicada em Caxias do Sul com prontidão para embarques no Aeroporto CXJ e distrito industrial.",
+        competitor: "Empresas sem atuação regional na serra que cobram custos elevados de deslocamento para atender Caxias do Sul."
       },
       {
         agTransfer: "Faturamento direto para empresas via boleto bancário quinzenal ou mensal e Nota Fiscal eletrônica de Serviços (NFS-e).",
@@ -533,8 +533,8 @@ export const CITIES_SERVED: CityItem[] = [
     },
     faqs: [
       {
-        question: "Onde fica a base da AG Transfer em Caxias do Sul?",
-        answer: "Nossa base operacional está localizada na Av. Salgado Filho, 3451, Bairro Salgado Filho, CEP 95098-420, Caxias do Sul - RS. Essa localização estratégica fica colada ao Aeroporto Regional Hugo Cantergiani (CXJ), garantindo o menor tempo de resposta da região."
+        question: "Como funciona a área de cobertura da AG Transfer em Caxias do Sul?",
+        answer: "Atendemos toda a cidade de Caxias do Sul como área de cobertura oficial 24 horas por dia, com embarque e desembarque porta a porta no Aeroporto Regional Hugo Cantergiani (CXJ), hotéis, empresas e residências, garantindo agilidade máxima na região."
       },
       {
         question: "A AG Transfer atende feiras nos Pavilhões da Festa da Uva e Mercopar?",
@@ -550,7 +550,7 @@ export const CITIES_SERVED: CityItem[] = [
       }
     ],
     metaTitle: "Transporte Executivo em Caxias do Sul RS | AG Transfer 24h CXJ",
-    metaDescription: "Transporte executivo e transfer no Aeroporto de Caxias do Sul (CXJ). Sede na Av. Salgado Filho, atendimento 24h, faturamento PJ e alto padrão corporativo. Peça cotação!",
+    metaDescription: "Transporte executivo e transfer no Aeroporto de Caxias do Sul (CXJ). Área de cobertura completa em Caxias do Sul, atendimento 24h, faturamento PJ e alto padrão corporativo. Peça cotação!",
     keywords: ["transporte executivo caxias do sul", "transfer aeroporto cxj", "transfer caxias do sul gramado", "motorista executivo caxias do sul", "transfer aeroporto caxias do sul"]
   },
   {
@@ -568,7 +568,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "Aeroporto Salgado Filho (POA) situado na zona norte da capital",
     distanceFromCxj: "125 km (aprox. 1h 45min via BR-116)",
-    distanceFromSede: "125 km com rotas diárias de vans e sedans executivos",
+    serviceCoverage: "Rotas diárias conectando Porto Alegre (POA) à área de cobertura na Serra Gaúcha",
     altitude: "10 m de altitude",
     climateContext: "Clima subtropical úmido com variações sazonais. O principal gargalo da rota POA ⇄ Serra é o tráfego da saída metropolitana (BR-116 e Freeway), trechos nos quais nossos motoristas utilizam rotas alternativas inteligentes e monitoramento em tempo real.",
     description: "Transfer executivo de alto padrão conectando o Aeroporto Internacional Salgado Filho (POA) e os principais bairros de Porto Alegre diretamente à Serra Gaúcha (Gramado, Canela, Caxias do Sul e Bento Gonçalves).",
@@ -692,7 +692,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "110 km (aprox. 1h 35min via RS-446 e BR-470)",
     distanceFromCxj: "38 km (aprox. 40min via RS-453)",
-    distanceFromSede: "38 km de distância da matriz AG Transfer",
+    serviceCoverage: "Cobertura dedicada em Garibaldi e Rota dos Espumantes (Serra Gaúcha)",
     altitude: "617 m de altitude",
     climateContext: "Encostas suaves e vales que concentram as maiores e mais premiadas casas de espumante do Brasil (método Charmat e Tradicional). As rotas vicinais requerem motorista que conheça os acessos aos produtores artesanais.",
     description: "Transfer executivo e transporte privativo para Garibaldi, a Capital do Espumante. Roteiro exclusivo pelas melhores vinícolas (Peterlongo, Chandon, Cooperativa Garibaldi) com segurança da Lei Seca e muito charme.",
@@ -814,7 +814,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "90 km (aprox. 1h 30min via BR-116)",
     distanceFromCxj: "35 km (aprox. 40min via BR-116 ou RS-235)",
-    distanceFromSede: "35 km da sede da AG Transfer em Caxias do Sul",
+    serviceCoverage: "Cobertura diária em Nova Petrópolis e Rota Romântica (24h)",
     altitude: "595 m de altitude",
     climateContext: "Localizada em um vale florido ao longo da histórica Rota Romântica (BR-116), com curvas arborizadas e clima ameno. Trecho que exige motoristas atentos a ciclistas, curvas e eventuais nevoeiros da encosta da serra.",
     description: "Transfer executivo e transporte privativo para Nova Petrópolis. Porta de entrada da Rota Romântica, famosa pela herança cultural germânica, pelo Labirinto Verde, pela Praça das Flores e pelas tradicionais malharias.",
@@ -937,9 +937,9 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "110 km (aprox. 1h 35min via RS-122)",
     distanceFromCxj: "18 km (aprox. 20min via RS-122 ou RS-453)",
-    distanceFromSede: "18 km de distância (vizinha colada à nossa base de Caxias do Sul)",
+    serviceCoverage: "Cobertura imediata em Farroupilha e conexões rápidas na Serra Gaúcha",
     altitude: "783 m de altitude",
-    climateContext: "Cidade de relevo serrano vizinha imediata a Caxias do Sul. Por estar a apenas 18 km de nossa sede, nosso tempo de posicionamento de veículos para Farroupilha é inferior a 30 minutos.",
+    climateContext: "Cidade de relevo serrano vizinha imediata a Caxias do Sul. Nossa frota circulante na Serra Gaúcha garante posicionamento ágil de veículos para Farroupilha em menos de 30 minutos.",
     description: "Transporte executivo e transfer privativo para Farroupilha. Atendimento a indústrias calçadistas e têxteis, polo de compras de atacado/varejo, vinícolas produtoras de espumante Moscatel e Santuário de Caravaggio.",
     fullBio: "Berço da Imigração Italiana no Rio Grande do Sul, Farroupilha destaca-se como a Capital Nacional do Moscatel (maior produtora de uvas moscato e espumantes moscatéis do Brasil), além de abrigar o célebre Santuário de Nossa Senhora de Caravaggio, que atrai milhares de devotos anualmente. Farroupilha é também um dinâmico polo industrial de malhas, confecções e calçados, atraindo compradores de todo o país. A AG Transfer oferece mobilidade executiva ágil tanto para executivos em visitas industriais quanto para peregrinos e turistas que buscam conforto e segurança.",
     keyLandmarks: [
@@ -1005,7 +1005,7 @@ export const CITIES_SERVED: CityItem[] = [
     ],
     comparisonPoints: [
       {
-        agTransfer: "Tempo de resposta quase instantâneo por conta da proximidade física da nossa base em Caxias (18 km).",
+        agTransfer: "Tempo de resposta ágil graças à nossa atuação contínua na região entre Farroupilha e Caxias do Sul (18 km).",
         competitor: "Dificuldade de encontrar táxis ou aplicativos disponíveis para deslocamentos intermunicipais até Porto Alegre."
       },
       {
@@ -1060,7 +1060,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "145 km (aprox. 2h 00min via RS-122)",
     distanceFromCxj: "20 km (aprox. 25min via RS-122)",
-    distanceFromSede: "20 km da nossa matriz em Caxias do Sul",
+    serviceCoverage: "Área de cobertura oficial em Flores da Cunha (CEP 95270-000)",
     altitude: "756 m de altitude",
     climateContext: "Região de colinas ensolaradas e noites frias na Serra Gaúcha, ideal para a maturação de uvas finas. Rota que integra a RS-122 com trânsito de cargas, recomendando veículos potentes e com suspensão segura.",
     description: "Transfer executivo e transporte privativo para Flores da Cunha. Maior município produtor de vinhos do Brasil e polo da célebre Rota dos Altos Montes. Conexão rápida com o Aeroporto de Caxias do Sul (20 km) e faturamento empresarial.",
@@ -1131,7 +1131,7 @@ export const CITIES_SERVED: CityItem[] = [
         competitor: "Pouquíssimas opções de carros de aplicativo na região de Flores da Cunha e risco alto em dirigir após degustação."
       },
       {
-        agTransfer: "Proximidade da matriz da AG Transfer (20 km) assegura atendimento corporativo pontual.",
+        agTransfer: "Atuação regional dedicada em Flores da Cunha (CEP 95270-000) e Altos Montes assegura atendimento corporativo pontual.",
         competitor: "Transfers que vêm de Porto Alegre cobram tarifas de deslocamento excessivas para atender Flores da Cunha."
       },
       {
@@ -1148,7 +1148,7 @@ export const CITIES_SERVED: CityItem[] = [
     faqs: [
       {
         question: "Qual a distância entre Caxias do Sul e Flores da Cunha?",
-        answer: "Fica a apenas 20 km (cerca de 20 a 25 minutos de viagem direta pela RS-122). É uma das cidades mais próximas da nossa matriz operacional."
+        answer: "Fica a apenas 20 km (cerca de 20 a 25 minutos de viagem direta pela RS-122). Flores da Cunha (CEP 95270-000) integra nossa área de cobertura oficial na Serra Gaúcha."
       },
       {
         question: "Vocês realizam passeios nas vinícolas da Rota dos Altos Montes?",

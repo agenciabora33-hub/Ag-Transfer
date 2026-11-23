@@ -212,19 +212,19 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
       description:
         'Transfer privativo e transporte executivo do Aeroporto Internacional Salgado Filho (POA) direto para Montevidéu (Estádio Centenário). Frotas de sedans, SUVs e vans com motorista profissional.',
       provider: {
-        '@type': 'LocalBusiness',
+        '@type': 'TaxiService',
         name: COMPANY_NAP.name,
         telephone: COMPANY_NAP.phoneRaw,
         image: 'https://ag-transfer.vercel.app/logo.png',
         url: 'https://ag-transfer.vercel.app/',
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: COMPANY_NAP.address,
-          addressLocality: COMPANY_NAP.city,
-          addressRegion: COMPANY_NAP.state,
-          postalCode: COMPANY_NAP.zip,
-          addressCountry: 'BR',
-        },
+        areaServed: [
+          { '@type': 'City', name: 'Gramado' },
+          { '@type': 'City', name: 'Caxias do Sul' },
+          { '@type': 'City', name: 'Canela' },
+          { '@type': 'City', name: 'Flores da Cunha' },
+          { '@type': 'City', name: 'Bento Gonçalves' },
+          { '@type': 'City', name: 'Porto Alegre' },
+        ],
       },
       areaServed: [
         {
@@ -300,7 +300,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         schemaGraph={montevideoSchemaGraph}
       />
 
-      <div className="pt-20 sm:pt-24 pb-20 bg-[#F8FAFC]">
+      <div className="pt-[30px] pb-[20px] bg-[#F8FAFC]">
         {/* Navigation Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav className="flex items-center gap-2 text-xs text-slate-500 font-medium">
@@ -317,7 +317,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         {/* SECTION 1: HERO */}
         {/* ============================================================ */}
-        <section className="relative overflow-hidden pt-6 pb-16 sm:pb-20">
+        <section className="relative overflow-hidden pt-6 pb-[30px]">
           {/* Subtle background glow */}
           <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#0284C7]/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute top-1/2 left-0 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
@@ -519,7 +519,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         {/* SECTION 2: POR QUE RESERVAR UM TRANSFER PRIVATIVO */}
         {/* ============================================================ */}
-        <section className="py-14 sm:py-18 bg-white border-y border-slate-200">
+        <section className="pt-[30px] pb-[30px] bg-white border-y border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center mb-12">
               <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7] block mb-2">
@@ -625,7 +625,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         {/* SECTION 3: COMO FUNCIONA (3 PASSOS) */}
         {/* ============================================================ */}
-        <section className="py-14 sm:py-18">
+        <section className="pt-[30px] pb-[30px]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto text-center mb-12">
               <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7] block mb-2">
@@ -965,7 +965,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         {/* SECTION 6: DOCUMENTOS E FRONTEIRA (INFORMATIVO) */}
         {/* ============================================================ */}
-        <section className="py-14 sm:py-18 bg-white border-y border-slate-200">
+        <section className="pt-[30px] pb-[30px] bg-white border-y border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
               
@@ -1067,7 +1067,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         {/* SECTION 7: PERGUNTAS FREQUENTES (FAQ) */}
         {/* ============================================================ */}
-        <section ref={faqSectionRef} className="py-14 sm:py-18">
+        <section ref={faqSectionRef} className="pt-[30px] pb-[30px]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
               <span className="text-xs font-bold uppercase tracking-widest text-[#0284C7] block mb-2">
@@ -1126,7 +1126,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         {/* SECTION 8: FORMULÁRIO DE COTAÇÃO */}
         {/* ============================================================ */}
-        <section id="formulario-cotacao" className="py-14 sm:py-18 bg-white border-y border-slate-200">
+        <section id="formulario-cotacao" className="pt-[30px] pb-[30px] bg-white border-y border-slate-200">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="rounded-3xl bg-slate-50 border border-slate-200 p-6 sm:p-10 shadow-lg">
               
@@ -1379,7 +1379,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         {/* SECTION 9: CTA FINAL & AVISO LEGAL OBRIGATÓRIO */}
         {/* ============================================================ */}
-        <section className="py-14 sm:py-18">
+        <section className="pt-[30px] pb-[30px]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
             
             <div className="max-w-2xl mx-auto space-y-4">
