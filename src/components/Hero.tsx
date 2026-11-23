@@ -30,7 +30,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
   });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || typeof window === 'undefined' || !window.matchMedia('(pointer: fine)').matches) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -62,51 +62,34 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
   };
 
   return (
-    <section id="inicio" className="relative min-h-[90vh] flex items-center justify-center pt-10 sm:pt-14 pb-20 overflow-hidden bg-[#F8FAFC]">
+    <section id="inicio" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center pt-8 sm:pt-14 pb-16 sm:pb-20 overflow-hidden bg-[#F8FAFC]">
       {/* Background Image with Crisp Light Gradient Scrim */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={ASSET_IMAGES.hero}
-          alt="Frota executiva e chauffeur da AG Transfer em Caxias do Sul e Serra Gaúcha"
-          className="w-full h-full object-cover object-center transform scale-105 transition-transform duration-1000 ease-out opacity-25"
-          referrerPolicy="no-referrer"
-          loading="eager"
-        />
+        <picture>
+          <source srcSet={ASSET_IMAGES.heroWebp} type="image/webp" />
+          <img
+            src={ASSET_IMAGES.hero}
+            alt="Frota executiva e chauffeur da AG Transfer em Caxias do Sul e Serra Gaúcha"
+            width={1200}
+            height={670}
+            className="w-full h-full object-cover object-center opacity-25"
+            referrerPolicy="no-referrer"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </picture>
         {/* Soft, crisp light gradient scrims */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/90 to-[#F8FAFC]/75" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/95 to-transparent" />
         
-        {/* Animated ambient blue brand glow orbs */}
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.15, 0.25, 0.15],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/4 left-1/3 -translate-x-1/2 w-[550px] h-[550px] bg-[#0284C7]/15 rounded-full blur-[140px] pointer-events-none"
-        />
-
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-          className="absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-[#38BDF8]/20 rounded-full blur-[130px] pointer-events-none"
-        />
+        {/* Subtle static ambient brand glow orbs (Desktop only to protect mobile GPU) */}
+        <div className="hidden lg:block absolute top-1/4 left-1/3 -translate-x-1/2 w-[550px] h-[550px] bg-[#0284C7]/12 rounded-full blur-[120px] pointer-events-none" />
+        <div className="hidden lg:block absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-[#38BDF8]/15 rounded-full blur-[110px] pointer-events-none" />
       </div>
 
-      {/* Floating 3D Geometric Blue Rings (Background Ambiance) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+      {/* Floating 3D Geometric Blue Rings (Desktop Ambiance) */}
+      <div className="hidden xl:block absolute inset-0 overflow-hidden pointer-events-none z-[1]">
         <motion.div
           animate={{
             y: [-12, 12, -12],
@@ -116,7 +99,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
             rotate: { duration: 40, repeat: Infinity, ease: "linear" },
           }}
-          className="absolute top-20 right-[8%] w-64 h-64 border border-[#0284C7]/15 rounded-full hidden xl:block"
+          className="absolute top-20 right-[8%] w-64 h-64 border border-[#0284C7]/15 rounded-full"
         />
         <motion.div
           animate={{
@@ -127,20 +110,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             y: { duration: 7, repeat: Infinity, ease: "easeInOut" },
             rotate: { duration: 45, repeat: Infinity, ease: "linear" },
           }}
-          className="absolute top-44 right-[12%] w-44 h-44 border border-[#38BDF8]/20 rounded-full border-dashed hidden xl:block"
+          className="absolute top-44 right-[12%] w-44 h-44 border border-[#38BDF8]/20 rounded-full border-dashed"
         />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
           
-          {/* Main Content Column */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7 space-y-6"
-          >
+          {/* Main Content Column — Rendered immediately at opacity: 1 for optimal FCP & LCP */}
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6">
             
             {/* Brand Official Logo & Credential Badge */}
             <div className="flex flex-wrap items-center gap-3">
@@ -170,18 +148,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               <span className="text-[#0D0A27]">Motoristas Profissionais</span>
               <span aria-hidden="true" className="text-slate-300">·</span>
               
-              {/* Real-time pulsing 24h operational status beacon */}
+              {/* Real-time operating hours status beacon */}
               <div className="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-semibold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                <span>24/7 Ativo</span>
+                <span>Seg a Dom · 05h às 23h</span>
               </div>
             </div>
 
             {/* Strict Single H1 for SEO/GEO with balanced typography in deep navy and blue */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0D0A27] tracking-tight leading-[1.14] text-balance">
+            <h1 className="text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold text-[#0D0A27] tracking-tight leading-[1.15] text-balance">
               Transporte Executivo e Transfer na{' '}
               <span className="bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] bg-clip-text text-transparent">
                 Serra Gaúcha · Gramado, Canela e Bento Gonçalves
@@ -190,43 +168,33 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed text-pretty">
-              Transfers privativos para aeroportos (POA / CXJ), passeios VIP em Gramado e Canela, e tours enoturísticos no Vale dos Vinhedos. Pontualidade britânica, discrição e veículos de alto padrão 24 horas.
+              Transfers privativos para aeroportos (POA / CXJ), passeios VIP em Gramado e Canela, e tours enoturísticos no Vale dos Vinhedos. Pontualidade britânica, discrição e veículos de alto padrão de segunda a domingo, das 05h às 23h.
             </p>
 
             {/* CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
               <a
                 href={COMPANY_NAP.whatsappBaseUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:brightness-110 hover:shadow-[0_8px_25px_rgba(2,132,199,0.35)] active:scale-[0.98] text-center overflow-hidden shadow-sm"
+                className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:brightness-110 hover:shadow-[0_8px_25px_rgba(2,132,199,0.35)] active:scale-[0.98] text-center overflow-hidden shadow-sm min-h-[48px]"
               >
-                <div className="absolute inset-0 bg-white/15 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+                <div className="hidden sm:block absolute inset-0 bg-white/15 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
                 <MessageCircle className="w-5 h-5 relative z-10 text-[#38BDF8]" />
                 <span className="relative z-10">Solicitar Cotação no WhatsApp</span>
               </a>
 
               <a
                 href="#servicos"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-slate-300 hover:border-[#0284C7] text-slate-800 hover:text-[#0284C7] font-semibold text-sm transition-all duration-200 hover:bg-white text-center shadow-xs"
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-slate-300 hover:border-[#0284C7] text-slate-800 hover:text-[#0284C7] font-semibold text-sm transition-all duration-200 hover:bg-white text-center shadow-xs min-h-[48px]"
               >
                 <span>Conhecer Destinos e Serviços</span>
                 <ChevronRight className="w-4 h-4 text-[#0284C7]" />
               </a>
             </div>
 
-            {/* Floating 3D Micro-Card for Airport Receptive (visible on desktop) */}
-            <motion.div
-              animate={{
-                y: [-5, 5, -5],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="hidden sm:inline-flex items-center gap-3 p-3 px-4 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md text-xs"
-            >
+            {/* Floating Micro-Card for Airport Receptive (visible on desktop) */}
+            <div className="hidden sm:inline-flex items-center gap-3 p-3 px-4 rounded-xl bg-white/95 border border-slate-200/90 shadow-md text-xs">
               <div className="w-9 h-9 rounded-lg bg-[#0D0A27] flex items-center justify-center text-[#38BDF8] shadow-xs">
                 <Plane className="w-4 h-4" />
               </div>
@@ -234,7 +202,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 <span className="text-[#0D0A27] font-bold block">Receptivo Aeroportos POA & CXJ</span>
                 <span className="text-slate-500 text-[11px]">Monitoramento contínuo de status de voos comerciais e executivos</span>
               </div>
-            </motion.div>
+            </div>
 
             {/* Trust Highlights Strip with 4 items */}
             <div className="pt-4 border-t border-slate-200/80 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -244,73 +212,46 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 rel="noopener noreferrer"
                 className="group block hover:opacity-90 transition-opacity"
               >
-                <span className="block text-xl font-bold text-[#0284C7] tabular-nums group-hover:underline">
+                <span className="block text-lg sm:text-xl font-bold text-[#0284C7] tabular-nums group-hover:underline">
                   +200 Avaliações
                 </span>
                 <span className="text-xs text-slate-500 font-medium">5.0 Estrelas no GBP</span>
               </a>
               <div>
-                <span className="block text-xl font-bold text-[#0D0A27] tabular-nums">24h / 7d</span>
-                <span className="text-xs text-slate-500 font-medium">Prontidão Ininterrupta</span>
+                <span className="block text-lg sm:text-xl font-bold text-[#0D0A27] tabular-nums">05h às 23h</span>
+                <span className="text-xs text-slate-500 font-medium">Segunda a Domingo</span>
               </div>
               <div>
-                <span className="block text-xl font-bold text-[#0D0A27] tabular-nums">100%</span>
+                <span className="block text-lg sm:text-xl font-bold text-[#0D0A27] tabular-nums">100%</span>
                 <span className="text-xs text-slate-500 font-medium">Seguro APP Passageiros</span>
               </div>
               <div>
-                <span className="block text-xl font-bold text-[#0D0A27]">PJ & NF</span>
+                <span className="block text-lg sm:text-xl font-bold text-[#0D0A27]">PJ & NF</span>
                 <span className="text-xs text-slate-500 font-medium">Faturamento Corporativo</span>
               </div>
             </div>
 
-          </motion.div>
+          </div>
 
-          {/* 3D Interactive Console / Fast Quote Simulator Card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative"
-            style={{ perspective: 1000 }}
-          >
-            {/* Floating 3D Badge: Google 5.0 Top Right */}
-            <motion.div
-              animate={{
-                y: [5, -5, 5],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -top-5 -right-3 z-20 hidden sm:flex items-center gap-2 bg-white/98 backdrop-blur-xl border border-slate-200 rounded-xl px-3.5 py-1.5 shadow-[0_8px_20px_rgba(15,23,42,0.1)]"
-            >
+          {/* Interactive Console / Fast Quote Simulator Card */}
+          <div className="lg:col-span-5 relative" style={{ perspective: 1000 }}>
+            {/* Floating Badge: Google 5.0 Top Right */}
+            <div className="hidden lg:flex absolute -top-5 -right-3 z-20 items-center gap-2 bg-white border border-slate-200 rounded-xl px-3.5 py-1.5 shadow-[0_8px_20px_rgba(15,23,42,0.1)]">
               <div className="flex text-[#F59E0B]">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-3 h-3 fill-[#F59E0B]" />
                 ))}
               </div>
               <span className="text-[11px] font-bold text-[#0D0A27] tabular-nums">+200 no Google</span>
-            </motion.div>
+            </div>
 
-            {/* Floating 3D Badge: Chauffeur Bottom Left */}
-            <motion.div
-              animate={{
-                y: [-5, 5, -5],
-              }}
-              transition={{
-                duration: 5.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute -bottom-5 -left-3 z-20 hidden sm:flex items-center gap-2 bg-white/98 backdrop-blur-xl border border-emerald-200 rounded-xl px-3.5 py-1.5 shadow-[0_8px_20px_rgba(15,23,42,0.1)]"
-            >
+            {/* Floating Badge: Chauffeur Bottom Left */}
+            <div className="hidden lg:flex absolute -bottom-5 -left-3 z-20 items-center gap-2 bg-white border border-emerald-200 rounded-xl px-3.5 py-1.5 shadow-[0_8px_20px_rgba(15,23,42,0.1)]">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               <span className="text-[11px] font-semibold text-slate-800">Veículos Inspecionados</span>
-            </motion.div>
+            </div>
 
-            {/* Interactive 3D Tilt Wrapper */}
+            {/* Interactive 3D Tilt Wrapper (tilt active on fine pointer desktops only) */}
             <motion.div
               ref={cardRef}
               onMouseMove={handleMouseMove}
@@ -320,7 +261,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 rotateY,
                 transformStyle: "preserve-3d",
               }}
-              className="bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-[0_20px_50px_rgba(15,23,42,0.08)] relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(2,132,199,0.15)]"
+              className="bg-white sm:bg-white/95 sm:backdrop-blur-md border border-slate-200/90 rounded-2xl p-5 sm:p-7 shadow-[0_15px_40px_rgba(15,23,42,0.08)] relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(2,132,199,0.15)]"
             >
               
               {/* Blue accent perimeter line */}
@@ -346,21 +287,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                   <button
                     type="button"
                     onClick={() => handleQuickPreset('Aeroporto Salgado Filho (POA)', 'Gramado / Canela', 'Transfer Porto Alegre ⇄ Gramado e Canela VIP')}
-                    className="p-1.5 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-medium transition-all text-center cursor-pointer"
+                    className="min-h-[40px] px-1.5 py-2 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-semibold transition-all text-center cursor-pointer"
                   >
                     POA ⇄ Gramado
                   </button>
                   <button
                     type="button"
                     onClick={() => handleQuickPreset('Aeroporto Caxias do Sul (CXJ)', 'Gramado / Canela', 'Transfer Aeroporto de Caxias do Sul (CXJ)')}
-                    className="p-1.5 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-medium transition-all text-center cursor-pointer"
+                    className="min-h-[40px] px-1.5 py-2 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-semibold transition-all text-center cursor-pointer"
                   >
                     CXJ ⇄ Gramado
                   </button>
                   <button
                     type="button"
                     onClick={() => handleQuickPreset('Caxias / Gramado', 'Vale dos Vinhedos (Bento Gonçalves)', 'Tour Vale dos Vinhedos & Bento Gonçalves')}
-                    className="p-1.5 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-medium transition-all text-center cursor-pointer"
+                    className="min-h-[40px] px-1.5 py-2 text-[11px] rounded-lg bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-[#0284C7]/50 text-slate-700 hover:text-[#0284C7] font-semibold transition-all text-center cursor-pointer"
                   >
                     Vale Vinhedos
                   </button>
@@ -376,7 +317,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                   <select
                     value={selectedService}
                     onChange={(e) => setSelectedService(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 focus:outline-none transition-colors"
+                    className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 focus:outline-none transition-colors"
                   >
                     <option value="Transfer Porto Alegre ⇄ Gramado e Canela VIP">Transfer Porto Alegre ⇄ Gramado e Canela VIP</option>
                     <option value="Tour Vale dos Vinhedos & Bento Gonçalves">Tour Vale dos Vinhedos & Bento Gonçalves</option>
@@ -400,7 +341,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                       onChange={(e) => setOrigin(e.target.value)}
                       placeholder="Ex: Caxias do Sul"
                       required
-                      className="w-full bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
+                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -415,7 +356,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                       onChange={(e) => setDestination(e.target.value)}
                       placeholder="Ex: Aeroporto POA"
                       required
-                      className="w-full bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
+                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -432,7 +373,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
                       placeholder="Ex: 15/10 às 08:30"
-                      className="w-full bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
+                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -444,7 +385,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                     <select
                       value={passengers}
                       onChange={(e) => setPassengers(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 focus:outline-none transition-colors"
+                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 focus:outline-none transition-colors"
                     >
                       <option value="1 a 3 passageiros (Sedan Executivo)">1 a 3 passageiros (Sedan)</option>
                       <option value="4 a 6 passageiros (SUV Premium)">4 a 6 passageiros (SUV)</option>
@@ -456,14 +397,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 {/* Submit to WhatsApp */}
                 <button
                   type="submit"
-                  className="w-full mt-2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md cursor-pointer active:scale-[0.98]"
+                  className="w-full min-h-[48px] mt-2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md cursor-pointer active:scale-[0.98]"
                 >
                   <Send className="w-4 h-4 text-[#38BDF8]" />
-                  <span>Enviar Cotação pelo WhatsApp 24h</span>
+                  <span>Enviar Cotação pelo WhatsApp</span>
                 </button>
 
                 <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 font-medium">
-                  <span>Atendimento oficial 24 Horas</span>
+                  <span>Seg a Dom · 05h às 23h</span>
                   <a
                     href={COMPANY_NAP.gbpUrl}
                     target="_blank"
@@ -475,7 +416,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 </div>
               </form>
             </motion.div>
-          </motion.div>
+          </div>
 
         </div>
       </div>

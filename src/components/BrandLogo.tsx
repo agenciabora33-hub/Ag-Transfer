@@ -46,8 +46,10 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         className={`${sizeMap[size]} rounded-xl bg-white border border-slate-200/90 p-1 flex items-center justify-center shadow-xs overflow-hidden shrink-0 transition-all duration-200 hover:border-[#0284C7]/40`}
       >
         <img
-          src={COMPANY_NAP.logoUrl}
+          src={COMPANY_NAP.logoSmUrl}
           alt="Logo Oficial AG Transfer & Transporte Executivo"
+          width={64}
+          height={64}
           className={`${imgSizeMap[size]} object-contain`}
           loading="eager"
           decoding="async"

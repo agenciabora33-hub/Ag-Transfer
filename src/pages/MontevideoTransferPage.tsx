@@ -182,7 +182,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
     },
     {
       q: 'Vocês realizam o transfer de volta para Porto Alegre após o jogo?',
-      a: 'Sim! Oferecemos opções completas de ida e volta. Você pode optar pelo retorno na madrugada imediatamente após a partida ou agendar o embarque no dia 29/11 pela manhã para retornar descansado.',
+      a: 'Sim! Oferecemos opções completas de ida e volta. Você pode optar pelo retorno agendado após a partida (com agendamento prévio) ou embarcar no dia 29/11 a partir das 05h para retornar descansado.',
     },
     {
       q: 'Posso levar bagagem? Qual o limite?',
@@ -281,7 +281,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
     <>
       <SEOHead
         title="Transfer Porto Alegre Montevidéu | Final Libertadores 2026"
-        description="Transfer privativo do aeroporto de Porto Alegre a Montevidéu. Van e carro executivo, atendimento 24h. Peça sua cotação no WhatsApp."
+        description="Transfer privativo do aeroporto de Porto Alegre a Montevidéu. Van e carro executivo, atendimento de segunda a domingo das 05h às 23h. Peça sua cotação no WhatsApp."
         canonicalUrl="https://ag-transfer.vercel.app/transfer-porto-alegre-montevideu"
         keywords={[
           'transfer porto alegre montevideu',
@@ -319,8 +319,8 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         <section className="relative overflow-hidden pt-6 pb-[30px]">
           {/* Subtle background glow */}
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#0284C7]/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-1/2 left-0 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="hidden md:block absolute top-0 right-1/4 w-96 h-96 bg-[#0284C7]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="hidden md:block absolute top-1/2 left-0 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -415,7 +415,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                 <div className="pt-4 border-t border-slate-200/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-600">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-[#0284C7] shrink-0" />
-                    <span>Atendimento 24h</span>
+                    <span>Seg a Dom · 05h às 23h</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Car className="w-4 h-4 text-[#0284C7] shrink-0" />
@@ -591,7 +591,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                   Opção de Retorno Garantido Pós-Jogo
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Após a comemoração e o apito final, seu transporte de volta para Porto Alegre já está confirmado, seja na madrugada pós-jogo ou no dia seguinte com desembarque direto no aeroporto.
+                  Após a comemoração e o apito final, seu transporte de volta para Porto Alegre já está garantido, com retorno agendado pós-jogo ou no dia seguinte com desembarque direto no aeroporto.
                 </p>
               </div>
 
@@ -1186,7 +1186,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                         placeholder="Ex: Carlos Eduardo Silva"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                        className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -1200,7 +1200,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                         placeholder="Ex: (11) 98765-4321"
                         value={formData.whatsapp}
                         onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                        className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                       />
                     </div>
                   </div>
@@ -1215,7 +1215,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                         required
                         value={formData.flightDate}
                         onChange={(e) => setFormData({ ...formData, flightDate: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                        className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -1228,7 +1228,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                         required
                         value={formData.flightTime}
                         onChange={(e) => setFormData({ ...formData, flightTime: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                        className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -1241,7 +1241,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                         placeholder="Ex: G3 1240 / LA 3100"
                         value={formData.flightNumber}
                         onChange={(e) => setFormData({ ...formData, flightNumber: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                        className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                       />
                     </div>
                   </div>
@@ -1254,7 +1254,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                       <select
                         value={formData.passengers}
                         onChange={(e) => setFormData({ ...formData, passengers: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                        className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                       >
                         <option value="1 a 2 passageiros">1 a 2 passageiros (Sedan)</option>
                         <option value="3 a 4 passageiros">3 a 4 passageiros (Sedan ou SUV)</option>
@@ -1272,7 +1272,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                       <select
                         value={formData.luggage}
                         onChange={(e) => setFormData({ ...formData, luggage: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                        className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                       >
                         <option value="Apenas mochilas / bagagem de mão">Apenas mochilas / bagagem de mão</option>
                         <option value="1 a 2 malas médias">1 a 2 malas médias</option>
@@ -1293,7 +1293,7 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                       placeholder="Ex: Estádio Centenário, Hotel Dazzler Pocitos, ou endereço"
                       value={formData.destination}
                       onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                     />
                   </div>
 
@@ -1302,26 +1302,26 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                     <span className="block text-xs font-bold text-slate-700 mb-2">
                       Precisa de Transfer de Volta para Porto Alegre?
                     </span>
-                    <div className="flex items-center gap-6 text-xs text-slate-800">
-                      <label className="flex items-center gap-2 cursor-pointer">
+                    <div className="flex flex-wrap items-center gap-6 text-xs text-slate-800">
+                      <label className="flex items-center gap-2 min-h-[36px] cursor-pointer">
                         <input
                           type="radio"
                           name="needsReturn"
                           value="sim"
                           checked={formData.needsReturn === 'sim'}
                           onChange={() => setFormData({ ...formData, needsReturn: 'sim' })}
-                          className="text-[#0284C7] focus:ring-[#0284C7]"
+                          className="w-4 h-4 text-[#0284C7] focus:ring-[#0284C7]"
                         />
                         <span>Sim, desejo retorno pós-jogo</span>
                       </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
+                      <label className="flex items-center gap-2 min-h-[36px] cursor-pointer">
                         <input
                           type="radio"
                           name="needsReturn"
                           value="nao"
                           checked={formData.needsReturn === 'nao'}
                           onChange={() => setFormData({ ...formData, needsReturn: 'nao' })}
-                          className="text-[#0284C7] focus:ring-[#0284C7]"
+                          className="w-4 h-4 text-[#0284C7] focus:ring-[#0284C7]"
                         />
                         <span>Apenas ida</span>
                       </label>
@@ -1335,10 +1335,10 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                           </label>
                           <input
                             type="text"
-                            placeholder="Ex: 29/11/2026 às 10h (ou madrugada pós-jogo)"
+                            placeholder="Ex: 29/11/2026 às 08h (ou retorno agendado pós-jogo)"
                             value={formData.returnDate}
                             onChange={(e) => setFormData({ ...formData, returnDate: e.target.value })}
-                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-300 text-xs text-slate-900"
+                            className="w-full min-h-[44px] px-3 py-2 rounded-lg bg-slate-50 border border-slate-300 text-base sm:text-sm text-slate-900"
                           />
                         </div>
                       </div>
@@ -1354,13 +1354,13 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
                       placeholder="Alguma necessidade especial, paradas adicionais ou dúvidas?"
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-base sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0284C7] focus:border-transparent transition-all"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0284C7] to-[#0369A1] hover:brightness-110 text-white font-extrabold text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full min-h-[48px] py-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0284C7] to-[#0369A1] hover:brightness-110 text-white font-extrabold text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <span>Receber Minha Cotação</span>
                     <ArrowRight className="w-4 h-4" />
@@ -1418,22 +1418,22 @@ export const MontevideoTransferPage: React.FC<MontevideoTransferPageProps> = () 
         {/* ============================================================ */}
         {/* MOBILE STICKY BOTTOM WHATSAPP BUTTON (PRD REQ 1 & 9) */}
         {/* ============================================================ */}
-        <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden p-3 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-2xl flex items-center gap-2">
+        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden p-2.5 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-2xl flex items-center gap-2">
           <a
             href={baseWhatsAppUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => handleWhatsAppClick('mobile_sticky_bottom')}
-            className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 active:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md"
+            className="flex-1 min-h-[44px] py-2.5 px-4 rounded-xl bg-emerald-600 active:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md"
           >
-            <MessageCircle className="w-4 h-4" />
+            <MessageCircle className="w-4 h-4 shrink-0" />
             <span>Cotação Transfer Montevidéu</span>
           </a>
           <a
             href={`tel:${COMPANY_NAP.phoneRaw}`}
             onClick={handlePhoneClick}
-            className="p-3 rounded-xl bg-slate-100 text-slate-700"
-            aria-label="Ligar 24h"
+            className="min-w-[44px] min-h-[44px] p-3 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center"
+            aria-label="Ligar para AG Transfer (05h às 23h)"
           >
             <Phone className="w-4 h-4 text-[#0284C7]" />
           </a>

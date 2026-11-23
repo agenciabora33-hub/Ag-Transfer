@@ -16,11 +16,11 @@ export const MobileStickyCTA: React.FC<MobileStickyCTAProps> = ({ onOpenQuoteMod
       <div className="flex items-center gap-2 max-w-md mx-auto">
         <a
           href={`tel:${COMPANY_NAP.phoneRaw}`}
-          className="flex flex-col items-center justify-center w-12 h-11 rounded-xl bg-slate-100 text-[#0284C7] border border-slate-200 active:scale-95 transition-transform shrink-0"
-          aria-label="Ligar 24 Horas"
+          className="flex flex-col items-center justify-center min-w-[48px] h-11 rounded-xl bg-slate-100 text-[#0284C7] border border-slate-200 active:scale-95 transition-transform shrink-0"
+          aria-label="Ligar para AG Transfer"
         >
           <Phone className="w-4 h-4" />
-          <span className="text-[9px] font-bold text-slate-800 mt-0.5">24h</span>
+          <span className="text-[9px] font-bold text-slate-800 mt-0.5">Ligar</span>
         </a>
 
         <a

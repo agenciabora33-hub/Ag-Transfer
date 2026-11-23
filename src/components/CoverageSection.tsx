@@ -26,7 +26,7 @@ export const CoverageSection: React.FC = () => {
             Atendimento Executivo na Serra Gaúcha e Conexões
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed text-pretty">
-            Com atendimento porta a porta e operação móvel 24 horas, a AG Transfer atende como{' '}
+            Com atendimento porta a porta de segunda a domingo, das 05h às 23h, a AG Transfer atende como{' '}
             <strong className="text-[#0D0A27] font-semibold">
               área de cobertura oficial
             </strong>{' '}
@@ -55,8 +55,8 @@ export const CoverageSection: React.FC = () => {
               </span>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs sm:text-sm">
+            <div className="overflow-x-auto -mx-2 px-2">
+              <table className="w-full min-w-[540px] text-left text-xs sm:text-sm">
                 <thead>
                   <tr className="border-b border-slate-200 text-slate-500 font-bold uppercase text-[11px] tracking-wider">
                     <th className="pb-3 pr-4">Origem / Destino</th>
@@ -124,7 +124,7 @@ export const CoverageSection: React.FC = () => {
                   <h4 className="text-base font-bold text-[#0D0A27]">Área de Cobertura</h4>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="text-xs text-[#0284C7] font-semibold">Serra Gaúcha · RS</span>
-                    <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">24 Horas</span>
+                    <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Seg a Dom · 05h às 23h</span>
                   </div>
                 </div>
               </div>
@@ -183,9 +183,9 @@ export const CoverageSection: React.FC = () => {
                   href={COMPANY_NAP.whatsappBaseUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm active:scale-[0.98]"
+                  className="w-full min-h-[44px] inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm active:scale-[0.98]"
                 >
-                  <span>Chamar no WhatsApp 24h</span>
+                  <span>Chamar no WhatsApp (05h às 23h)</span>
                 </a>
               </div>
             </div>

@@ -80,7 +80,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { damping: 20, stiffness: 150 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || !window.matchMedia('(pointer: fine)').matches) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -198,7 +198,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
         { feature: 'Chegada direta ao seu hotel', ag: 'Direto sem desvios para seu hotel ou pousada em Gramado', other: 'Ônibus para em até 15 hotéis diferentes de outros passageiros' },
         { feature: 'Zero tempo de espera no aeroporto', ag: 'Embarque imediato assim que você pega suas malas', other: 'Espera de 1h30 a 2h no terminal aguardando outros voos' },
         { feature: 'Cadeirinha infantil e bebê conforto', ag: 'Inclusas e instaladas gratuitamente sob solicitação prévia', other: 'Raramente oferecidas ou com taxa diária abusiva' },
-        { feature: 'Atrasos de voo sem cobrança extra', ag: 'Monitoramento 24h via radar e reagendamento automático', other: 'Você perde a vaga no ônibus e precisa comprar novo bilhete' },
+        { feature: 'Atrasos de voo sem cobrança extra', ag: 'Monitoramento via radar (05h às 23h) e reagendamento automático', other: 'Você perde a vaga no ônibus e precisa comprar novo bilhete' },
         { feature: 'Espaço garantido para compras de inverno', ag: 'Porta-malas espaçoso para casacos, chocolates e vinhos', other: 'Bagageiro lotado e restrições de peso ou volume' }
       ]
     },
@@ -250,7 +250,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
       comparisonCompetitorName: 'Transfers Coletivos em Ônibus / Apps Genéricos',
       comparisonPoints: [
         { feature: 'Embarque sem espera e trajeto direto', ag: 'Direto para seu hotel sem parar em hotéis alheios', other: 'Espera de até 2h por outros voos e paradas em 10 hotéis' },
-        { feature: 'Monitoramento do prefixo do voo em POA', ag: 'Acompanhamento do voo 24h com tolerância sem multa', other: 'Se o voo atrasar você perde o ônibus e paga nova passagem' },
+        { feature: 'Monitoramento do prefixo do voo em POA', ag: 'Acompanhamento do voo (05h às 23h) com tolerância sem multa', other: 'Se o voo atrasar você perde o ônibus e paga nova passagem' },
         { feature: 'Receptivo no portão de desembarque', ag: 'Chauffeur com placa executiva e auxílio com bagagens', other: 'Você precisa caminhar até o estacionamento externo com malas' },
         { feature: 'Conforto e espaço para compras e casacos', ag: 'Veículos novos e climatizados (Sedan, SUV ou Van VIP)', other: 'Assentos apertados de transporte coletivo' },
         { feature: 'Flexibilidade de horário de retorno', ag: 'Agendamento no horário exato para o seu check-in', other: 'Horários fixos obrigando você a sair 5h antes do voo' }
@@ -325,12 +325,12 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
         { feature: 'Conformidade fiscal e Nota Fiscal', ag: 'Faturamento quinzenal ou mensal via CNPJ (NFS-e)', other: 'Dificuldade de conciliação fiscal e comprovantes inadequados' },
         { feature: 'Pontualidade para agendas e reuniões', ag: 'Tolerância zero para atrasos com rotas antecipadas', other: 'Atrasos frequentes sem gestão de rota corporativa' },
         { feature: 'Conectividade e ambiente de trabalho', ag: 'Wi-Fi de alta estabilidade e carregadores multiportas', other: 'Sem estrutura adequada para notebooks a bordo' },
-        { feature: 'Gestor de conta corporativo 24h', ag: 'Central dedicada com atendimento imediato', other: 'Atendimento por robôs em plataformas genéricas' }
+        { feature: 'Gestor de conta corporativo dedicado', ag: 'Central dedicada (Seg a Dom · 05h às 23h) com atendimento imediato', other: 'Atendimento por robôs em plataformas genéricas' }
       ]
     },
     'motorista-particular-diaria': {
-      benefitBadge: 'Chauffeur Dedicado · Por Hora ou Diária Integral',
-      headlineLead: 'Motorista Particular por Diária na Serra Gaúcha 24h',
+      benefitBadge: 'Chauffeur Dedicado · Por Hora ou Diária (05h às 23h)',
+      headlineLead: 'Motorista Particular por Diária na Serra Gaúcha',
       socialProofTestimonial: {
         name: 'Eduardo Fagundes',
         role: 'Diretor Comercial Regional',
@@ -451,7 +451,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span className="font-bold">Plantão 24 Horas Ativo</span>
+            <span className="font-bold">Atendimento Ativo (Seg a Dom · 05h às 23h)</span>
           </span>
           <span className="hidden sm:inline text-slate-400">|</span>
           <span className="text-slate-200">Tempo médio de resposta no WhatsApp: <strong>menos de 2 minutos</strong></span>
@@ -495,7 +495,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                 <div className="h-5 w-px bg-slate-200 hidden sm:block" />
                 <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#0284C7]" />
-                  Atendimento 24 Horas
+                  Seg a Dom · 05h às 23h
                 </span>
               </div>
 
@@ -581,7 +581,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-                className="bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-[0_20px_50px_rgba(15,23,42,0.1)] relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(2,132,199,0.16)]"
+                className="bg-white sm:backdrop-blur-md border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-[0_20px_50px_rgba(15,23,42,0.1)] relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(2,132,199,0.16)]"
               >
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0D0A27] via-[#0284C7] to-[#38BDF8]" />
                 
@@ -589,7 +589,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                   <div>
                     <span className="text-xs font-bold uppercase tracking-wider text-[#0284C7] block mb-0.5 flex items-center gap-1">
                       <Zap className="w-3.5 h-3.5" />
-                      Cotação Imediata 24h
+                      Cotação Rápida · 05h às 23h
                     </span>
                     <h3 className="text-lg font-extrabold text-[#0D0A27]">
                       Simular {service.title}
@@ -612,7 +612,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                       onChange={(e) => setOrigin(e.target.value)}
                       placeholder="Ex: Caxias do Sul (Hotel, Empresa, Aeroporto)"
                       required
-                      className="w-full bg-slate-50 border border-slate-200 focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
+                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -627,11 +627,11 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                       onChange={(e) => setDestination(e.target.value)}
                       placeholder="Ex: Aeroporto Salgado Filho (POA) / Gramado"
                       required
-                      className="w-full bg-slate-50 border border-slate-200 focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
+                      className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1 flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5 text-[#0284C7]" />
@@ -642,7 +642,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                         placeholder="Ex: 24/11 às 07:00"
-                        className="w-full bg-slate-50 border border-slate-200 focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
+                        className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 placeholder-slate-400 focus:border-[#0284C7] focus:outline-none transition-colors"
                       />
                     </div>
 
@@ -654,7 +654,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                       <select
                         value={passengers}
                         onChange={(e) => setPassengers(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-200 focus:bg-white rounded-lg px-3 py-2 text-xs sm:text-sm text-slate-800 focus:border-[#0284C7] focus:outline-none transition-colors"
+                        className="w-full min-h-[44px] bg-slate-50 border border-slate-200 focus:bg-white rounded-lg px-3 py-2 text-base sm:text-sm text-slate-800 focus:border-[#0284C7] focus:outline-none transition-colors"
                       >
                         <option value="1 a 3 passageiros (Sedan Executivo)">1 a 3 (Sedan)</option>
                         <option value="4 a 6 passageiros (SUV Premium)">4 a 6 (SUV)</option>
@@ -665,14 +665,14 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
 
                   <button
                     type="submit"
-                    className="w-full mt-2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md cursor-pointer active:scale-[0.98]"
+                    className="w-full min-h-[48px] mt-2 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md cursor-pointer active:scale-[0.98]"
                   >
                     <Send className="w-4 h-4 text-[#38BDF8]" />
-                    <span>Enviar Cotação pelo WhatsApp 24h</span>
+                    <span>Enviar Cotação pelo WhatsApp</span>
                   </button>
 
                   <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 font-medium">
-                    <span>Atendimento oficial 24 Horas</span>
+                    <span>Seg a Dom · 05h às 23h</span>
                     <a
                       href={COMPANY_NAP.gbpUrl}
                       target="_blank"
@@ -942,12 +942,19 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
               >
                 <div>
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                    <img
-                      src={vehicle.image}
-                      alt={vehicle.name}
-                      className="w-full h-full object-cover"
-                      referrerPolicy="no-referrer"
-                    />
+                    <picture>
+                      {vehicle.imageWebp && <source srcSet={vehicle.imageWebp} type="image/webp" />}
+                      <img
+                        src={vehicle.image}
+                        alt={vehicle.name}
+                        width={800}
+                        height={447}
+                        className="w-full h-full object-cover"
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                     <span className="absolute top-2.5 left-2.5 bg-white/95 px-2.5 py-0.5 rounded text-[11px] font-bold text-[#0D0A27]">
                       {vehicle.category}
                     </span>
@@ -1030,7 +1037,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
             <div className="space-y-2 text-center lg:text-left max-w-2xl">
               <div className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-bold bg-white/10 px-3 py-1 rounded-full mb-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Central de Atendimento 24 Horas / 7 Dias</span>
+                <span>Atendimento Seg a Dom · das 05h às 23h</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 Pronto para garantir seu {service.title} com pontualidade máxima?
@@ -1045,10 +1052,10 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenQuot
                 href={buildWhatsAppUrl({ service: `Reserva Imediata: ${service.title}` })}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-sm uppercase tracking-wider shadow-lg transition-transform active:scale-95 text-center"
+                className="min-h-[48px] inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-sm uppercase tracking-wider shadow-lg transition-transform active:scale-95 text-center"
               >
                 <MessageCircle className="w-5 h-5 fill-white text-emerald-500" />
-                <span>Chamar no WhatsApp 24h</span>
+                <span>Chamar no WhatsApp (05h às 23h)</span>
               </a>
 
               <a

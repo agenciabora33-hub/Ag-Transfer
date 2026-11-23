@@ -66,7 +66,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenQuoteModal }) => {
     <>
       <SEOHead
         title="AG Transfer | Transporte Executivo na Serra Gaúcha | Gramado, Canela e Bento Gonçalves"
-        description="Transporte executivo e transfer premium na Serra Gaúcha. Especialistas em Gramado, Canela, Bento Gonçalves (Vale dos Vinhedos) e aeroportos (POA / CXJ). Atendimento 24h."
+        description="Transporte executivo e transfer premium na Serra Gaúcha. Especialistas em Gramado, Canela, Bento Gonçalves (Vale dos Vinhedos) e aeroportos (POA / CXJ). Atendimento de segunda a domingo, das 05h às 23h."
         canonicalUrl="https://ag-transfer.vercel.app/"
         keywords={[
           'transfer gramado',

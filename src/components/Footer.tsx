@@ -24,10 +24,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center overflow-hidden">
                 <img
-                  src={COMPANY_NAP.logoUrl}
+                  src={COMPANY_NAP.logoSmUrl}
                   alt="AG Transfer Logo"
+                  width={36}
+                  height={36}
                   className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <span className="font-['Cinzel',serif] text-xl font-bold tracking-wider text-white">
@@ -36,10 +40,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Transporte executivo de alto padrão, transfers privativos para aeroportos e tours na Serra Gaúcha. Pontualidade britânica, conforto absoluto e segurança 24 horas.
+              Transporte executivo de alto padrão, transfers privativos para aeroportos e tours na Serra Gaúcha. Pontualidade britânica, conforto absoluto e atendimento de segunda a domingo, das 05h às 23h.
             </p>
 
-            <div className="pt-2 text-xs text-slate-400 flex items-center gap-2">
+            <div className="pt-2 text-xs text-slate-400 flex flex-wrap items-center gap-2">
               <a
                 href={COMPANY_NAP.gbpUrl}
                 target="_blank"
@@ -51,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
                 <ExternalLink className="w-2.5 h-2.5 text-[#38BDF8]" />
               </a>
               <span>·</span>
-              <span className="text-emerald-400 font-semibold">24/7 Ativo</span>
+              <span className="text-emerald-400 font-semibold">Seg a Dom · 05h às 23h</span>
             </div>
           </div>
 
@@ -87,7 +91,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenExportModal, onOpenIndexNo
               <div className="flex items-start gap-2.5">
                 <MessageCircle className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-white font-medium block">WhatsApp Comercial 24h:</span>
+                  <span className="text-white font-medium block">WhatsApp Comercial (05h às 23h):</span>
                   <a
                     href={COMPANY_NAP.whatsappBaseUrl}
                     target="_blank"

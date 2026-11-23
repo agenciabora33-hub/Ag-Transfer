@@ -48,7 +48,7 @@ export const FAQSection: React.FC = () => {
               >
                 <button
                   onClick={() => toggleFaq(idx)}
-                  className="w-full text-left px-5 sm:px-6 py-4 flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+                  className="w-full min-h-[52px] text-left px-5 sm:px-6 py-4 flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
                   aria-expanded={isOpen}
                 >
                   <span className="font-bold text-[#0D0A27] text-sm sm:text-base">
@@ -91,16 +91,16 @@ export const FAQSection: React.FC = () => {
         >
           <div>
             <p className="text-sm font-bold text-[#0D0A27]">Tem uma dúvida específica sobre seu itinerário?</p>
-            <p className="text-xs text-slate-600 font-medium">Nossa central de plantão responde em poucos instantes.</p>
+            <p className="text-xs text-slate-600 font-medium">Nossa central atende de segunda a domingo, das 05h às 23h, e responde em poucos instantes.</p>
           </div>
           <a
             href={COMPANY_NAP.whatsappBaseUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider transition-all shrink-0 shadow-md active:scale-95"
+            className="min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider transition-all shrink-0 shadow-md active:scale-95"
           >
             <MessageCircle className="w-4 h-4 text-[#38BDF8]" />
-            <span>Falar com Atendente 24h</span>
+            <span>Falar com Atendente</span>
           </a>
         </motion.div>
 

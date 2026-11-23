@@ -78,7 +78,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
   return (
     <section id="servicos" className="py-24 bg-white border-t border-slate-200 relative overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0284C7]/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="hidden md:block absolute top-1/2 left-0 w-96 h-96 bg-[#0284C7]/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -108,7 +108,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`shrink-0 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              className={`shrink-0 min-h-[42px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
                 selectedCategory === cat.id
                   ? 'bg-[#0D0A27] text-white shadow-md'
                   : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700'

@@ -4,17 +4,25 @@ import { MessageCircle, X, Clock, CheckCheck, ArrowRight } from 'lucide-react';
 import { COMPANY_NAP } from '../data/companyData';
 
 export const FloatingWhatsAppCTA: React.FC = () => {
-  const [showTooltip, setShowTooltip] = useState(true);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
 
-  // Auto-dismiss or gently pulse tooltip after 8 seconds if not interacted
+  // Subtle delayed desktop teaser (only shown once after 3s on desktop, auto-dismisses)
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const showTimer = setTimeout(() => {
+      if (!hasInteracted && typeof window !== 'undefined' && window.innerWidth >= 768) {
+        setShowTooltip(true);
+      }
+    }, 3500);
+    const hideTimer = setTimeout(() => {
       if (!hasInteracted) {
         setShowTooltip(false);
       }
     }, 12000);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
   }, [hasInteracted]);
 
   const defaultMessage = encodeURIComponent(
@@ -24,7 +32,7 @@ export const FloatingWhatsAppCTA: React.FC = () => {
 
   return (
     <div
-      className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-auto"
+      className="fixed bottom-6 right-6 z-50 hidden md:flex flex-col items-end pointer-events-auto"
       aria-label="Atendimento Imediato via WhatsApp"
     >
       {/* Floating Executive Speech Bubble / Teaser */}
@@ -35,7 +43,7 @@ export const FloatingWhatsAppCTA: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-3 max-w-[260px] sm:max-w-xs bg-white/98 backdrop-blur-xl border border-slate-200/90 rounded-2xl p-3.5 shadow-[0_12px_35px_rgba(15,23,42,0.18)] relative text-xs"
+            className="mb-3 max-w-xs bg-white/98 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3.5 shadow-[0_12px_35px_rgba(15,23,42,0.18)] relative text-xs"
           >
             {/* Close tooltip button */}
             <button
@@ -53,7 +61,15 @@ export const FloatingWhatsAppCTA: React.FC = () => {
             <div className="flex items-center gap-2 mb-2 pr-4">
               <div className="relative">
                 <div className="w-8 h-8 rounded-full bg-[#0D0A27] flex items-center justify-center text-white font-serif font-bold text-xs p-1">
-                  <img src="/logo.png" alt="AG" className="w-full h-full object-contain" />
+                  <img
+                    src={COMPANY_NAP.logoSmUrl}
+                    alt="AG"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full"></span>
               </div>
@@ -61,7 +77,7 @@ export const FloatingWhatsAppCTA: React.FC = () => {
                 <p className="font-bold text-[#0D0A27] leading-tight">Central AG Transfer</p>
                 <div className="flex items-center gap-1 text-[11px] text-emerald-600 font-semibold">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span>Online agora · Resposta rápida</span>
+                  <span>Seg a Dom · 05h às 23h</span>
                 </div>
               </div>
             </div>

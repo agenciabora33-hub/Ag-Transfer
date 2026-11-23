@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0D0A27" />
     <meta name="google-site-verification" content="zh45CJj-9q98u4wZT4AMJa3dw9fvwlX4uNVkrJZ2x2Q" />
     <meta name="google-site-verification" content="gnY154JDPtfUkEmtWfMFSyG-TiK40cxlwS9e2VZm9xw" />
     <meta name="msvalidate.01" content="1b99b176c74d424baee3488442bd4737" />
@@ -16,7 +17,7 @@
     
     <!-- Title & SEO Meta Tags -->
     <title>AG Transfer | Transporte Executivo na Serra Gaúcha | Gramado, Canela e Bento Gonçalves</title>
-    <meta name="description" content="Transporte executivo e transfer premium na Serra Gaúcha. Especialistas em Gramado, Canela, Bento Gonçalves (Vale dos Vinhedos) e aeroportos (POA / CXJ). Atendimento 24h." />
+    <meta name="description" content="Transporte executivo e transfer premium na Serra Gaúcha. Especialistas em Gramado, Canela, Bento Gonçalves (Vale dos Vinhedos) e aeroportos (POA / CXJ). Atendimento diário de segunda a domingo, das 05h às 23h." />
     <link rel="canonical" href="https://ag-transfer.vercel.app/" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
@@ -27,7 +28,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="AG Transfer | Transporte Executivo na Serra Gaúcha (Gramado, Canela e Bento Gonçalves)" />
-    <meta property="og:description" content="Transporte executivo de alto padrão na Serra Gaúcha: transfers aeroportuários (POA / CXJ), passeios VIP em Gramado, Canela e tours no Vale dos Vinhedos em Bento Gonçalves. Atendimento 24h." />
+    <meta property="og:description" content="Transporte executivo de alto padrão na Serra Gaúcha: transfers aeroportuários (POA / CXJ), passeios VIP em Gramado, Canela e tours no Vale dos Vinhedos em Bento Gonçalves. Segunda a domingo, das 05h às 23h." />
     <meta property="og:url" content="https://ag-transfer.vercel.app/" />
     <meta property="og:site_name" content="AG Transfer & Transporte Executivo LTDA." />
     <meta property="og:image" content="https://ag-transfer.vercel.app/logo.png" />
@@ -41,14 +42,16 @@
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AG Transfer | Transporte Executivo Serra Gaúcha" />
-    <meta name="twitter:description" content="Transfers aeroportuários (POA / CXJ) e passeios VIP em Gramado, Canela e Bento Gonçalves com atendimento 24/7." />
+    <meta name="twitter:description" content="Transfers aeroportuários (POA / CXJ) e passeios VIP em Gramado, Canela e Bento Gonçalves. Atendimento de segunda a domingo, das 05h às 23h." />
     <meta name="twitter:image" content="https://ag-transfer.vercel.app/logo.png" />
     <meta name="twitter:image:alt" content="Logo Oficial AG Transfer & Transporte Executivo" />
 
-    <!-- Google Fonts Preconnect & Styles -->
+    <!-- Google Fonts Preconnect & Non-Render-Blocking Load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet" /></noscript>
 
     <!-- Schema.org / JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -69,8 +72,8 @@
             "dayOfWeek": [
               "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
             ],
-            "opens": "00:00",
-            "closes": "23:59"
+            "opens": "05:00",
+            "closes": "23:00"
           },
           "areaServed": [
             {

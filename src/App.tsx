@@ -3,21 +3,41 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MobileStickyCTA } from './components/MobileStickyCTA';
 import { FloatingWhatsAppCTA } from './components/FloatingWhatsAppCTA';
-import { QuoteModal } from './components/QuoteModal';
-import { SingleFileExportModal } from './components/SingleFileExportModal';
-import { IndexNowModal } from './components/IndexNowModal';
 import { HomePage } from './pages/HomePage';
-import { ServiceDetailPage } from './pages/ServiceDetailPage';
-import { CityDetailPage } from './pages/CityDetailPage';
-import { MontevideoTransferPage } from './pages/MontevideoTransferPage';
+
+// Code-split secondary routes and modals to reduce initial Home JS payload
+const ServiceDetailPage = lazy(() =>
+  import('./pages/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage }))
+);
+const CityDetailPage = lazy(() =>
+  import('./pages/CityDetailPage').then((m) => ({ default: m.CityDetailPage }))
+);
+const MontevideoTransferPage = lazy(() =>
+  import('./pages/MontevideoTransferPage').then((m) => ({ default: m.MontevideoTransferPage }))
+);
+const QuoteModal = lazy(() =>
+  import('./components/QuoteModal').then((m) => ({ default: m.QuoteModal }))
+);
+const SingleFileExportModal = lazy(() =>
+  import('./components/SingleFileExportModal').then((m) => ({ default: m.SingleFileExportModal }))
+);
+const IndexNowModal = lazy(() =>
+  import('./components/IndexNowModal').then((m) => ({ default: m.IndexNowModal }))
+);
+
+const RouteLoadingFallback: React.FC = () => (
+  <div className="flex-1 min-h-[60vh] flex items-center justify-center py-24">
+    <div className="w-8 h-8 rounded-full border-2 border-[#0284C7] border-t-transparent animate-spin" aria-label="Carregando..." />
+  </div>
+);
 
 // Automatically scroll to top on route navigation
 const ScrollToTopOnRoute: React.FC = () => {
@@ -31,7 +51,7 @@ const ScrollToTopOnRoute: React.FC = () => {
         return;
       }
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, [pathname, hash]);
 
   return null;
@@ -43,6 +63,8 @@ export default function App() {
   const [exportModalOpen, setExportModalOpen] = useState(false);
   const [indexNowModalOpen, setIndexNowModalOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const { pathname } = useLocation();
+  const isMontevideoRoute = pathname === '/transfer-porto-alegre-montevideu';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,82 +86,94 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] selection:bg-[#38BDF8]/20 selection:text-[#0F172A] flex flex-col font-['Plus_Jakarta_Sans',sans-serif] relative">
-      <ScrollToTopOnRoute />
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] selection:bg-[#38BDF8]/20 selection:text-[#0F172A] flex flex-col font-['Plus_Jakarta_Sans',sans-serif] relative pb-16 md:pb-0">
+        <ScrollToTopOnRoute />
 
-      {/* Semantic Header with Dynamic Scroll Progress & Router Links */}
-      <Header onOpenQuoteModal={() => handleOpenQuoteModal()} />
+        {/* Semantic Header with Dynamic Scroll Progress & Router Links */}
+        <Header onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
-      {/* Dynamic Route View */}
-      <div className="flex-1 flex flex-col">
-        <Routes>
-          <Route
-            path="/"
-            element={<HomePage onOpenQuoteModal={handleOpenQuoteModal} />}
-          />
-          <Route
-            path="/servicos/:slug"
-            element={<ServiceDetailPage onOpenQuoteModal={handleOpenQuoteModal} />}
-          />
-          <Route
-            path="/cidades/:slug"
-            element={<CityDetailPage onOpenQuoteModal={handleOpenQuoteModal} />}
-          />
-          <Route
-            path="/transfer-porto-alegre-montevideu"
-            element={<MontevideoTransferPage onOpenQuoteModal={handleOpenQuoteModal} />}
-          />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
+        {/* Dynamic Route View */}
+        <div className="flex-1 flex flex-col">
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Routes>
+              <Route
+                path="/"
+                element={<HomePage onOpenQuoteModal={handleOpenQuoteModal} />}
+              />
+              <Route
+                path="/servicos/:slug"
+                element={<ServiceDetailPage onOpenQuoteModal={handleOpenQuoteModal} />}
+              />
+              <Route
+                path="/cidades/:slug"
+                element={<CityDetailPage onOpenQuoteModal={handleOpenQuoteModal} />}
+              />
+              <Route
+                path="/transfer-porto-alegre-montevideu"
+                element={<MontevideoTransferPage onOpenQuoteModal={handleOpenQuoteModal} />}
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
+        </div>
 
-      {/* Semantic Footer (Complete NAP + Legal) */}
-      <Footer
-        onOpenExportModal={() => setExportModalOpen(true)}
-        onOpenIndexNowModal={() => setIndexNowModalOpen(true)}
-      />
+        {/* Semantic Footer (Complete NAP + Legal) */}
+        <Footer
+          onOpenExportModal={() => setExportModalOpen(true)}
+          onOpenIndexNowModal={() => setIndexNowModalOpen(true)}
+        />
 
-      {/* Mobile Sticky Thumb-Zone CTA */}
-      <MobileStickyCTA onOpenQuoteModal={() => handleOpenQuoteModal()} />
-
-      {/* Always Visible Floating WhatsApp CTA (Bottom Right) */}
-      <FloatingWhatsAppCTA />
-
-      {/* Floating Scroll-to-Top Button (Desktop, positioned beside WhatsApp CTA) */}
-      <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            transition={{ duration: 0.3 }}
-            onClick={handleScrollToTop}
-            aria-label="Voltar ao Topo"
-            className="fixed bottom-6 right-24 sm:right-26 z-40 hidden md:flex items-center justify-center w-11 h-11 rounded-full bg-white hover:bg-[#0284C7] text-[#0284C7] hover:text-white border border-slate-200 backdrop-blur-md shadow-md cursor-pointer transition-colors"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </motion.button>
+        {/* Mobile Sticky Thumb-Zone CTA (suppressed on Montevideo route which renders its own sticky bar) */}
+        {!isMontevideoRoute && (
+          <MobileStickyCTA onOpenQuoteModal={() => handleOpenQuoteModal()} />
         )}
-      </AnimatePresence>
 
-      {/* Interactive Quotation Modal */}
-      <QuoteModal
-        isOpen={quoteModalOpen}
-        onClose={() => setQuoteModalOpen(false)}
-        initialService={initialServiceForModal}
-      />
+        {/* Desktop Floating WhatsApp CTA (Mobile uses MobileStickyCTA cleanly without overlap) */}
+        <FloatingWhatsAppCTA />
 
-      {/* Single-File HTML Export Modal (Requirement 5) */}
-      <SingleFileExportModal
-        isOpen={exportModalOpen}
-        onClose={() => setExportModalOpen(false)}
-      />
+        {/* Floating Scroll-to-Top Button (Desktop, positioned beside WhatsApp CTA) */}
+        <AnimatePresence>
+          {showScrollTop && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 20 }}
+              transition={{ duration: 0.3 }}
+              onClick={handleScrollToTop}
+              aria-label="Voltar ao Topo"
+              className="fixed bottom-6 right-24 sm:right-26 z-40 hidden md:flex items-center justify-center w-11 h-11 rounded-full bg-white hover:bg-[#0284C7] text-[#0284C7] hover:text-white border border-slate-200 backdrop-blur-md shadow-md cursor-pointer transition-colors"
+            >
+              <ArrowUp className="w-4 h-4" />
+            </motion.button>
+          )}
+        </AnimatePresence>
 
-      {/* Microsoft Bing IndexNow Instant Submission Modal */}
-      <IndexNowModal
-        isOpen={indexNowModalOpen}
-        onClose={() => setIndexNowModalOpen(false)}
-      />
-    </div>
+        {/* Lazy-loaded Modals */}
+        <Suspense fallback={null}>
+          {quoteModalOpen && (
+            <QuoteModal
+              isOpen={quoteModalOpen}
+              onClose={() => setQuoteModalOpen(false)}
+              initialService={initialServiceForModal}
+            />
+          )}
+
+          {exportModalOpen && (
+            <SingleFileExportModal
+              isOpen={exportModalOpen}
+              onClose={() => setExportModalOpen(false)}
+            />
+          )}
+
+          {indexNowModalOpen && (
+            <IndexNowModal
+              isOpen={indexNowModalOpen}
+              onClose={() => setIndexNowModalOpen(false)}
+            />
+          )}
+        </Suspense>
+      </div>
+    </MotionConfig>
   );
 }

@@ -73,7 +73,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "118 km (aprox. 1h 50min via RS-235 / BR-116 ou Taquara)",
     distanceFromCxj: "68 km (aprox. 1h 15min via RS-453 e RS-235)",
-    serviceCoverage: "Área de cobertura prioritária em Gramado e Região das Hortênsias (24h)",
+    serviceCoverage: "Área de cobertura prioritária em Gramado e Região das Hortênsias (05h às 23h)",
     altitude: "830 m de altitude",
     climateContext: "Trecho serrano sujeito a forte cerração/neblina matinal e noturna na RS-235 e RS-115, além de frio intenso e geadas no inverno. Nossos motoristas executivos possuem vasta experiência de serra para máxima segurança e pontualidade.",
     description: "Serviço de transfer privativo e transporte executivo de alto padrão para Gramado. Atendimento exclusivo no desembarque dos Aeroportos de Porto Alegre (POA) e Caxias do Sul (CXJ) direto para o seu hotel ou resort com conforto, pontualidade e discrição.",
@@ -177,8 +177,8 @@ export const CITIES_SERVED: CityItem[] = [
         answer: "Basta clicar no botão do WhatsApp na página ou ligar para (54) 99153-7288. Informando a data, horário, número do voo e endereço do hotel em Gramado, enviamos o orçamento e confirmamos a reserva em poucos minutos."
       }
     ],
-    metaTitle: "Transfer Para Gramado RS | Transporte Executivo Privativo 24h",
-    metaDescription: "Transfer privativo para Gramado saindo dos Aeroportos POA e CXJ. Conforto VIP, motorista no desembarque, faturamento corporativo e pontualidade britânica. Peça orçamento 24h!",
+    metaTitle: "Transfer Para Gramado RS | Transporte Executivo Privativo",
+    metaDescription: "Transfer privativo para Gramado saindo dos Aeroportos POA e CXJ. Conforto VIP, motorista no desembarque, faturamento corporativo e atendimento das 05h às 23h. Peça orçamento!",
     keywords: ["transfer gramado", "transporte executivo gramado", "transfer porto alegre gramado", "transfer aeroporto caxias do sul gramado", "motorista particular gramado", "como ir para gramado"]
   },
   {
@@ -196,7 +196,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "125 km (aprox. 2h 00min via RS-235)",
     distanceFromCxj: "75 km (aprox. 1h 25min via RS-453 e RS-235)",
-    serviceCoverage: "Área de cobertura oficial em Canela (CEP 95680-000) com atendimento 24h",
+    serviceCoverage: "Área de cobertura oficial em Canela (CEP 95680-000) · 05h às 23h",
     altitude: "837 m de altitude",
     climateContext: "Clima temperado serrano com umidade expressiva, nevoeiros em vales e temperaturas próximas de zero grau nos invernos. A rota de acesso conta com declives e curvas sinuosas que demandam condução perita.",
     description: "Transporte executivo e transfer privativo para Canela. Atendimento porta a porta desde os aeroportos de Porto Alegre (POA) e Caxias do Sul (CXJ) para os melhores hotéis, pousadas de charme e atrativos turísticos da cidade.",
@@ -269,10 +269,10 @@ export const CITIES_SERVED: CityItem[] = [
       },
       {
         agTransfer: "Frota moderna com suspensão confortável, isolamento termoacústico e porta-malas espaçoso.",
-        competitor: "Aplicativos de transporte raramente aceitam viagens longas de volta de Canela até os aeroportos na madrugada."
+        competitor: "Aplicativos de transporte raramente aceitam viagens longas de volta de Canela até os aeroportos nos primeiros horários da manhã."
       },
       {
-        agTransfer: "Atendimento 24h com suporte humano imediato e pontualidade rigorosa garantida em contrato.",
+        agTransfer: "Atendimento de segunda a domingo, das 05h às 23h, com suporte humano imediato e pontualidade rigorosa.",
         competitor: "Táxis convencionais operando por taxímetro na serra podem gerar custos imprevisíveis e elevados."
       }
     ],
@@ -296,12 +296,12 @@ export const CITIES_SERVED: CityItem[] = [
         answer: "Com certeza. No serviço de Tour Privativo ou Motorista por Diária, o roteiro é 100% personalizado por você. Nosso motorista permanece à sua disposição aguardando durante as visitas aos parques."
       },
       {
-        question: "Como funciona o transfer de volta de Canela para o aeroporto na madrugada?",
-        answer: "A AG Transfer opera 24 horas por dia, 7 dias por semana. Para voos que partem bem cedo de POA ou CXJ, programamos a saída da sua pousada em Canela na madrugada com antecedência segura para que você faça o check-in com tranquilidade."
+        question: "Como funciona o transfer de volta de Canela para o aeroporto logo pela manhã?",
+        answer: "A AG Transfer opera de segunda a domingo, das 05h às 23h. Para voos que partem cedo de POA ou CXJ, programamos a saída da sua pousada em Canela a partir das 05h com antecedência segura para que você faça o check-in com tranquilidade."
       }
     ],
     metaTitle: "Transfer Para Canela RS | Transporte Executivo Privativo VIP",
-    metaDescription: "Transfer executivo privativo para Canela saindo de POA e CXJ. Veículos novos, motorista experiente na serra, atendimento 24h e pontualidade garantida. Reserve já!",
+    metaDescription: "Transfer executivo privativo para Canela saindo de POA e CXJ. Veículos novos, motorista experiente na serra, atendimento de segunda a domingo das 05h às 23h. Reserve já!",
     keywords: ["transfer canela", "transporte executivo canela", "transfer porto alegre canela", "transfer aeroporto caxias canela", "motorista canela rs", "transfer privativo canela"]
   },
   {
@@ -425,7 +425,7 @@ export const CITIES_SERVED: CityItem[] = [
       }
     ],
     metaTitle: "Transfer Bento Gonçalves RS | Tour Vale dos Vinhedos Privativo",
-    metaDescription: "Transfer executivo para Bento Gonçalves e Tour no Vale dos Vinhedos. Deguste vinhos com segurança da Lei Seca. Conexão expressa de POA e CXJ. Orçamento 24h!",
+    metaDescription: "Transfer executivo para Bento Gonçalves e Tour no Vale dos Vinhedos. Deguste vinhos com segurança da Lei Seca. Conexão expressa de POA e CXJ (05h às 23h)!",
     keywords: ["transfer bento goncalves", "tour vale dos vinhedos", "transporte executivo bento goncalves", "transfer aeroporto caxias bento", "enoturismo serra gaucha transfer"]
   },
   {
@@ -443,11 +443,11 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "125 km (aprox. 1h 45min via BR-116 ou RS-122)",
     distanceFromCxj: "Aeroporto Regional Hugo Cantergiani (CXJ) no município",
-    serviceCoverage: "Área de cobertura oficial em Caxias do Sul e Aeroporto CXJ (24h)",
+    serviceCoverage: "Área de cobertura oficial em Caxias do Sul e Aeroporto CXJ (05h às 23h)",
     altitude: "817 m de altitude",
     climateContext: "Importante polo industrial do estado com relevo acidentado e frequentes variações climáticas. Nossa operação regional dedicada ao Aeroporto CXJ garante tempo de resposta ágil para qualquer chamada executiva.",
     description: "Área de cobertura oficial AG Transfer em Caxias do Sul. Transporte executivo de excelência e transfers privativos no Aeroporto Regional Hugo Cantergiani (CXJ), indústrias do polo metalmecânico, Pavilhões da Festa da Uva e Feira Mercopar.",
-    fullBio: "Caxias do Sul é a segunda maior cidade do Rio Grande do Sul em população e o segundo maior polo metalmecânico do Brasil, abrigando gigantes mundiais como Marcopolo, Randoncorp, Agrale e centenas de fornecedores automotivos. A cidade conta com o Aeroporto Regional Hugo Cantergiani (CXJ), principal terminal aéreo que atende a Serra Gaúcha com voos regulares das companhias Azul, Gol e Latam. Com ampla área de cobertura em Caxias do Sul e toda a Serra Gaúcha, a AG Transfer oferece pronto atendimento 24 horas para o aeroporto, visitas técnicas fabris e receptivos de executivos nacionais e internacionais com faturamento simplificado.",
+    fullBio: "Caxias do Sul é a segunda maior cidade do Rio Grande do Sul em população e o segundo maior polo metalmecânico do Brasil, abrigando gigantes mundiais como Marcopolo, Randoncorp, Agrale e centenas de fornecedores automotivos. A cidade conta com o Aeroporto Regional Hugo Cantergiani (CXJ), principal terminal aéreo que atende a Serra Gaúcha com voos regulares das companhias Azul, Gol e Latam. Com ampla área de cobertura em Caxias do Sul e toda a Serra Gaúcha, a AG Transfer oferece atendimento de segunda a domingo, das 05h às 23h, para o aeroporto, visitas técnicas fabris e receptivos de executivos nacionais e internacionais com faturamento simplificado.",
     keyLandmarks: [
       "Aeroporto Regional Hugo Cantergiani (CXJ)",
       "Pavilhões da Festa da Uva (Centro de Eventos e Feiras)",
@@ -534,7 +534,7 @@ export const CITIES_SERVED: CityItem[] = [
     faqs: [
       {
         question: "Como funciona a área de cobertura da AG Transfer em Caxias do Sul?",
-        answer: "Atendemos toda a cidade de Caxias do Sul como área de cobertura oficial 24 horas por dia, com embarque e desembarque porta a porta no Aeroporto Regional Hugo Cantergiani (CXJ), hotéis, empresas e residências, garantindo agilidade máxima na região."
+        answer: "Atendemos toda a cidade de Caxias do Sul como área de cobertura oficial de segunda a domingo, das 05h às 23h, com embarque e desembarque porta a porta no Aeroporto Regional Hugo Cantergiani (CXJ), hotéis, empresas e residências, garantindo agilidade máxima na região."
       },
       {
         question: "A AG Transfer atende feiras nos Pavilhões da Festa da Uva e Mercopar?",
@@ -545,12 +545,12 @@ export const CITIES_SERVED: CityItem[] = [
         answer: "Nosso motorista recepciona você no saguão de desembarque de CXJ com placa personalizada e conduz você em veículo executivo privativo direto para Gramado, Canela, Bento Gonçalves, Farroupilha ou Flores da Cunha com agilidade máxima."
       },
       {
-        question: "Vocês atendem viagens corporativas para o polo industrial em horários da madrugada?",
-        answer: "Sim. Operamos em regime 24 Horas / 7 Dias por Semana. Viagens urgentes para manutenção em fábricas, turnos fabris ou conexões de madrugada contam com atendimento dedicado."
+        question: "Vocês atendem viagens corporativas para o polo industrial logo pela manhã ou à noite?",
+        answer: "Sim. Operamos de segunda a domingo, das 05h às 23h. Viagens corporativas para visitas fabris, embarques matinais ou compromissos noturnos até às 23h contam com atendimento dedicado."
       }
     ],
-    metaTitle: "Transporte Executivo em Caxias do Sul RS | AG Transfer 24h CXJ",
-    metaDescription: "Transporte executivo e transfer no Aeroporto de Caxias do Sul (CXJ). Área de cobertura completa em Caxias do Sul, atendimento 24h, faturamento PJ e alto padrão corporativo. Peça cotação!",
+    metaTitle: "Transporte Executivo em Caxias do Sul RS | AG Transfer CXJ",
+    metaDescription: "Transporte executivo e transfer no Aeroporto de Caxias do Sul (CXJ). Área de cobertura completa em Caxias do Sul, atendimento das 05h às 23h, faturamento PJ e alto padrão corporativo.",
     keywords: ["transporte executivo caxias do sul", "transfer aeroporto cxj", "transfer caxias do sul gramado", "motorista executivo caxias do sul", "transfer aeroporto caxias do sul"]
   },
   {
@@ -662,7 +662,7 @@ export const CITIES_SERVED: CityItem[] = [
       },
       {
         question: "E se o meu voo para Porto Alegre atrasar?",
-        answer: "Não se preocupe! Nossa central 24h monitora o número do seu voo em tempo real. Se houver atraso ou adiantamento da companhia aérea, remanejamos a apresentação do motorista sem custos extras."
+        answer: "Não se preocupe! Nossa central monitora o número do seu voo em tempo real dentro do horário de operação (05h às 23h). Se houver atraso ou adiantamento da companhia aérea, remanejamos a apresentação do motorista sem custos extras."
       },
       {
         question: "Vocês atendem saídas de hotéis em Porto Alegre (bairro Moinhos de Vento, etc.)?",
@@ -674,7 +674,7 @@ export const CITIES_SERVED: CityItem[] = [
       }
     ],
     metaTitle: "Transfer Aeroporto Porto Alegre POA ⇄ Serra Gaúcha | AG Transfer",
-    metaDescription: "Transfer executivo privativo no Aeroporto Salgado Filho (POA) para Gramado, Canela, Caxias e Bento. Receptivo no desembarque, monitoramento de voo 24h. Reserve!",
+    metaDescription: "Transfer executivo privativo no Aeroporto Salgado Filho (POA) para Gramado, Canela, Caxias e Bento. Receptivo no desembarque e atendimento das 05h às 23h. Reserve!",
     keywords: ["transfer porto alegre gramado", "transfer aeroporto poa gramado", "transporte executivo porto alegre", "transfer salgado filho serra gaucha", "transfer privativo porto alegre"]
   },
   {
@@ -780,7 +780,7 @@ export const CITIES_SERVED: CityItem[] = [
     faqs: [
       {
         question: "Qual o melhor aeroporto para chegar em Garibaldi?",
-        answer: "O Aeroporto de Caxias do Sul (CXJ) é o mais próximo, a apenas 38 km de Garibaldi (cerca de 40 minutos de viagem). O Aeroporto de Porto Alegre (POA) fica a cerca de 110 km (1h35 de percurso). A AG Transfer opera em ambos os aeroportos 24 horas."
+        answer: "O Aeroporto de Caxias do Sul (CXJ) é o mais próximo, a apenas 38 km de Garibaldi (cerca de 40 minutos de viagem). O Aeroporto de Porto Alegre (POA) fica a cerca de 110 km (1h35 de percurso). A AG Transfer atende ambos de segunda a domingo, das 05h às 23h."
       },
       {
         question: "Posso fazer um roteiro de espumantes em Garibaldi sem me preocupar com a Lei Seca?",
@@ -796,7 +796,7 @@ export const CITIES_SERVED: CityItem[] = [
       }
     ],
     metaTitle: "Transfer Garibaldi RS | Transporte Executivo Rota dos Espumantes",
-    metaDescription: "Transfer executivo privativo para Garibaldi e Rota dos Espumantes. Desembarque de POA e CXJ, motorista experiente e segurança da Lei Seca. Reserve online 24h!",
+    metaDescription: "Transfer executivo privativo para Garibaldi e Rota dos Espumantes. Desembarque de POA e CXJ, motorista experiente e atendimento das 05h às 23h. Reserve online!",
     keywords: ["transfer garibaldi", "rota dos espumantes transfer", "transporte executivo garibaldi", "transfer aeroporto caxias garibaldi", "motorista particular garibaldi rs"]
   },
   {
@@ -814,7 +814,7 @@ export const CITIES_SERVED: CityItem[] = [
     },
     distanceFromPoa: "90 km (aprox. 1h 30min via BR-116)",
     distanceFromCxj: "35 km (aprox. 40min via BR-116 ou RS-235)",
-    serviceCoverage: "Cobertura diária em Nova Petrópolis e Rota Romântica (24h)",
+    serviceCoverage: "Cobertura diária em Nova Petrópolis e Rota Romântica (05h às 23h)",
     altitude: "595 m de altitude",
     climateContext: "Localizada em um vale florido ao longo da histórica Rota Romântica (BR-116), com curvas arborizadas e clima ameno. Trecho que exige motoristas atentos a ciclistas, curvas e eventuais nevoeiros da encosta da serra.",
     description: "Transfer executivo e transporte privativo para Nova Petrópolis. Porta de entrada da Rota Romântica, famosa pela herança cultural germânica, pelo Labirinto Verde, pela Praça das Flores e pelas tradicionais malharias.",
@@ -915,11 +915,11 @@ export const CITIES_SERVED: CityItem[] = [
       },
       {
         question: "Como solicitar cotação para transfer em Nova Petrópolis?",
-        answer: "Basta entrar em contato pelo WhatsApp (54) 99153-7288. Atendemos 24 horas e passamos o valor fechado sem surpresas."
+        answer: "Basta entrar em contato pelo WhatsApp (54) 99153-7288. Atendemos de segunda a domingo, das 05h às 23h, e passamos o valor fechado sem surpresas."
       }
     ],
     metaTitle: "Transfer Nova Petrópolis RS | Transporte Executivo Rota Romântica",
-    metaDescription: "Transfer executivo privativo para Nova Petrópolis na Rota Romântica. Conexões de POA e CXJ, passeios personalizados, conforto e segurança 24h. Reserve!",
+    metaDescription: "Transfer executivo privativo para Nova Petrópolis na Rota Romântica. Conexões de POA e CXJ, passeios personalizados e atendimento das 05h às 23h. Reserve!",
     keywords: ["transfer nova petropolis", "transporte executivo nova petropolis", "transfer poa nova petropolis", "rota romantica transfer", "motorista particular nova petropolis"]
   },
   {
@@ -1041,8 +1041,8 @@ export const CITIES_SERVED: CityItem[] = [
         answer: "Sim, atendemos peregrinos, famílias e delegações religiosas em veículos individuais e vans VIP durante as romarias anuais e celebrações no Santuário."
       }
     ],
-    metaTitle: "Transporte Executivo em Farroupilha RS | Transfer AG 24h",
-    metaDescription: "Transporte executivo e transfer privativo para Farroupilha RS. Conexão expressa com o Aeroporto de Caxias (18 km) e POA. Faturamento corporativo. Reserve já!",
+    metaTitle: "Transporte Executivo em Farroupilha RS | AG Transfer",
+    metaDescription: "Transporte executivo e transfer privativo para Farroupilha RS. Conexão expressa com o Aeroporto de Caxias (18 km) e POA. Atendimento das 05h às 23h. Reserve já!",
     keywords: ["transporte executivo farroupilha", "transfer farroupilha", "transfer farroupilha aeroporto caxias", "motorista particular farroupilha", "transfer caravaggio farroupilha"]
   },
   {
@@ -1164,7 +1164,7 @@ export const CITIES_SERVED: CityItem[] = [
       }
     ],
     metaTitle: "Transfer Flores da Cunha RS | Transporte Executivo Altos Montes",
-    metaDescription: "Transporte executivo privativo em Flores da Cunha RS. Conexão rápida com Aeroporto CXJ (20 km) e POA. Tour nas vinícolas dos Altos Montes. Peça orçamento 24h!",
+    metaDescription: "Transporte executivo privativo em Flores da Cunha RS. Conexão rápida com Aeroporto CXJ (20 km) e POA. Atendimento das 05h às 23h. Peça orçamento!",
     keywords: ["transfer flores da cunha", "transporte executivo flores da cunha", "transfer aeroporto caxias flores da cunha", "rota dos altos montes transfer", "motorista particular flores da cunha"]
   }
 ];

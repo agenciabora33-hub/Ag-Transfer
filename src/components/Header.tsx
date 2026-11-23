@@ -68,10 +68,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
           >
             <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/80 p-1 flex items-center justify-center shadow-xs overflow-hidden group-hover:border-[#0284C7]/50 transition-colors">
               <img
-                src={COMPANY_NAP.logoUrl}
+                src={COMPANY_NAP.logoSmUrl}
                 alt="Logo AG Transfer & Transporte Executivo"
+                width={40}
+                height={40}
                 className="w-full h-full object-contain"
                 referrerPolicy="no-referrer"
+                decoding="async"
               />
             </div>
             <span className="font-['Cinzel',serif] text-xl sm:text-2xl font-bold tracking-wider text-[#0D0A27] transition-colors group-hover:text-[#0284C7]">
@@ -115,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
             <a
               href={`tel:${COMPANY_NAP.phoneRaw}`}
               className="hidden xl:inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-[#0284C7] px-3 py-2 transition-colors"
-              title="Ligar para Atendimento 24h"
+              title="Ligar para Atendimento (05h às 23h)"
             >
               <Phone className="w-3.5 h-3.5 text-[#0284C7]" />
               <span className="tabular-nums">{COMPANY_NAP.phoneDisplay}</span>
@@ -133,13 +136,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
           <div className="flex sm:hidden items-center gap-2">
             <button
               onClick={onOpenQuoteModal}
-              className="px-3 py-1.5 rounded-lg bg-[#0284C7] text-white text-xs font-bold uppercase transition-transform active:scale-95 shadow-xs"
+              className="min-h-[44px] px-3.5 py-2 rounded-lg bg-[#0284C7] text-white text-xs font-bold uppercase transition-transform active:scale-95 shadow-xs"
             >
               Cotação
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-700 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0284C7]"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-slate-700 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0284C7]"
               aria-label="Abrir Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -191,10 +194,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
               </a>
               <a
                 href={`tel:${COMPANY_NAP.phoneRaw}`}
-                className="flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold"
+                className="flex items-center justify-center gap-2 w-full min-h-[44px] py-2.5 rounded-xl bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold"
               >
                 <Phone className="w-3.5 h-3.5 text-[#0284C7]" />
-                Ligar Agora 24 Horas
+                Ligar Agora (05h às 23h)
               </a>
             </div>
           </div>

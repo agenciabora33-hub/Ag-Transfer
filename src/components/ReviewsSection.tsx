@@ -7,7 +7,7 @@ export const ReviewsSection: React.FC = () => {
   return (
     <section id="avaliacoes" className="py-24 bg-white border-t border-slate-200 relative overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#0284C7]/5 rounded-full blur-[170px] pointer-events-none" />
+      <div className="hidden md:block absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#0284C7]/5 rounded-full blur-[170px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

@@ -20,7 +20,7 @@ const services = [
   {
     slug: 'transfer-para-gramado',
     title: 'Transfer Para Gramado Privativo VIP | AG Transfer',
-    description: 'Transfer executivo privativo para Gramado saindo dos aeroportos de Porto Alegre (POA) ou Caxias do Sul (CXJ). Veículos novos, motoristas pontuais e atendimento 24h.'
+    description: 'Transfer executivo privativo para Gramado saindo dos aeroportos de Porto Alegre (POA) ou Caxias do Sul (CXJ). Veículos novos, motoristas pontuais e atendimento das 05h às 23h.'
   },
   {
     slug: 'transfer-para-canela',
@@ -70,7 +70,7 @@ const cities = [
     slug: 'gramado',
     name: 'Gramado',
     title: 'Transfer Gramado RS | Transporte Executivo e Passeios VIP',
-    description: 'Transfer executivo e transporte privativo em Gramado RS. Atendimento 24h saindo dos Aeroportos de Porto Alegre (POA) e Caxias do Sul (CXJ). Veículos premium e pontualidade britânica.'
+    description: 'Transfer executivo e transporte privativo em Gramado RS. Atendimento de segunda a domingo, das 05h às 23h, saindo dos Aeroportos de Porto Alegre (POA) e Caxias do Sul (CXJ).'
   },
   {
     slug: 'canela',
@@ -88,7 +88,7 @@ const cities = [
     slug: 'caxias-do-sul',
     name: 'Caxias do Sul',
     title: 'Transfer Caxias do Sul RS | Transporte Aeroporto CXJ e Corporativo',
-    description: 'Área de cobertura oficial da AG Transfer em Caxias do Sul RS. Transporte executivo para Aeroporto CXJ, polo metalmecânico e viagens intermunicipais 24 horas.'
+    description: 'Área de cobertura oficial da AG Transfer em Caxias do Sul RS. Transporte executivo para Aeroporto CXJ, polo metalmecânico e viagens intermunicipais de segunda a domingo, das 05h às 23h.'
   },
   {
     slug: 'porto-alegre',
@@ -118,7 +118,7 @@ const cities = [
     slug: 'flores-da-cunha',
     name: 'Flores da Cunha',
     title: 'Transfer Flores da Cunha RS | Transporte Executivo Altos Montes',
-    description: 'Transporte executivo privativo em Flores da Cunha RS. Conexão rápida com Aeroporto CXJ (20 km) e POA. Tour nas vinícolas dos Altos Montes. Peça orçamento 24h.'
+    description: 'Transporte executivo privativo em Flores da Cunha RS. Conexão rápida com Aeroporto CXJ (20 km) e POA. Atendimento de segunda a domingo das 05h às 23h.'
   }
 ];
 
@@ -187,7 +187,7 @@ const mtvDir = path.join(distDir, 'transfer-porto-alegre-montevideu');
 fs.mkdirSync(mtvDir, { recursive: true });
 
 const montevideoTitle = 'Transfer Porto Alegre Montevidéu | Final Libertadores 2026';
-const montevideoDesc = 'Transfer privativo do aeroporto de Porto Alegre a Montevidéu. Van e carro executivo, atendimento 24h. Peça sua cotação no WhatsApp.';
+const montevideoDesc = 'Transfer privativo do aeroporto de Porto Alegre a Montevidéu. Van e carro executivo, atendimento das 05h às 23h. Peça sua cotação no WhatsApp.';
 const montevideoCanonical = 'https://ag-transfer.vercel.app/transfer-porto-alegre-montevideu';
 
 const montevideoJsonLd = `
@@ -268,7 +268,7 @@ const montevideoJsonLd = `
               "name": "Vocês realizam o transfer de volta para Porto Alegre após o jogo?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Sim! Oferecemos opções completas de ida e volta. Você pode optar pelo retorno na madrugada imediatamente após a partida ou agendar o embarque no dia 29/11 pela manhã para retornar descansado."
+                "text": "Sim! Oferecemos opções completas de ida e volta. Você pode optar pelo retorno agendado após a partida (com agendamento prévio) ou embarcar no dia 29/11 a partir das 05h para retornar descansado."
               }
             },
             {
@@ -334,7 +334,7 @@ const montevideoPreRenderedContent = `
     <header class="py-4 border-b border-slate-200 bg-white">
       <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
         <a href="/" class="font-bold text-xl text-[#0D0A27]">AG TRANSFER</a>
-        <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs uppercase">WhatsApp 24h</a>
+        <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs uppercase">WhatsApp (05h às 23h)</a>
       </div>
     </header>
 
@@ -424,7 +424,7 @@ const montevideoPreRenderedContent = `
 
       <section id="formulario-cotacao" class="py-10 border-t border-slate-200">
         <h2 class="text-2xl font-bold text-[#0D0A27] mb-4">Solicitar Cotação de Transfer</h2>
-        <p class="text-sm text-slate-600 mb-6">Fale diretamente com nossa equipe operacional pelo WhatsApp 24 horas: (54) 99153-7288.</p>
+        <p class="text-sm text-slate-600 mb-6">Fale diretamente com nossa equipe pelo WhatsApp de segunda a domingo, das 05h às 23h: (54) 99153-7288.</p>
         <a href="https://wa.me/5554991537288?text=Ol%C3%A1!%20Quero%20uma%20cota%C3%A7%C3%A3o%20de%20transfer%20Porto%20Alegre%20%E2%86%92%20Montevid%C3%A9u." class="inline-block px-6 py-4 rounded-xl bg-emerald-600 text-white font-bold text-sm uppercase">Falar com a AG Transfer no WhatsApp</a>
       </section>
 

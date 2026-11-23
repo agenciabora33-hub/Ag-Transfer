@@ -64,7 +64,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { damping: 20, stiffness: 150 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || !window.matchMedia('(pointer: fine)').matches) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -251,7 +251,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-sky-200">
             <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-semibold text-white">Disponibilidade 24 Horas em {city.name}:</span>
+            <span className="font-semibold text-white">Atendimento em {city.name} (Seg a Dom · 05h às 23h):</span>
             <span className="hidden sm:inline">Veículos executivos com motorista para transfer imediato ou agendado.</span>
           </div>
           <div className="flex items-center gap-4 text-[11px] font-medium ml-auto">
@@ -447,7 +447,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
                       value={origin}
                       onChange={(e) => setOrigin(e.target.value)}
                       placeholder="Ex: Aeroporto Salgado Filho POA ou CXJ"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0284C7] text-slate-800 text-xs sm:text-sm bg-slate-50/50"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0284C7] text-slate-800 text-base sm:text-sm bg-slate-50/50"
                     />
                   </div>
 
@@ -461,7 +461,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
                       value={destination}
                       onChange={(e) => setDestination(e.target.value)}
                       placeholder={`Ex: Hotel, Pousada ou Endereço em ${city.name}`}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0284C7] text-slate-800 text-xs sm:text-sm bg-slate-50/50"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0284C7] text-slate-800 text-base sm:text-sm bg-slate-50/50"
                     />
                   </div>
 
@@ -476,7 +476,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                         placeholder="Ex: 24/11 às 14:30"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0284C7] text-slate-800 text-xs sm:text-sm bg-slate-50/50"
+                        className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0284C7] text-slate-800 text-base sm:text-sm bg-slate-50/50"
                       />
                     </div>
                     <div>
@@ -487,7 +487,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
                       <select
                         value={passengers}
                         onChange={(e) => setPassengers(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0284C7] text-slate-800 text-xs sm:text-sm bg-slate-50/50"
+                        className="w-full min-h-[44px] px-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0284C7] text-slate-800 text-base sm:text-sm bg-slate-50/50"
                       >
                         <option>1 a 3 passageiros (Sedan Executivo)</option>
                         <option>4 a 6 passageiros (SUV Executivo)</option>
@@ -502,7 +502,7 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
                       <span className="text-emerald-700 font-mono">Sem Taxa Oculta</span>
                     </div>
                     <p className="text-[11px] text-slate-500">
-                      Inclui pedagio, combustível, assistência de bagagem e espera em caso de atraso da companhia aérea.
+                      Inclui pedágio, combustível, assistência de bagagem e espera em caso de atraso da companhia aérea.
                     </p>
                   </div>
 
@@ -510,14 +510,14 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
                     href={directWhatsAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-sm shadow-md transition-all active:scale-[0.98]"
+                    className="w-full min-h-[48px] inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-sm shadow-md transition-all active:scale-[0.98]"
                   >
                     <MessageCircle className="w-4 h-4 fill-white" />
-                    <span>Confirmar Rota no WhatsApp 24h</span>
+                    <span>Confirmar Rota no WhatsApp (05h às 23h)</span>
                   </a>
 
                   <p className="text-[11px] text-center text-slate-400">
-                    Resposta média em menos de 5 minutos · Base operacional em Caxias do Sul (RS)
+                    Seg a Dom · 05h às 23h · Área de cobertura na Serra Gaúcha
                   </p>
                 </div>
               </motion.div>
@@ -800,12 +800,18 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
                 className="bg-[#F8FAFC] border border-slate-200 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col"
               >
                 <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
-                  <img
-                    src={vehicle.image}
-                    alt={vehicle.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                  <picture>
+                    {vehicle.imageWebp && <source srcSet={vehicle.imageWebp} type="image/webp" />}
+                    <img
+                      src={vehicle.image}
+                      alt={vehicle.name}
+                      width={800}
+                      height={447}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                   <div className="absolute top-3 left-3 bg-[#0D0A27]/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md border border-white/10">
                     {vehicle.category}
                   </div>
@@ -985,13 +991,13 @@ export const CityDetailPage: React.FC<CityDetailPageProps> = ({ onOpenQuoteModal
       <section className="py-16 bg-gradient-to-r from-[#0D0A27] via-[#0A2540] to-[#0284C7] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 text-sky-200 border border-white/20">
-            Reserva Imediata 24 Horas
+            Atendimento Seg a Dom · 05h às 23h
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
             Pronto para viajar com conforto e pontualidade em {city.name}?
           </h2>
           <p className="text-sm sm:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed">
-            Nossa equipe operacional 24h calcula seu trajeto, organiza o receptivo e garante uma viagem sem estresse pelos melhores cenários do Rio Grande do Sul.
+            Nossa equipe atende de segunda a domingo, das 05h às 23h, calcula seu trajeto e garante uma viagem sem estresse pelos melhores cenários do Rio Grande do Sul.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <a

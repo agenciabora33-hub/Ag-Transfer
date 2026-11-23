@@ -17,7 +17,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ onSelectVehicleForQu
   return (
     <section id="frota" className="py-24 bg-white border-t border-slate-200 relative overflow-hidden">
       {/* Background subtle radial glow */}
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#0284C7]/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="hidden md:block absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#0284C7]/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -42,10 +42,10 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ onSelectVehicleForQu
           </div>
 
           {/* Interactive filter segmented controls */}
-          <div className="flex items-center gap-1.5 p-1 bg-slate-100 border border-slate-200 rounded-xl self-start md:self-auto shadow-xs">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 border border-slate-200 rounded-xl self-start md:self-auto shadow-xs w-full sm:w-auto">
             <button
               onClick={() => setActiveCategory('all')}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                 activeCategory === 'all'
                   ? 'bg-gradient-to-r from-[#0D0A27] to-[#0284C7] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -55,7 +55,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ onSelectVehicleForQu
             </button>
             <button
               onClick={() => setActiveCategory('sedan-executivo')}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                 activeCategory === 'sedan-executivo'
                   ? 'bg-gradient-to-r from-[#0D0A27] to-[#0284C7] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -65,7 +65,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ onSelectVehicleForQu
             </button>
             <button
               onClick={() => setActiveCategory('suv-executivo')}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                 activeCategory === 'suv-executivo'
                   ? 'bg-gradient-to-r from-[#0D0A27] to-[#0284C7] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -75,7 +75,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ onSelectVehicleForQu
             </button>
             <button
               onClick={() => setActiveCategory('van-vip')}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                 activeCategory === 'van-vip'
                   ? 'bg-gradient-to-r from-[#0D0A27] to-[#0284C7] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -107,13 +107,19 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ onSelectVehicleForQu
                 <div>
                   {/* Vehicle Image Container with 3D Zoom on Hover */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                    <img
-                      src={vehicle.image}
-                      alt={`${vehicle.name} - Transporte Executivo AG Transfer`}
-                      className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                    />
+                    <picture>
+                      {vehicle.imageWebp && <source srcSet={vehicle.imageWebp} type="image/webp" />}
+                      <img
+                        src={vehicle.image}
+                        alt={`${vehicle.name} - Transporte Executivo AG Transfer`}
+                        width={800}
+                        height={447}
+                        className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
                     
                     {/* Category label unboxed overlay */}

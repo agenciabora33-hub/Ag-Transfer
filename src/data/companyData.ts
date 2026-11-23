@@ -1,6 +1,9 @@
 import heroImg from '../assets/images/hero_executive_transfer_1790736208088.jpg';
+import heroImgWebp from '../assets/images/hero_executive_transfer_1790736208088.webp';
 import suvImg from '../assets/images/fleet_executive_suv_1790736224372.jpg';
+import suvImgWebp from '../assets/images/fleet_executive_suv_1790736224372.webp';
 import vanImg from '../assets/images/fleet_executive_van_1790736238214.jpg';
+import vanImgWebp from '../assets/images/fleet_executive_van_1790736238214.webp';
 
 export interface ServiceRoute {
   route: string;
@@ -39,6 +42,7 @@ export interface FleetVehicle {
   passengers: string;
   luggage: string;
   image: string;
+  imageWebp?: string;
   description: string;
   features: string[];
 }
@@ -114,11 +118,13 @@ export const COMPANY_NAP = {
   phone: "(54) 99153-7288",
   phoneRaw: "5554991537288",
   phoneDisplay: "(54) 99153-7288",
-  operatingHours: "24 Horas / 7 dias por semana",
+  operatingHours: "Segunda a Domingo, das 05h às 23h",
+  shortHours: "05h às 23h",
   googlePlaceId: "ChIJLxRoT8GjHpURkRBdWM5i_g0",
   googleRating: 5.0,
   reviewCount: 200,
   logoUrl: "/logo.png",
+  logoSmUrl: "/logo-sm.webp",
   gbpUrl: "https://share.google/Zr42iNP6P3vhu2am0",
   googleMapsUrl: "https://share.google/Zr42iNP6P3vhu2am0",
   whatsappBaseUrl: "https://wa.me/5554991537288?text=Ol%C3%A1,%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20transfer%20executivo.",
@@ -131,8 +137,11 @@ export const COMPANY_NAP = {
 
 export const ASSET_IMAGES = {
   hero: heroImg,
+  heroWebp: heroImgWebp,
   suv: suvImg,
+  suvWebp: suvImgWebp,
   van: vanImg,
+  vanWebp: vanImgWebp,
 };
 
 export const FLEET_VEHICLES: FleetVehicle[] = [
@@ -143,6 +152,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     passengers: "Até 3 passageiros",
     luggage: "2 malas grandes + 2 malas de mão",
     image: heroImg,
+    imageWebp: heroImgWebp,
     description: "Veículo executivo com isolamento acústico superior, bancos em couro legítimo e climatização digital para viagens rápidas e conexões de aeroporto com máximo silêncio a bordo.",
     features: [
       "Bancos anatômicos em couro",
@@ -159,6 +169,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     passengers: "Até 4 a 6 passageiros",
     luggage: "4 malas grandes + bolsas",
     image: suvImg,
+    imageWebp: suvImgWebp,
     description: "Combinação ideal de altura, segurança em curvas de serra e amplo espaço interno. Perfeito para delegações de diretores e famílias em viagens turísticas de lazer em Gramado e Canela.",
     features: [
       "Tração reforçada para topografia da Serra Gaúcha",
@@ -175,6 +186,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     passengers: "Até 15 passageiros",
     luggage: "Bagageiro amplo para grandes volumes",
     image: vanImg,
+    imageWebp: vanImgWebp,
     description: "Capacidade estendida com padrão de primeira classe. Poltronas reclináveis individuais soft, iluminação suave e espaço para equipes inteiras em convenções ou receptivos em aeroportos.",
     features: [
       "Poltronas individuais reclináveis em veludo/couro",
@@ -248,7 +260,7 @@ export const SERVICES: ServiceItem[] = [
       },
       {
         question: "E se o meu voo para Porto Alegre ou Caxias do Sul atrasar?",
-        answer: "Fique totalmente tranquilo: nossa central de operações monitora o prefixo do seu voo em tempo real 24 horas por dia. Se a companhia aérea atrasar o pouso ou adiantar, seu motorista estará no desembarque no novo horário exato, sem cobrança de hora de espera."
+        answer: "Fique totalmente tranquilo: nossa central de operações monitora o prefixo do seu voo em tempo real durante todo o período de atendimento (05h às 23h). Se a companhia aérea atrasar o pouso ou adiantar, seu motorista estará no desembarque no novo horário exato, sem cobrança de hora de espera."
       },
       {
         question: "Qual a diferença entre o transfer privativo e o coletivo de ônibus para Gramado?",
@@ -256,7 +268,7 @@ export const SERVICES: ServiceItem[] = [
       }
     ],
     metaTitle: "Transfer Para Gramado Privativo VIP | Aeroporto POA e CXJ | AG Transfer",
-    metaDescription: "Transfer executivo privativo para Gramado saindo dos aeroportos de Porto Alegre (POA) ou Caxias do Sul (CXJ). Receptivo VIP, seguro total, cadeirinha infantil e atendimento 24h.",
+    metaDescription: "Transfer executivo privativo para Gramado saindo dos aeroportos de Porto Alegre (POA) ou Caxias do Sul (CXJ). Receptivo VIP, seguro total, cadeirinha infantil e atendimento das 05h às 23h.",
     icon: "Plane",
     tag: "Mais Procurado"
   },
@@ -270,7 +282,7 @@ export const SERVICES: ServiceItem[] = [
     features: [
       "Transporte 100% direto para Canela sem paradas nos hotéis de Gramado",
       "Atendimento em todas as pousadas da serra, condomínios fechados e hotéis de Canela",
-      "Receptivo VIP nos aeroportos com placa identificadora e monitoramento 24h de voo",
+      "Receptivo VIP nos aeroportos com placa identificadora e monitoramento contínuo de voo",
       "Possibilidade de parada estratégica na Catedral de Pedra ou mirantes de Canela",
       "Frota premium com Sedans, SUVs e Vans para famílias e grupos grandes"
     ],
@@ -324,7 +336,7 @@ export const SERVICES: ServiceItem[] = [
       }
     ],
     metaTitle: "Transfer Para Canela Privativo VIP | Aeroporto POA e CXJ | AG Transfer",
-    metaDescription: "Transfer executivo privativo direto para Canela saindo de Porto Alegre (POA) ou Caxias do Sul (CXJ). Conforto sem conexões em Gramado, receptivo VIP e 24h.",
+    metaDescription: "Transfer executivo privativo direto para Canela saindo de Porto Alegre (POA) ou Caxias do Sul (CXJ). Conforto sem conexões em Gramado, receptivo VIP das 05h às 23h.",
     icon: "Plane",
     tag: "Destino Serra"
   },
@@ -393,7 +405,7 @@ export const SERVICES: ServiceItem[] = [
       }
     ],
     metaTitle: "Transporte Executivo em Gramado & Serra Gaúcha VIP | AG Transfer",
-    metaDescription: "Transporte executivo com motorista particular em Gramado e Canela. Chauffeur para jantares de fondue, eventos no Serra Park, casamentos e viagens VIP 24h.",
+    metaDescription: "Transporte executivo com motorista particular em Gramado e Canela. Chauffeur para jantares de fondue, eventos no Serra Park, casamentos e viagens VIP das 05h às 23h.",
     icon: "Car",
     tag: "Padrão Luxo"
   },
@@ -448,7 +460,7 @@ export const SERVICES: ServiceItem[] = [
       },
       {
         question: "Como funciona se o meu voo para POA atrasar?",
-        answer: "Nossa central monitora seu voo pelo radar 24 horas. Se houver atraso, o motorista é reposicionado para o novo horário de pouso sem cobrança extra."
+        answer: "Nossa central monitora seu voo pelo radar em tempo real das 05h às 23h. Se houver atraso, o motorista é reposicionado para o novo horário de pouso sem cobrança extra."
       },
       {
         question: "Como é o pagamento do transfer de Porto Alegre para Gramado?",
@@ -456,7 +468,7 @@ export const SERVICES: ServiceItem[] = [
       }
     ],
     metaTitle: "Transfer Porto Alegre para Gramado e Canela VIP | AG Transfer",
-    metaDescription: "Transfer executivo privativo do Aeroporto de Porto Alegre (POA) para Gramado e Canela. Pontualidade, conforto, monitoramento de voo 24h e seguro total.",
+    metaDescription: "Transfer executivo privativo do Aeroporto de Porto Alegre (POA) para Gramado e Canela. Pontualidade, conforto, monitoramento de voo e atendimento de segunda a domingo das 05h às 23h.",
     icon: "Plane",
     tag: "Aeroporto POA"
   },
@@ -520,7 +532,7 @@ export const SERVICES: ServiceItem[] = [
       }
     ],
     metaTitle: "Transfer Aeroporto Caxias do Sul (CXJ) para Gramado e Bento | AG Transfer",
-    metaDescription: "Transfer executivo do Aeroporto Hugo Cantergiani (CXJ) em Caxias do Sul para Gramado, Canela e Bento Gonçalves. Atendimento 24h pontual e seguro.",
+    metaDescription: "Transfer executivo do Aeroporto Hugo Cantergiani (CXJ) em Caxias do Sul para Gramado, Canela e Bento Gonçalves. Atendimento pontual das 05h às 23h.",
     icon: "Plane",
     tag: "Conexão Expressa"
   },
@@ -717,14 +729,14 @@ export const SERVICES: ServiceItem[] = [
     id: "motorista-particular-diaria",
     slug: "motorista-particular-diaria",
     title: "Motorista Particular por Diária na Serra Gaúcha",
-    subtitle: "Chauffeur Exclusivo à Sua Disposição 24h",
+    subtitle: "Chauffeur Exclusivo das 05h às 23h",
     description: "Contratação flexível por períodos (4h, 8h ou diária integral) com veículo executivo e motorista 100% dedicados à sua agenda em Gramado, Canela, Bento e Caxias do Sul.",
     fullDescription: "Para quem tem uma agenda dinâmica, compromissos em várias cidades da serra ou simplesmente deseja total autonomia durante as férias, o serviço de Motorista Particular por Diária (Chauffeur) é a escolha suprema. O veículo e o motorista ficam dedicados exclusivamente ao seu tempo: você pode mudar o roteiro em tempo real, fazer múltiplas paradas para compras, reuniões ou degustações, e encontrar o carro refrigerado sempre pronto à sua espera na porta de cada compromisso.",
     features: [
       "Total flexibilidade: altere rotas, horários e destinos em tempo real",
       "Espera dedicada na porta de restaurantes, vinícolas, feiras e eventos",
       "Sem estresse com procura de vagas de estacionamento ou trânsito da serra",
-      "Atendimento 24 horas inclusive em finais de semana, feriados e madrugadas"
+      "Atendimento todos os dias, de segunda a domingo, das 05h às 23h (inclusive feriados)"
     ],
     includedAmenities: [
       "Veículo mantido em temperatura ideal e pronto para partida imediata",
@@ -772,7 +784,7 @@ export const SERVICES: ServiceItem[] = [
       }
     ],
     metaTitle: "Motorista Particular por Diária na Serra Gaúcha | AG Transfer",
-    metaDescription: "Contratação de chauffeur e carro executivo por hora ou diária em Gramado, Canela e Bento Gonçalves. Total liberdade de itinerário e conforto 24h.",
+    metaDescription: "Contratação de chauffeur e carro executivo por hora ou diária em Gramado, Canela e Bento Gonçalves. Liberdade de itinerário de segunda a domingo, das 05h às 23h.",
     icon: "Clock",
     tag: "Flexibilidade Total"
   }
@@ -832,7 +844,7 @@ export const POPULAR_ROUTES: RouteItem[] = [
     destination: "Aeroporto Salgado Filho (POA)",
     estimatedTime: "1h 45min - 2h 00min",
     distance: "125 km",
-    highlight: "Rota expressa via BR-116 ou RS-122 com monitoramento 24h"
+    highlight: "Rota expressa via BR-116 ou RS-122 com monitoramento em tempo real"
   },
   {
     origin: "Gramado / Canela",
@@ -878,7 +890,7 @@ export const REVIEWS: ReviewItem[] = [
     company: "Automação Industrial RS",
     rating: 5,
     date: "Google Business Profile (GBP) · Verificada",
-    comment: "Precisei de um transfer de urgência às 3h da manhã para não perder um voo em POA após um imprevisto na fábrica. Atendimento 24h foi real e o motorista chegou antes do prazo combinado. Recomendo de olhos fechados.",
+    comment: "Precisei de um transfer às 5h da manhã para embarcar no primeiro voo em POA após um imprevisto na fábrica. Pontualidade impecável e o motorista chegou antes do prazo combinado. Recomendo de olhos fechados.",
     verified: true
   },
   {
@@ -916,7 +928,7 @@ export const REVIEWS: ReviewItem[] = [
 export const FAQS = [
   {
     question: "Como funciona a solicitação de orçamento e reserva?",
-    answer: "A solicitação pode ser feita instantaneamente pelo nosso WhatsApp (54) 99153-7288 ou pelo simulador do site. Nossa equipe 24 horas calcula o itinerário, envia a proposta detalhada em minutos e confirma a reserva sem burocracia."
+    answer: "A solicitação pode ser feita instantaneamente pelo nosso WhatsApp (54) 99153-7288 ou pelo simulador do site. Nossa central atende de segunda a domingo, das 05h às 23h, calculando o itinerário e confirmando sua reserva em minutos sem burocracia."
   },
   {
     question: "Como a AG Transfer lida com atrasos ou alterações de voos?",
@@ -935,8 +947,8 @@ export const FAQS = [
     answer: "Sim! Trabalhamos com faturamento corporativo para pessoas jurídicas mediante rápido cadastro, com emissão de Nota Fiscal de Serviços eletrônica (NFS-e) e boleto bancário, facilitando a conciliação do seu setor financeiro."
   },
   {
-    question: "Vocês atendem em qualquer horário da madrugada?",
-    answer: "Sim. Operamos em regime 24 Horas / 7 Dias por Semana. Viagens com partidas nas primeiras horas da manhã ou chegadas noturnas contam com motoristas descansados e escalas rigorosamente planejadas."
+    question: "Qual é o horário de atendimento e funcionamento da AG Transfer?",
+    answer: "Atendemos de segunda a domingo, das 05h às 23h, inclusive em feriados. Atendemos desde embarques bem cedo para os primeiros voos da manhã (a partir das 05h) até retornos noturnos de jantares e espetáculos até as 23h."
   },
   {
     question: "Quais são as áreas de cobertura principais na Serra Gaúcha?",
